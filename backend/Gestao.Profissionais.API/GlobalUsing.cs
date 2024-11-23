@@ -1,0 +1,1 @@
+﻿global using Gestao.Profissionais.API.Domain;
