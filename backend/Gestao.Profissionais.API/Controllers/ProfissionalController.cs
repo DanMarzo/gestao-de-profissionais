@@ -1,4 +1,5 @@
 ﻿using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.ExcluirProfissional;
+using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.ProfissionalPorId;
 using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.RegistrarProfissional;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,5 +24,12 @@ public class ProfissionalController : ControllerBase
     {
         await this.mediator.Send(new ExcluirProfissionalRequest(id));
         return Ok();
+    }
+
+    [HttpGet("{id:long}")]
+    public async Task<IActionResult> PorId([FromRoute] long id)
+    {
+        var profissionalDto = await this.mediator.Send(new ProfissionalPorIdRequest(id));
+        return Ok(profissionalDto);
     }
 }
