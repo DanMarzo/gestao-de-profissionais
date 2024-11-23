@@ -15,5 +15,12 @@ public sealed class ProfissionalEntityConfig : IEntityTypeConfiguration<Profissi
         builder.Property(x => x.NumeroDocumento)
             .IsRequired()
             .HasMaxLength(50);
+
+        builder.Property(x => x.Nome)
+            .IsRequired()
+            .HasMaxLength(100);
+
+        builder.Property(x => x.CriadoEm)
+            .IsRequired();
     }
 }
