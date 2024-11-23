@@ -1,5 +1,6 @@
 using Gestao.Profissionais.API.Application;
 using Gestao.Profissionais.API.Infra;
+using Gestao.Profissionais.API.Infra.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+await app.ApplyDatabaseConfig();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -1,0 +1,147 @@
+[
+  {
+    "Id": 1,
+    "Nome": "Cardiologia",
+    "TipoDocumento": 0
+  },
+  {
+    "Id": 2,
+    "Nome": "Ortopedia",
+    "TipoDocumento": 0
+  },
+  {
+    "Id": 3,
+    "Nome": "Pediatria",
+    "TipoDocumento": 0
+  },
+  {
+    "Id": 4,
+    "Nome": "Dermatologia",
+    "TipoDocumento": 0
+  },
+  {
+    "Id": 5,
+    "Nome": "Ginecologia",
+    "TipoDocumento": 0
+  },
+  {
+    "Id": 6,
+    "Nome": "Neurologia",
+    "TipoDocumento": 0
+  },
+  {
+    "Id": 7,
+    "Nome": "Psiquiatria",
+    "TipoDocumento": 0
+  },
+  {
+    "Id": 8,
+    "Nome": "Anestesiologia",
+    "TipoDocumento": 0
+  },
+  {
+    "Id": 9,
+    "Nome": "Radiologia",
+    "TipoDocumento": 0
+  },
+  {
+    "Id": 10,
+    "Nome": "Endocrinologia",
+    "TipoDocumento": 0
+  },
+  {
+    "Id": 11,
+    "Nome": "Nutricionista Clínico",
+    "TipoDocumento": 1
+  },
+  {
+    "Id": 12,
+    "Nome": "Nutrição Esportiva",
+    "TipoDocumento": 1
+  },
+  {
+    "Id": 13,
+    "Nome": "Nutrição Oncológica",
+    "TipoDocumento": 1
+  },
+  {
+    "Id": 14,
+    "Nome": "Fisioterapia Ortopédica",
+    "TipoDocumento": 2
+  },
+  {
+    "Id": 15,
+    "Nome": "Fisioterapia Neurológica",
+    "TipoDocumento": 2
+  },
+  {
+    "Id": 16,
+    "Nome": "Fisioterapia Respiratória",
+    "TipoDocumento": 2
+  },
+  {
+    "Id": 17,
+    "Nome": "Ortodontia",
+    "TipoDocumento": 3
+  },
+  {
+    "Id": 18,
+    "Nome": "Implantodontia",
+    "TipoDocumento": 3
+  },
+  {
+    "Id": 19,
+    "Nome": "Endodontia",
+    "TipoDocumento": 3
+  },
+  {
+    "Id": 20,
+    "Nome": "Enfermagem Geral",
+    "TipoDocumento": 4
+  },
+  {
+    "Id": 21,
+    "Nome": "Enfermagem Obstétrica",
+    "TipoDocumento": 4
+  },
+  {
+    "Id": 22,
+    "Nome": "Psicologia Clínica",
+    "TipoDocumento": 5
+  },
+  {
+    "Id": 23,
+    "Nome": "Psicologia Organizacional",
+    "TipoDocumento": 5
+  },
+  {
+    "Id": 24,
+    "Nome": "Neuropsicologia",
+    "TipoDocumento": 5
+  },
+  {
+    "Id": 25,
+    "Nome": "Farmácia Clínica",
+    "TipoDocumento": 6
+  },
+  {
+    "Id": 26,
+    "Nome": "Farmácia Hospitalar",
+    "TipoDocumento": 6
+  },
+  {
+    "Id": 27,
+    "Nome": "Análises Clínicas",
+    "TipoDocumento": 6
+  },
+  {
+    "Id": 28,
+    "Nome": "Personal Trainer",
+    "TipoDocumento": 7
+  },
+  {
+    "Id": 29,
+    "Nome": "Preparação Física",
+    "TipoDocumento": 7
+  }
+]
