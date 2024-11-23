@@ -1,3 +1,4 @@
+using Gestao.Profissionais.API.Application;
 using Gestao.Profissionais.API.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfraServices(builder.Configuration);
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 

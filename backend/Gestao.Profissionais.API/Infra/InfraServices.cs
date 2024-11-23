@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gestao.Profissionais.API.Infra;
 
-public static class InfraServices
+public static class ApplicationServices
 {
     public static IServiceCollection AddInfraServices(this IServiceCollection services, IConfiguration configuration)
     {
