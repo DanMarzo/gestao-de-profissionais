@@ -13,7 +13,7 @@ public interface IRepository
         List<Expression<Func<T, object>>>? includes = null) where T : class;
     Task<int> AddAsync<T>(T entity) where T : class;
     Task<int> UpdateAsync<T>(T entity) where T : class;
-    Task DeleteAsync<T>(T entity) where T : class;
+    Task<int> DeleteAsync<T>(T entity) where T : class;
     Task<bool> EntityExists<T>(Expression<Func<T, bool>> filter) where T : class;
     Task<int> ExecuteUpdateAsync<T>(
         Expression<Func<T, bool>> where,

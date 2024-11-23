@@ -16,10 +16,10 @@ public class Repository : IRepository
         return await this.context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync<T>(T entity) where T : class
+    public async Task<int> DeleteAsync<T>(T entity) where T : class
     {
         this.context.Set<T>().Remove(entity);
-        await this.context.SaveChangesAsync();
+        return await this.context.SaveChangesAsync();
     }
 
     public async Task<bool> EntityExists<T>(Expression<Func<T, bool>> filter) where T : class
