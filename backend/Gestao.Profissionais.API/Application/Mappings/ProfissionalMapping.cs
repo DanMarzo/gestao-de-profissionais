@@ -7,6 +7,6 @@ public class ProfissionalMapping : Profile
     public ProfissionalMapping()
     {
         CreateMap<ProfissionalDTO, ProfissionalEntity>().ReverseMap();
-        CreateMap<DetalhesProfissionalDTO, ProfissionalEntity>().ReverseMap();
+        CreateMap<ProfissionalDetalhesDTO, ProfissionalEntity>().ReverseMap();
     }
 }
