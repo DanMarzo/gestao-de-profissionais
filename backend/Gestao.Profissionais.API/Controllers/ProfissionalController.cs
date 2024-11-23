@@ -41,4 +41,10 @@ public class ProfissionalController : ControllerBase
         var profissionalDetalhes = await this.mediator.Send(new AtualizarProfissionalRequest(id, profissional));
         return Ok(profissionalDetalhes);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> ObterTodos([FromQuery] int pagina, [FromQuery] int itens)
+    {
+        return Ok();
+    }
 }
