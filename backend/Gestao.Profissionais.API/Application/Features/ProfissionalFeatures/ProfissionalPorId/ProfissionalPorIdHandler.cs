@@ -1,11 +1,11 @@
 ﻿using Gestao.Profissionais.API.Application.Contracts;
-using Gestao.Profissionais.API.Application.DTOs;
+using Gestao.Profissionais.API.Application.DTOs.ProfissionalDTOs;
 using Gestao.Profissionais.API.Application.Exceptions;
 using System.Net;
 
 namespace Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.ProfissionalPorId;
 
-public class ProfissionalPorIdHandler : IRequestHandler<ProfissionalPorIdRequest, ProfissionalDTO>
+public class ProfissionalPorIdHandler : IRequestHandler<ProfissionalPorIdRequest, ProfissionalDetalhesDTO>
 {
     private readonly ILogger<ProfissionalPorIdHandler> logger;
     private readonly IRepository repository;
@@ -18,11 +18,11 @@ public class ProfissionalPorIdHandler : IRequestHandler<ProfissionalPorIdRequest
         this.mapper = mapper;
     }
 
-    public async Task<ProfissionalDTO> Handle(ProfissionalPorIdRequest request, CancellationToken cancellationToken)
+    public async Task<ProfissionalDetalhesDTO> Handle(ProfissionalPorIdRequest request, CancellationToken cancellationToken)
     {
         var profissional = await this.repository.GetEntityAsync<ProfissionalEntity>(x => x.Id == request.Id)
             ?? throw new ValidateException("Não foi possível localizar o profissional", HttpStatusCode.NotFound);
-        var profissionalDto = this.mapper.Map<ProfissionalDTO>(profissional);
+        var profissionalDto = this.mapper.Map<ProfissionalDetalhesDTO>(profissional);
         return profissionalDto;
     }
 }
