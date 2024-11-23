@@ -19,7 +19,7 @@ public class ObterEspecialidadesHandler : IRequestHandler<ObterEspecialidadesReq
     {
         this.logger.LogInformation("Request: Lista de especialidades.");
 
-        var especialidades = await this.repository.GetEntities<EspecialidadeDTO>();
+        var especialidades = await this.repository.GetEntities<EspecialidadeEntity>();
         var especialidadesDto = this.mapper.Map<IEnumerable<EspecialidadeDTO>>(especialidades);
 
         this.logger.LogInformation($"Response: Lista de especialidades {JsonSerializer.Serialize(especialidadesDto)}");
