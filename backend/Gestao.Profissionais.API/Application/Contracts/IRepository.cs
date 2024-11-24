@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
+﻿using Gestao.Profissionais.API.Application.DTOs;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
 namespace Gestao.Profissionais.API.Application.Contracts;
@@ -20,4 +21,10 @@ public interface IRepository
         Expression<Func<SetPropertyCalls<T>, SetPropertyCalls<T>>> setPropertyCalls
         ) where T : class;
     Task<int> ExecuteDeleteAsync<T>(Expression<Func<T, bool>> where) where T : class;
+
+    Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request) where T : class;
+    Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request, List<Expression<Func<T, object>>> includes) where T : class;
+    Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request, List<Expression<Func<T, object>>> includes, Expression<Func<T, bool>> where) where T : class;
+    Task<int> CountAsync<T>() where T : class;
+    Task<int> CountAsync<T>(Expression<Func<T, bool>> where) where T : class;
 }

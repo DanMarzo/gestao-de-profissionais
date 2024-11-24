@@ -1,7 +1,9 @@
 ﻿using Gestao.Profissionais.API.Application.Contracts;
+using Gestao.Profissionais.API.Application.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Gestao.Profissionais.API.Infra.Database;
 
@@ -68,5 +70,42 @@ public class Repository : IRepository
         this.context.Set<T>().Attach(entity);
         this.context.Entry(entity).State = EntityState.Modified;
         return await context.SaveChangesAsync();
+    }
+    public async Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request) where T : class
+    {
+        var entities = await this.context.Set<T>().Skip(request.CalcularItensAPular()).Take(request.Qtde).ToListAsync();
+        return entities;
+    }
+    public async Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request, Expression<Func<T, bool>> where) where T : class
+    {
+        var entities = await this.context.Set<T>().Where(where).Skip(request.CalcularItensAPular()).Take(request.Qtde).ToListAsync();
+        return entities;
+    }
+
+    public async Task<int> CountAsync<T>(Expression<Func<T, bool>> where) where T : class
+    {
+        var count = await this.context.Set<T>().CountAsync(where);
+        return count;
+    }
+    public async Task<int> CountAsync<T>() where T : class
+    {
+        var count = await this.context.Set<T>().CountAsync();
+        return count;
+    }
+
+    public async Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request, List<Expression<Func<T, object>>> includes) where T : class
+    {
+        IQueryable<T> query = this.context.Set<T>();
+        if (includes != null)
+            query = includes.Aggregate(query, (current, include) => current.Include(include));
+        return await query.Skip(request.CalcularItensAPular()).Take(request.Qtde).ToListAsync();
+    }
+
+    public async Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request, List<Expression<Func<T, object>>> includes, Expression<Func<T, bool>> where) where T : class
+    {
+        IQueryable<T> query = this.context.Set<T>().Where(where);
+        if (includes != null)
+            query = includes.Aggregate(query, (current, include) => current.Include(include));
+        return await query.Skip(request.CalcularItensAPular()).Take(request.Qtde).ToListAsync();
     }
 }
