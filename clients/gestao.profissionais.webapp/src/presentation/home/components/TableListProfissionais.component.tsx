@@ -23,8 +23,8 @@ const TableListProfissionaisComponent = ({ profissionais }: Props) => {
             <tr key={index}>
               <th>{profissional.id}</th>
               <th>{profissional.nome}</th>
-              <th>Especialidade</th>
-              <th>Tipo documento</th>
+              <th>{profissional.especialidade.nome}</th>
+              <th>{profissional.especialidade.tipoDocumento}</th>
               <th>{profissional.numeroDocumento}</th>
               <th>
                 <button className="btn">
