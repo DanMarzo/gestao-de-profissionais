@@ -20,7 +20,7 @@ public class ProfissionalPorIdHandler : IRequestHandler<ProfissionalPorIdRequest
 
     public async Task<ProfissionalDetalhesDTO> Handle(ProfissionalPorIdRequest request, CancellationToken cancellationToken)
     {
-        var profissional = await this.repository.GetEntityAsync<ProfissionalEntity>(x => x.Id == request.Id)
+        var profissional = await this.repository.GetEntityAsync<ProfissionalEntity>(x => x.Id == request.Id, includes: [inc => inc.Especialidade])
             ?? throw new ValidateException("Não foi possível localizar o profissional", HttpStatusCode.NotFound);
         var profissionalDto = this.mapper.Map<ProfissionalDetalhesDTO>(profissional);
         return profissionalDto;
