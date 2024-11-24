@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { routes } from "./presentation/router.tsx";
@@ -7,7 +6,5 @@ import "./main.scss";
 import "bootstrap-icons/font/bootstrap-icons.scss";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <RouterProvider router={routes} />
-  </StrictMode>
+  <RouterProvider router={routes} />
 );
