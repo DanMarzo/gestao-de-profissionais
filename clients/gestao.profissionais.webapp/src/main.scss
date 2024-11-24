@@ -7,7 +7,19 @@
 $theme-colors: (
   primary: #015958,
   secondary: #01595840,
-  warning: yellow
+  warning: yellow,
 );
+
+//Item da paginacao estiver ativo
+$pagination-focus-color: #fff;
+$pagination-focus-bg: #015958;
+$pagination-focus-box-shadow: none;
+
+//Cor dos itens da paginacao
+$pagination-color: #015958;
+
+//Hover dos itens da paginacao
+$pagination-hover-color: #015958;
+$pagination-hover-bg: #01595840;
 
 @import "bootstrap";

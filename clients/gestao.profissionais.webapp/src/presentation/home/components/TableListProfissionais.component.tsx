@@ -21,7 +21,7 @@ const TableListProfissionaisComponent = ({ profissionais }: Props) => {
         {profissionais.map((profissional, index) => {
           return (
             <tr key={index}>
-              <th>{profissional.id}</th>
+              <th scope="row">{profissional.id}</th>
               <th>{profissional.nome}</th>
               <th>{profissional.especialidade.nome}</th>
               <th>{profissional.especialidade.tipoDocumento}</th>
