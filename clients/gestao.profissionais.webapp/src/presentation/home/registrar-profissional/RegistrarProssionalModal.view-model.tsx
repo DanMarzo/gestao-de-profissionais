@@ -7,6 +7,8 @@ import {
   nomeTipoDocEspecialidadeEnum,
 } from "../../../models/especialidade.model";
 import { obterEspecialidadesService } from "../../../infra/services/obter-especialidades.service";
+import { toast } from "react-toastify";
+import { registrarProfissionalService } from "../../../infra/services/registrar-profissional.service";
 
 const formValidationSchema = yup.object().shape({
   nome: yup
@@ -21,7 +23,14 @@ const formValidationSchema = yup.object().shape({
 });
 
 const useRegistrarProssionalViewModel = () => {
-  const [loading, setLoading] = useState(false);
+  const {
+    register: registerForm,
+    handleSubmit,
+    formState: { errors: errorsForm },
+  } = useForm({ resolver: yupResolver(formValidationSchema) });
+  const [loadingEspec, setLoadingEspec] = useState(false);
+  const [loadingRegistro, setLoadingRegistro] = useState(false);
+
   const [especialidades, setEspecialidades] = useState<
     Array<EspecialidadeModel>
   >([]);
@@ -31,23 +40,48 @@ const useRegistrarProssionalViewModel = () => {
   );
   const [tipoDocField, setTipoDocField] = useState<string | null>("");
 
-  const obterEspecialidades = async () =>
+  const obterEspecialidades = async () => {
+    setLoadingEspec(true);
     obterEspecialidadesService()
       .then((result) => {
-        console.log(result);
         if (result.error) {
-          console.log(result);
-          //notificacao
+          toast("Não foi possível obter todas especialidades.", {
+            type: "warning",
+          });
         } else {
           setEspecialidades(result.data ?? []);
         }
       })
       .catch((err) => {
         console.log(err);
-        location.reload();
-        //notificacao
+        toast("Ocorreu um erro ao obter as especialidades.", {
+          type: "error",
+        });
       })
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingEspec(false));
+  };
+
+  const registrarProfissional = (values: any) => {
+    setLoadingRegistro(true);
+    registrarProfissionalService(values)
+      .then((res) => {
+        if (res.error) {
+          toast("Não foi possível registrar profissional.", {
+            type: "warning",
+          });
+        } else {
+          toast("Profissional registrado.", { type: "success" });
+          location.href = `${res.data?.id}`;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast("Ocorreu um erro ao registrar profissional.", {
+          type: "error",
+        });
+      })
+      .finally(() => setLoadingRegistro(false));
+  };
 
   useEffect(() => {
     if (especialidades.length == 0) {
@@ -64,14 +98,10 @@ const useRegistrarProssionalViewModel = () => {
     return () => {};
   }, [especialidadeSelect]);
 
-  const {
-    register: registerForm,
-    handleSubmit,
-    formState: { errors: errorsForm },
-  } = useForm({ resolver: yupResolver(formValidationSchema) });
-
   return {
-    loading,
+    loadingEspec,
+    loadingRegistro,
+    registrarProfissional,
     handleSubmit,
     registerForm,
     errorsForm,
