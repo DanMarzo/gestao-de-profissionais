@@ -50,8 +50,7 @@ namespace Gestao.Profissionais.API.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_profissionais_EspecialidadeId",
                 table: "profissionais",
-                column: "EspecialidadeId",
-                unique: true);
+                column: "EspecialidadeId");
         }
 
         /// <inheritdoc />

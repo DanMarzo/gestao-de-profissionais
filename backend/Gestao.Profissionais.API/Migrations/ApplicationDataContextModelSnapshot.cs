@@ -62,8 +62,7 @@ namespace Gestao.Profissionais.API.Migrations
                     b.HasKey("Id")
                         .HasName("profissional_pk");
 
-                    b.HasIndex("EspecialidadeId")
-                        .IsUnique();
+                    b.HasIndex("EspecialidadeId");
 
                     b.ToTable("profissionais", (string)null);
                 });
@@ -71,8 +70,8 @@ namespace Gestao.Profissionais.API.Migrations
             modelBuilder.Entity("Gestao.Profissionais.API.Domain.ProfissionalEntity", b =>
                 {
                     b.HasOne("Gestao.Profissionais.API.Domain.EspecialidadeEntity", "Especialidade")
-                        .WithOne("Profissional")
-                        .HasForeignKey("Gestao.Profissionais.API.Domain.ProfissionalEntity", "EspecialidadeId")
+                        .WithMany("Profissionais")
+                        .HasForeignKey("EspecialidadeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -81,8 +80,7 @@ namespace Gestao.Profissionais.API.Migrations
 
             modelBuilder.Entity("Gestao.Profissionais.API.Domain.EspecialidadeEntity", b =>
                 {
-                    b.Navigation("Profissional")
-                        .IsRequired();
+                    b.Navigation("Profissionais");
                 });
 #pragma warning restore 612, 618
         }
