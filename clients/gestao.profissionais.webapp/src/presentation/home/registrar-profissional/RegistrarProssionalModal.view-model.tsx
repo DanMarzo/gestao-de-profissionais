@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -70,7 +70,15 @@ const useRegistrarProssionalViewModel = () => {
     formState: { errors: errorsForm },
   } = useForm({ resolver: yupResolver(formValidationSchema) });
 
-  return { loading, handleSubmit, registerForm, errorsForm, especialidades };
+  return {
+    loading,
+    handleSubmit,
+    registerForm,
+    errorsForm,
+    especialidades,
+    setEspecialidadeSelect,
+    tipoDocField,
+  };
 };
 
 export { useRegistrarProssionalViewModel };
