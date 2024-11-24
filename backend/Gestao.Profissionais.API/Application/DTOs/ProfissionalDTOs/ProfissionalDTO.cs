@@ -8,7 +8,7 @@ public class ProfissionalDTO
     public string Nome { get; set; }
     [JsonPropertyName("numeroDocumento")]
     public string NumeroDocumento { get; set; }
-    [JsonPropertyName("especialidadeId ")]
+    [JsonPropertyName("especialidadeId")]
     public long EspecialidadeId { get; set; }
     public ProfissionalEntity CriarProfissional()
     {
