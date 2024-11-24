@@ -4,8 +4,15 @@ import { useRegistrarProssionalViewModel } from "./RegistrarProssionalModal.view
 
 const RegistrarProfissionalModal = () => {
   //Carregar especialidades ao iniciar
-  const { loading, errorsForm, handleSubmit, registerForm, especialidades } =
-    useRegistrarProssionalViewModel();
+  const {
+    tipoDocField,
+    loading,
+    errorsForm,
+    handleSubmit,
+    registerForm,
+    especialidades,
+    setEspecialidadeSelect,
+  } = useRegistrarProssionalViewModel();
   return (
     <>
       <button
@@ -63,14 +70,20 @@ const RegistrarProfissionalModal = () => {
                   Selecionar especialidade
                 </label>
                 <select
-                  {...registerForm("especialidadeId")}
+                  {...registerForm("especialidadeId", { required: true })}
                   id="especialidadeForm"
                   className="form-select"
                   aria-label="Selecionar especialidade"
+                  required
                   onChange={(item) => {
-                    console.log(item.target.value);
+                    if (item.target.value) {
+                      setEspecialidadeSelect(
+                        Number.parseInt(item.target.value)
+                      );
+                    }
                   }}
                 >
+                  <option value={""}></option>
                   {especialidades.map((item, index) => {
                     return (
                       <option key={index} value={item.id}>
@@ -79,13 +92,25 @@ const RegistrarProfissionalModal = () => {
                     );
                   })}
                 </select>
+
                 {errorsForm.especialidadeId?.message && (
                   <div className="text-danger">
                     {errorsForm.especialidadeId?.message}
                   </div>
                 )}
               </div>
-              <div>Tipodoc so leitura</div>
+              <div>
+                <label htmlFor="tipoDocumentoForm" className="form-label">
+                  Tipo documento
+                </label>
+                <input
+                  readOnly
+                  value={`${tipoDocField?.toString() ?? ""}`}
+                  type="text"
+                  className="form-control"
+                  id="tipoDocumentoForm"
+                />
+              </div>
               <div>
                 <label htmlFor="nroDocumentoForm" className="form-label">
                   Número do documento
