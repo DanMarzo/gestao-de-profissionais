@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 const Layout = () => {
   return (
     <>
-      <header className="container bg-primary">
+      <header>
         <nav className="navbar navbar-expand-lg bg-primary">
           <div className="container-fluid">
             <a className="navbar-brand text-white" href="#">
@@ -13,11 +13,7 @@ const Layout = () => {
           </div>
         </nav>
       </header>
-      <div className="container">
-        <main role="main" className="pb-3">
-          <Outlet />
-        </main>
-      </div>
+      <Outlet />
     </>
   );
 };
