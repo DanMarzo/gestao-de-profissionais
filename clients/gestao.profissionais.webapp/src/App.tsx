@@ -1,5 +1,9 @@
 function App() {
-  return <>Home</>;
+  return (
+    <>
+      <button className="btn btn-primary">button</button>
+    </>
+  );
 }
 
 export default App;
