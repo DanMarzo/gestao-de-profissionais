@@ -1,28 +1,41 @@
 import { useRegistrarProssionalViewModel } from "./RegistrarProssionalModal.view-model";
-
+import { LoadingOutlined } from "@ant-design/icons";
 //type Props = {};
 
 const RegistrarProfissionalModal = () => {
   //Carregar especialidades ao iniciar
   const {
     tipoDocField,
-    loading,
+    loadingEspec,
     errorsForm,
     handleSubmit,
     registerForm,
     especialidades,
     setEspecialidadeSelect,
+    registrarProfissional,
   } = useRegistrarProssionalViewModel();
+
   return (
     <>
-      <button
-        className="btn btn-primary d-flex gap-2"
-        data-bs-toggle="modal"
-        data-bs-target="#registrarProfissionalModal"
-      >
-        Adicionar
-        <i className="bi bi-plus-lg"></i>
-      </button>
+      <>
+        <button
+          className="btn btn-primary d-flex gap-2"
+          data-bs-toggle="modal"
+          data-bs-target="#registrarProfissionalModal"
+        >
+          {loadingEspec ? (
+            <div>
+              <LoadingOutlined />
+            </div>
+          ) : (
+            <>
+              Adicionar
+              <i className="bi bi-plus-lg"></i>
+            </>
+          )}
+        </button>
+      </>
+
       {/* Modal */}
       <div
         className="modal fade"
@@ -33,7 +46,7 @@ const RegistrarProfissionalModal = () => {
       >
         <div className="modal-dialog modal-dialog-centered">
           <form
-            onSubmit={handleSubmit((values) => console.log(values))}
+            onSubmit={handleSubmit(registrarProfissional)}
             className="modal-content needs-validation"
           >
             <div className="modal-header">
