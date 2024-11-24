@@ -13,7 +13,7 @@ const formValidationSchema = yup.object().shape({
     .string()
     .required("Número do documento é obrigatorio.")
     .min(3, "Minimo 3 caracteres"),
-  especialidadeId: yup.string().required(),
+  especialidadeId: yup.number().required(),
 });
 
 const useRegistrarProssionalViewModel = () => {
