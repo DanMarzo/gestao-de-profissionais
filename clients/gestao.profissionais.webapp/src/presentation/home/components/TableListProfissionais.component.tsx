@@ -1,13 +1,15 @@
+import { useContext } from "react";
 import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
-import { ProfissionalModel } from "../../../models/profissional.model";
 import { AtualizarProfissionalModal } from "../atualizar-profissional/AtualizarProfissionalModal";
 import { ExcluirProfissionalModal } from "../excluir-profissional/ExcluirProfissionalModal";
+import { ProfissionalContext } from "../../../providers/Profissional.context";
 
-type Props = {
-  profissionais: Array<ProfissionalModel>;
-};
-
-const TableListProfissionaisComponent = ({ profissionais }: Props) => {
+const TableListProfissionaisComponent = () => {
+  const {
+    profissionais,
+    handleProfissionalParaAtualizar,
+    handleProfissionalParaExcluir,
+  } = useContext(ProfissionalContext);
   return (
     <table className="table table-bordered">
       <thead>
@@ -21,7 +23,7 @@ const TableListProfissionaisComponent = ({ profissionais }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {profissionais.map((profissional, index) => {
+        {profissionais?.data.map((profissional, index) => {
           return (
             <tr key={index}>
               <th scope="row">{profissional.id}</th>
@@ -48,13 +50,21 @@ const TableListProfissionaisComponent = ({ profissionais }: Props) => {
                       <h6 className="dropdown-header">AÇÕES:</h6>
                     </li>
                     <li>
-                      <AtualizarProfissionalModal />
+                      <button
+                        className="dropdown-item"
+                        onClick={() =>
+                          handleProfissionalParaAtualizar(profissional)
+                        }
+                      >
+                        Atualizar
+                      </button>
                     </li>
                     <li>
                       <button
                         className="dropdown-item"
-                        data-bs-toggle="modal"
-                        data-bs-target={`atualizarProfissionalModal${profissional.id}`}
+                        onClick={() =>
+                          handleProfissionalParaExcluir(profissional)
+                        }
                       >
                         Excluir
                       </button>
@@ -66,7 +76,8 @@ const TableListProfissionaisComponent = ({ profissionais }: Props) => {
           );
         })}
       </tbody>
-      <ExcluirProfissionalModal profissional={profissionais[0]} />
+      <ExcluirProfissionalModal />
+      <AtualizarProfissionalModal />
     </table>
   );
 };
