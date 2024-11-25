@@ -11,7 +11,7 @@ const TableListProfissionaisComponent = () => {
     handleProfissionalParaExcluir,
   } = useContext(ProfissionalContext);
   return (
-    <table className="table table-bordered">
+    <table className="table table-bordered table-hover">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -38,7 +38,7 @@ const TableListProfissionaisComponent = () => {
               <td>
                 <div className="dropdown">
                   <button
-                    className="btn border-0"
+                    className="btn btn-sm border-0 py-0"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
