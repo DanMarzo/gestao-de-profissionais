@@ -78,57 +78,63 @@ const HomeView = () => {
             {profissionais?.error ? (
               <></>
             ) : (
-              <nav aria-label="Page navigation example">
-                <ul className="pagination">
-                  <li className="page-item">
-                    <button
-                      onClick={() => previousPage()}
-                      className="page-link"
-                      aria-label="Previous"
-                    >
-                      <span aria-hidden="true">&laquo;</span>
-                    </button>
-                  </li>
-                  {/* Listagem */}
-                  {Array.from({
-                    length: profissionais?.nroPaginas ?? 1,
-                  }).map((_, index) => {
-                    return (
-                      <li
-                        key={index}
-                        className={`${
-                          profissionais?.indice == index + 1
-                            ? "page-item active"
-                            : "page-item"
-                        }`}
+              <nav aria-label="Navegacao entre paginas de profissionais">
+                {!profissionais?.nroPaginas ? (
+                  <h4 className="text-primary">
+                    Nenhum profissional localizado
+                  </h4>
+                ) : (
+                  <ul className="pagination">
+                    <li className="page-item">
+                      <button
+                        onClick={() => previousPage()}
+                        className="page-link"
+                        aria-label="Previous"
                       >
-                        <button
-                          onClick={() =>
-                            setSearchParams((values) => {
-                              return {
-                                ...values,
-                                indice: (index + 1).toString(),
-                              };
-                            })
-                          }
-                          className="page-link"
-                        >
-                          {index + 1}
-                        </button>
-                      </li>
-                    );
-                  })}
+                        <span aria-hidden="true">&laquo;</span>
+                      </button>
+                    </li>
 
-                  <li className="page-item">
-                    <button
-                      onClick={() => nextPage()}
-                      className="page-link"
-                      aria-label="Next"
-                    >
-                      <span aria-hidden="true">&raquo;</span>
-                    </button>
-                  </li>
-                </ul>
+                    {Array.from({
+                      length: profissionais?.nroPaginas ?? 1,
+                    }).map((_, index) => {
+                      return (
+                        <li
+                          key={index}
+                          className={`${
+                            profissionais?.indice == index + 1
+                              ? "page-item active"
+                              : "page-item"
+                          }`}
+                        >
+                          <button
+                            onClick={() =>
+                              setSearchParams((values) => {
+                                return {
+                                  ...values,
+                                  indice: (index + 1).toString(),
+                                };
+                              })
+                            }
+                            className="page-link"
+                          >
+                            {index + 1}
+                          </button>
+                        </li>
+                      );
+                    })}
+
+                    <li className="page-item">
+                      <button
+                        onClick={() => nextPage()}
+                        className="page-link"
+                        aria-label="Next"
+                      >
+                        <span aria-hidden="true">&raquo;</span>
+                      </button>
+                    </li>
+                  </ul>
+                )}
               </nav>
             )}
           </nav>

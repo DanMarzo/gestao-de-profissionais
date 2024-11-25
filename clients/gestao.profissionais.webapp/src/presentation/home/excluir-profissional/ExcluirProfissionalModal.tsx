@@ -1,11 +1,15 @@
-//import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
+import { LoadingOutlined } from "@ant-design/icons";
 import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
 import { useExcluirProssionalViewModel } from "./ExcluirProssionalModal.view-model";
 
 const ExcluirProfissionalModal = () => {
-  //Carregar especialidades ao iniciar
-  const { handleModal, modalExcluirRef, profissionalParaExcluir } =
-    useExcluirProssionalViewModel();
+  const {
+    handleModal,
+    modalExcluirRef,
+    profissionalParaExcluir,
+    excluirProfissional,
+    carregando,
+  } = useExcluirProssionalViewModel();
 
   return (
     <>
@@ -34,14 +38,25 @@ const ExcluirProfissionalModal = () => {
               ></button>
             </div>
             <div className="modal-body">
-              {profissionalParaExcluir && (
+              {carregando ? (
+                <div className="d-flex justify-content-center align-items-center gap-2 ">
+                  <div className="d-flex align-items-center">
+                    <LoadingOutlined />
+                  </div>
+                  <div>Carregando...</div>
+                </div>
+              ) : (
                 <>
-                  Tem certeza que deseja excluir o profissional{" "}
-                  {profissionalParaExcluir!.nome} (
-                  {`${nomeTipoDocEspecialidadeEnum(
-                    profissionalParaExcluir!.especialidade.tipoDocumento
-                  )} ${profissionalParaExcluir!.numeroDocumento}`}
-                  )? Essa ação não poderá ser desfeita!
+                  {profissionalParaExcluir && (
+                    <>
+                      Tem certeza que deseja excluir o profissional{" "}
+                      {profissionalParaExcluir!.nome} (
+                      {`${nomeTipoDocEspecialidadeEnum(
+                        profissionalParaExcluir!.especialidade.tipoDocumento
+                      )} ${profissionalParaExcluir!.numeroDocumento}`}
+                      )? Essa ação não poderá ser desfeita!
+                    </>
+                  )}
                 </>
               )}
             </div>
@@ -53,7 +68,12 @@ const ExcluirProfissionalModal = () => {
               >
                 Cancelar
               </button>
-              <button className="btn btn-danger">Sim, excluir</button>
+              <button
+                className="btn btn-danger"
+                onClick={() => excluirProfissional()}
+              >
+                Sim, excluir
+              </button>
             </div>
           </div>
         </div>
