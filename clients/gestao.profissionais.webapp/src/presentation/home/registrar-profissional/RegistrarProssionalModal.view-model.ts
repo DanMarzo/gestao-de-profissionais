@@ -71,7 +71,7 @@ const useRegistrarProssionalViewModel = () => {
           });
         } else {
           toast("Profissional registrado.", { type: "success" });
-          location.href = `${res.data?.id}`;
+          
         }
       })
       .catch((err) => {

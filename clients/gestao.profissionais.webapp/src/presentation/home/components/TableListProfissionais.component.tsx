@@ -1,3 +1,4 @@
+import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
 import { ProfissionalModel } from "../../../models/profissional.model";
 
 type Props = {
@@ -22,15 +23,19 @@ const TableListProfissionaisComponent = ({ profissionais }: Props) => {
           return (
             <tr key={index}>
               <th scope="row">{profissional.id}</th>
-              <th>{profissional.nome}</th>
-              <th>{profissional.especialidade.nome}</th>
-              <th>{profissional.especialidade.tipoDocumento}</th>
-              <th>{profissional.numeroDocumento}</th>
-              <th>
+              <td>{profissional.nome}</td>
+              <td>{profissional.especialidade.nome}</td>
+              <td>
+                {nomeTipoDocEspecialidadeEnum(
+                  profissional.especialidade.tipoDocumento
+                )}
+              </td>
+              <td>{profissional.numeroDocumento}</td>
+              <td>
                 <button className="btn">
                   <i className="bi bi-three-dots-vertical"></i>
                 </button>
-              </th>
+              </td>
             </tr>
           );
         })}

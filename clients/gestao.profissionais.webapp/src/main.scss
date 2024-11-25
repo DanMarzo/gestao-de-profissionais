@@ -12,10 +12,15 @@ $theme-colors: (
   danger: $danger,
 );
 
-//Item da paginacao estiver ativo
-$pagination-focus-color: #fff;
-$pagination-focus-bg: #015958;
+//Cor da paginacao estiver em foco
+$pagination-focus-color: #015958;
+$pagination-focus-bg: transparent;
 $pagination-focus-box-shadow: none;
+
+//Cor para active
+$pagination-active-color: #fff;
+$pagination-active-bg: #015958;
+$pagination-active-border-color: #015958;
 
 //Cor dos itens da paginacao
 $pagination-color: #015958;

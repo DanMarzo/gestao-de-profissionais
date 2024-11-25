@@ -17,24 +17,22 @@ const RegistrarProfissionalModal = () => {
 
   return (
     <>
-      <>
-        <button
-          className="btn btn-primary d-flex gap-2"
-          data-bs-toggle="modal"
-          data-bs-target="#registrarProfissionalModal"
-        >
-          {loadingEspec ? (
-            <div>
-              <LoadingOutlined />
-            </div>
-          ) : (
-            <>
-              Adicionar
-              <i className="bi bi-plus-lg"></i>
-            </>
-          )}
-        </button>
-      </>
+      <button
+        className="btn btn-primary d-flex gap-2"
+        data-bs-toggle="modal"
+        data-bs-target="#registrarProfissionalModal"
+      >
+        {loadingEspec ? (
+          <div>
+            <LoadingOutlined />
+          </div>
+        ) : (
+          <>
+            Adicionar
+            <i className="bi bi-plus-lg"></i>
+          </>
+        )}
+      </button>
 
       {/* Modal */}
       <div

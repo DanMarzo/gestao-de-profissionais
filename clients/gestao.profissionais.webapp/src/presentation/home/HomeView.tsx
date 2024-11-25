@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import { HomeViewViewModel } from "./HomeView.view-model";
 
 const TableProfissionais = lazy(
   () => import("./components/TableListProfissionais.component")
@@ -9,6 +10,13 @@ const RegistrarProfissionalModal = lazy(
 );
 
 const HomeView = () => {
+  const {
+    listProfissionais,
+    loading,
+    setSearchParams,
+    nextPage,
+    previousPage,
+  } = HomeViewViewModel();
   return (
     <Suspense>
       <main role="main" className="container-fluid p-4 gu">
@@ -23,40 +31,63 @@ const HomeView = () => {
           </div>
         </div>
         <div className="row mb-4">
-          <TableProfissionais profissionais={[]} />
+          <TableProfissionais profissionais={listProfissionais?.data ?? []} />
         </div>
         <div className="row">
           <nav
             className="col-12 p-0 d-flex justify-content-center"
             aria-label="Navegar entre os itens"
           >
-            <ul className="pagination">
-              <li className="page-item ">
-                <a className="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#">
-                  1
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#">
-                  2
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#">
-                  3
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
+            {listProfissionais?.error ? (
+              <></>
+            ) : (
+              <nav aria-label="Page navigation example">
+                <ul className="pagination">
+                  <li className="page-item">
+                    <button
+                      onClick={() => previousPage()}
+                      className="page-link"
+                      aria-label="Previous"
+                    >
+                      <span aria-hidden="true">&laquo;</span>
+                    </button>
+                  </li>
+                  {/* Listagem */}
+                  {Array.from({
+                    length: listProfissionais?.nroPaginas ?? 1,
+                  }).map((_, index) => {
+                    return (
+                      <li
+                        className={`${
+                          listProfissionais?.indice == index + 1
+                            ? "page-item active"
+                            : "page-item"
+                        }`}
+                      >
+                        <button
+                          onClick={() =>
+                            setSearchParams({ indice: (index + 1).toString() })
+                          }
+                          className="page-link"
+                        >
+                          {index + 1}
+                        </button>
+                      </li>
+                    );
+                  })}
+
+                  <li className="page-item">
+                    <button
+                      onClick={() => nextPage()}
+                      className="page-link"
+                      aria-label="Next"
+                    >
+                      <span aria-hidden="true">&raquo;</span>
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            )}
           </nav>
         </div>
       </main>
