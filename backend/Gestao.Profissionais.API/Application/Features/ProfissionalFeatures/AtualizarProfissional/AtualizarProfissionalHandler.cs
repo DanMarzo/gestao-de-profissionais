@@ -19,10 +19,14 @@ public class AtualizarProfissionalHandler : IRequestHandler<AtualizarProfissiona
 
     public async Task<ProfissionalDetalhesDTO> Handle(AtualizarProfissionalRequest request, CancellationToken cancellationToken)
     {
-        var profissional = await this.repository.GetEntityAsync<ProfissionalEntity>(x => x.Id == request.Id)
+        var profissional = await this.repository.GetEntityAsync<ProfissionalEntity>
+            (x => x.Id == request.Id, true, [inc => inc.Especialidade])
             ?? throw new ValidateException("Profissional não localizada.", HttpStatusCode.NotFound);
 
-        profissional.EspecialidadeId = request.Profissional.EspecialidadeId;
+        var especialidade = await this.repository.GetEntityAsync<EspecialidadeEntity>(where: x => x.Id == request.Profissional.EspecialidadeId)
+            ?? throw new ValidateException("Especialidade não localizada.", HttpStatusCode.NotFound); ;
+
+        profissional.Especialidade = especialidade;
         profissional.NumeroDocumento = request.Profissional.NumeroDocumento;
         profissional.Nome = request.Profissional.Nome;
         await this.repository.UpdateAsync(profissional);
