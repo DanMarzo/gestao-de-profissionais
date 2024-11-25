@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Gestao.Profissionais.API.Application.DTOs;
+using Gestao.Profissionais.API.Application.DTOs.EspecialidadeDTOs;
 
 namespace Gestao.Profissionais.API.Application.Mappings;
 
