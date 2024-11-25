@@ -16,16 +16,50 @@ const HomeView = () => {
     nextPage,
     previousPage,
     especialidades,
+    especialidadeSelecionada,
+    handleSetEspecialidade,
   } = HomeViewViewModel();
+
   return (
     <Suspense>
       <main role="main" className="container-fluid p-4 gu">
         <div className="row mb-4">
-          <div className="col-6 p-0">
-            <button className="btn btn-secondary text-primary">
-              Filtrar por: (tipo)
-            </button>
+          <div className="col-6 p-0 ">
+            <div className="dropdown">
+              <button
+                className="btn btn-secondary dropdown-toggle text-primary"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Filtrar por Especialidade:{" "}
+                {`${especialidadeSelecionada?.nome ?? "Todas"}`}
+              </button>
+              <ul className="dropdown-menu">
+                <li>
+                  <button
+                    onClick={() => handleSetEspecialidade(null)}
+                    className="dropdown-item"
+                  >
+                    Todas
+                  </button>
+                </li>
+                {especialidades.map((item, index) => {
+                  return (
+                    <li key={index}>
+                      <button
+                        onClick={() => handleSetEspecialidade(item)}
+                        className="dropdown-item"
+                      >
+                        {item.nome}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
+
           <div className="col-6 d-flex justify-content-end p-0">
             <RegistrarProfissionalModal />
           </div>
