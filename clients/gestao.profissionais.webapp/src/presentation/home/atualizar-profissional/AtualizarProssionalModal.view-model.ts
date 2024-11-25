@@ -4,10 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
 import { toast } from "react-toastify";
-import { registrarProfissionalService } from "../../../infra/services/registrar-profissional.service";
 import { EspecialidadeContext } from "../../../providers/Especialidade.context";
 import { Modal } from "bootstrap";
 import { ProfissionalContext } from "../../../providers/Profissional.context";
+import { atualizarProfissionalService } from "../../../infra/services/atualizar-profissional.service";
 
 const formValidationSchema = yup.object().shape({
   nome: yup
@@ -30,7 +30,11 @@ const useAtualizarProssionalViewModel = () => {
   } = useForm({ resolver: yupResolver(formValidationSchema) });
   const { carregando: carregandoEspec, especialidades } =
     useContext(EspecialidadeContext);
-  const { profissionalParaAtualizar } = useContext(ProfissionalContext);
+  const {
+    profissionalParaAtualizar,
+    obterProfissionais,
+    handleProfissionalParaAtualizar,
+  } = useContext(ProfissionalContext);
 
   const [carregando, setCarregando] = useState(false);
 
@@ -39,30 +43,46 @@ const useAtualizarProssionalViewModel = () => {
   );
   const [tipoDocField, setTipoDocField] = useState<string | null>("");
 
+  const modalAtualizarRef = useRef(null);
+  const [modal, setModal] = useState<Modal | null>(null);
+  const handleModal = (close: boolean) => {
+    if (!close) {
+      modal!.show();
+    } else {
+      modal!.hide();
+    }
+  };
+
   const atualizarProfisional = (values: any) => {
     setCarregando(true);
-    registrarProfissionalService(values)
+    atualizarProfissionalService(profissionalParaAtualizar!.id!, values)
       .then((res) => {
-        if (res.error) {
-          toast("Não foi possível registrar profissional.", {
+        if (!res.error) {
+          toast(`${res.data?.nome} atualizado com sucesso!`, {
+            type: "success",
+          });
+          obterProfissionais();
+        } else
+          toast("Não foi possível atualizar o profissional", {
             type: "warning",
           });
-        } else {
-          toast("Profissional registrado.", { type: "success" });
-        }
       })
-      .catch((err) => {
-        console.log(err);
-        toast("Ocorreu um erro ao registrar profissional.", {
-          type: "error",
-        });
+      .catch(() => {
+        toast("Não foi possível atualizar o profissional", { type: "error" });
       })
       .finally(() => {
         modal?.hide();
+        handleProfissionalParaAtualizar(null);
         setCarregando(false);
       });
   };
 
+  useEffect(() => {
+    if (!modal && modalAtualizarRef.current) {
+      setModal(new Modal(modalAtualizarRef.current, {}));
+    }
+    return () => {};
+  }, []);
   useEffect(() => {
     const tipoDoc = especialidades.find((i) => i.id == especialidadeSelect);
     setTipoDocField(nomeTipoDocEspecialidadeEnum(tipoDoc?.tipoDocumento)); //
@@ -79,23 +99,6 @@ const useAtualizarProssionalViewModel = () => {
     } else modal?.hide();
     return () => {};
   }, [profissionalParaAtualizar]);
-
-  const modalAtualizarRef = useRef(null);
-  const [modal, setModal] = useState<Modal | null>(null);
-  const handleModal = (close: boolean) => {
-    if (!close) {
-      modal!.show();
-    } else {
-      modal!.hide();
-    }
-  };
-
-  useEffect(() => {
-    if (!modal && modalAtualizarRef.current) {
-      setModal(new Modal(modalAtualizarRef.current, {}));
-    }
-    return () => {};
-  }, []);
 
   return {
     carregandoEspec,
