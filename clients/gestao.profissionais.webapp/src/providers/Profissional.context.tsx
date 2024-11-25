@@ -13,6 +13,14 @@ interface ProfissionalContextProps {
   previousPage: () => void;
   obterIndicePagina: () => number;
   handleIndiceEspecialidade: (indice: number, especialidade?: number) => void;
+  profissionalParaExcluir: ProfissionalModel | null;
+  profissionalParaAtualizar: ProfissionalModel | null;
+  handleProfissionalParaExcluir: (
+    profissional: ProfissionalModel | null
+  ) => void;
+  handleProfissionalParaAtualizar: (
+    profissional: ProfissionalModel | null
+  ) => void;
 }
 
 const ProfissionalContext = createContext<ProfissionalContextProps>(
@@ -26,6 +34,10 @@ const ProfissionalProvider = ({ children }: PropsWithChildren) => {
 
   const [carregando, setCarregando] = useState(false);
 
+  const [profissionalParaAtualizar, setProfissionalParaAtualizar] =
+    useState<ProfissionalModel | null>(null);
+  const [profissionalParaExcluir, setProfissionalParaExcluir] =
+    useState<ProfissionalModel | null>(null);
   const obterProfissionais = () => {
     const indice = obterIndicePagina();
     const especialidadeId = obterEspecialidadeId();
@@ -83,9 +95,24 @@ const ProfissionalProvider = ({ children }: PropsWithChildren) => {
       especialidade: especialidade ? especialidade.toString() : "",
     });
   };
+
+  const handleProfissionalParaExcluir = (
+    profissional: ProfissionalModel | null
+  ) => {
+    setProfissionalParaExcluir(profissional);
+  };
+
+  const handleProfissionalParaAtualizar = (
+    profissional: ProfissionalModel | null
+  ) => {
+    setProfissionalParaAtualizar(profissional);
+  };
+
   return (
     <ProfissionalContext.Provider
       value={{
+        handleProfissionalParaAtualizar,
+        handleProfissionalParaExcluir,
         handleIndiceEspecialidade,
         obterIndicePagina,
         profissionais,
@@ -93,6 +120,8 @@ const ProfissionalProvider = ({ children }: PropsWithChildren) => {
         obterProfissionais,
         nextPage,
         previousPage,
+        profissionalParaAtualizar,
+        profissionalParaExcluir,
       }}
     >
       {children}
