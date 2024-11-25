@@ -14,7 +14,7 @@ const HomeViewViewModel = () => {
     handleIndiceEspecialidade,
   } = useContext(ProfissionalContext);
 
-  const [_, setSearchParams]  = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams();
   const { carregando: carregandoEsp, especialidades } =
     useContext(EspecialidadeContext);
 
@@ -35,7 +35,9 @@ const HomeViewViewModel = () => {
     previousPage,
     carregandoEsp,
     especialidadeSelecionada,
-    handleSetEspecialidade,setSearchParams
+    handleSetEspecialidade,
+    setSearchParams,
+    searchParams,
   };
 };
 
