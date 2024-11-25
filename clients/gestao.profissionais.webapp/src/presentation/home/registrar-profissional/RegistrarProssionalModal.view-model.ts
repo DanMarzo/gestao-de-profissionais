@@ -11,7 +11,7 @@ import { formProfissionalSchema } from "../../../models/profissional.model";
 const useRegistrarProssionalViewModel = () => {
   const {
     register: registerForm,
-    handleSubmit,
+    handleSubmit,reset,
     formState: { errors: errorsForm },
   } = useForm({ resolver: yupResolver(formProfissionalSchema) });
   const { carregando: carregandoEspec, especialidades } =
@@ -36,13 +36,15 @@ const useRegistrarProssionalViewModel = () => {
           toast("Profissional registrado.", { type: "success" });
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        
         toast("Ocorreu um erro ao registrar profissional.", {
           type: "error",
         });
       })
       .finally(() => {
+        reset()
+        setEspecialidadeSelect(null)
         modal?.hide();
         setCarregando(false);
       });
