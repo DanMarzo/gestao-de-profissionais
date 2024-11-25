@@ -12,10 +12,10 @@ const RegistrarProfissionalModal = lazy(
 const HomeView = () => {
   const {
     listProfissionais,
-    loading,
     setSearchParams,
     nextPage,
     previousPage,
+    especialidades,
   } = HomeViewViewModel();
   return (
     <Suspense>
@@ -58,6 +58,7 @@ const HomeView = () => {
                   }).map((_, index) => {
                     return (
                       <li
+                        key={index}
                         className={`${
                           listProfissionais?.indice == index + 1
                             ? "page-item active"

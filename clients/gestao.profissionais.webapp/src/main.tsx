@@ -6,10 +6,11 @@ import "./main.scss";
 import "bootstrap-icons/font/bootstrap-icons.scss";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { EspecialidadeProvider } from "./providers/Especialidade.context.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <>
+  <EspecialidadeProvider>
     <RouterProvider router={routes} />
     <ToastContainer />
-  </>
+  </EspecialidadeProvider>
 );

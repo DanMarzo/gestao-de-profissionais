@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import {
-  EspecialidadeModel,
-  nomeTipoDocEspecialidadeEnum,
-} from "../../../models/especialidade.model";
-import { obterEspecialidadesService } from "../../../infra/services/obter-especialidades.service";
+import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
 import { toast } from "react-toastify";
 import { registrarProfissionalService } from "../../../infra/services/registrar-profissional.service";
+import { EspecialidadeContext } from "../../../providers/Especialidade.context";
+import { Modal } from "bootstrap";
 
 const formValidationSchema = yup.object().shape({
   nome: yup
@@ -28,38 +26,15 @@ const useRegistrarProssionalViewModel = () => {
     handleSubmit,
     formState: { errors: errorsForm },
   } = useForm({ resolver: yupResolver(formValidationSchema) });
-  const [loadingEspec, setLoadingEspec] = useState(false);
-  const [loadingRegistro, setLoadingRegistro] = useState(false);
+  const { carregando: carregandoEspec, especialidades } =
+    useContext(EspecialidadeContext);
 
-  const [especialidades, setEspecialidades] = useState<
-    Array<EspecialidadeModel>
-  >([]);
+  const [loadingRegistro, setLoadingRegistro] = useState(false);
 
   const [especialidadeSelect, setEspecialidadeSelect] = useState<number | null>(
     null
   );
   const [tipoDocField, setTipoDocField] = useState<string | null>("");
-
-  const obterEspecialidades = async () => {
-    setLoadingEspec(true);
-    obterEspecialidadesService()
-      .then((result) => {
-        if (result.error) {
-          toast("Não foi possível obter todas especialidades.", {
-            type: "warning",
-          });
-        } else {
-          setEspecialidades(result.data ?? []);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        toast("Ocorreu um erro ao obter as especialidades.", {
-          type: "error",
-        });
-      })
-      .finally(() => setLoadingEspec(false));
-  };
 
   const registrarProfissional = (values: any) => {
     setLoadingRegistro(true);
@@ -71,7 +46,6 @@ const useRegistrarProssionalViewModel = () => {
           });
         } else {
           toast("Profissional registrado.", { type: "success" });
-          
         }
       })
       .catch((err) => {
@@ -80,17 +54,11 @@ const useRegistrarProssionalViewModel = () => {
           type: "error",
         });
       })
-      .finally(() => setLoadingRegistro(false));
+      .finally(() => {
+        modal?.hide();
+        setLoadingRegistro(false);
+      });
   };
-
-  useEffect(() => {
-    if (especialidades.length == 0) {
-      obterEspecialidades();
-    }
-    return () => {
-      setEspecialidades([]);
-    };
-  }, []);
 
   useEffect(() => {
     const tipoDoc = especialidades.find((i) => i.id == especialidadeSelect);
@@ -98,8 +66,25 @@ const useRegistrarProssionalViewModel = () => {
     return () => {};
   }, [especialidadeSelect]);
 
+  const modalRef = useRef(null);
+  const [modal, setModal] = useState<Modal | null>(null);
+  const handleModal = (close: boolean) => {
+    if (!close) {
+      modal!.show();
+    } else {
+      modal!.hide();
+    }
+  };
+
+  useEffect(() => {
+    if (!modal && modalRef.current) {
+      setModal(new Modal(modalRef.current, {}));
+    }
+    return () => {};
+  }, []);
+
   return {
-    loadingEspec,
+    carregandoEspec,
     loadingRegistro,
     registrarProfissional,
     handleSubmit,
@@ -108,6 +93,8 @@ const useRegistrarProssionalViewModel = () => {
     especialidades,
     setEspecialidadeSelect,
     tipoDocField,
+    modalRef,
+    handleModal,
   };
 };
 

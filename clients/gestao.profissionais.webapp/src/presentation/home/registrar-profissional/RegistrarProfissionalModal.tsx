@@ -1,28 +1,31 @@
 import { useRegistrarProssionalViewModel } from "./RegistrarProssionalModal.view-model";
 import { LoadingOutlined } from "@ant-design/icons";
-//type Props = {};
 
 const RegistrarProfissionalModal = () => {
   //Carregar especialidades ao iniciar
   const {
     tipoDocField,
-    loadingEspec,
     errorsForm,
     handleSubmit,
     registerForm,
     especialidades,
     setEspecialidadeSelect,
     registrarProfissional,
+    carregandoEspec,
+    handleModal,
+    loadingRegistro,
+    modalRef,
   } = useRegistrarProssionalViewModel();
 
   return (
     <>
       <button
+        onClick={() => handleModal(false)}
         className="btn btn-primary d-flex gap-2"
-        data-bs-toggle="modal"
-        data-bs-target="#registrarProfissionalModal"
+        // data-bs-toggle="modal"
+        // data-bs-target="#registrarProfissionalModal"
       >
-        {loadingEspec ? (
+        {carregandoEspec ? (
           <div>
             <LoadingOutlined />
           </div>
@@ -36,6 +39,7 @@ const RegistrarProfissionalModal = () => {
 
       {/* Modal */}
       <div
+        ref={modalRef}
         className="modal fade"
         id="registrarProfissionalModal"
         tabIndex={-1}
@@ -143,7 +147,7 @@ const RegistrarProfissionalModal = () => {
               <button
                 type="reset"
                 className="btn text-white bg-tertiary"
-                data-bs-dismiss="modal"
+                onClick={() => handleModal(true)}
               >
                 Cancelar
               </button>
