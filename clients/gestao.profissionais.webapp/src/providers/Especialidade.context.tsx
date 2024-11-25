@@ -47,7 +47,11 @@ const EspecialidadeProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <EspecialidadeContext.Provider
-      value={{ especialidades, carregando, obterEspecialidades }}
+      value={{
+        especialidades,
+        carregando,
+        obterEspecialidades,
+      }}
     >
       {children}
     </EspecialidadeContext.Provider>

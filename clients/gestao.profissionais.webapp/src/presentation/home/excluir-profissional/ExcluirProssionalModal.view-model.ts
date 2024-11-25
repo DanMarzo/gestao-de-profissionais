@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Modal } from "bootstrap";
 import { ProfissionalModel } from "../../../models/profissional.model";
 
-const useExcluirProssionalViewModel = (profissional: ProfissionalModel) => {
+const useExcluirProssionalViewModel = () => {
   const [loadingRegistro, setLoadingRegistro] = useState(false);
 
   const modalExcluirRef = useRef(null);
