@@ -51,18 +51,22 @@ const TableListProfissionaisComponent = ({ profissionais }: Props) => {
                       <AtualizarProfissionalModal />
                     </li>
                     <li>
-                      <ExcluirProfissionalModal />
+                      <button
+                        className="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target={`atualizarProfissionalModal${profissional.id}`}
+                      >
+                        Excluir
+                      </button>
                     </li>
                   </ul>
                 </div>
-                {/* <button className="btn">
-                  <i className="bi bi-three-dots-vertical"></i>
-                </button> */}
               </td>
             </tr>
           );
         })}
       </tbody>
+      <ExcluirProfissionalModal profissional={profissionais[0]} />
     </table>
   );
 };

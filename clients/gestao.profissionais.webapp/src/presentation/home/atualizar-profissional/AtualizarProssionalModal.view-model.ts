@@ -66,7 +66,7 @@ const useAtualizarProssionalViewModel = () => {
     return () => {};
   }, [especialidadeSelect]);
 
-  const modalRef = useRef(null);
+  const modalAtualizarRef = useRef(null);
   const [modal, setModal] = useState<Modal | null>(null);
   const handleModal = (close: boolean) => {
     if (!close) {
@@ -77,8 +77,8 @@ const useAtualizarProssionalViewModel = () => {
   };
 
   useEffect(() => {
-    if (!modal && modalRef.current) {
-      setModal(new Modal(modalRef.current, {}));
+    if (!modal && modalAtualizarRef.current) {
+      setModal(new Modal(modalAtualizarRef.current, {}));
     }
     return () => {};
   }, []);
@@ -93,7 +93,7 @@ const useAtualizarProssionalViewModel = () => {
     especialidades,
     setEspecialidadeSelect,
     tipoDocField,
-    modalRef,
+    modalAtualizarRef,
     handleModal,
   };
 };

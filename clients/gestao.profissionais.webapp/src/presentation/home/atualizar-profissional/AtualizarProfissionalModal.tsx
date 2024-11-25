@@ -14,7 +14,7 @@ const AtualizarProfissionalModal = () => {
     carregandoEspec,
     handleModal,
     // loadingRegistro,
-    modalRef,
+    modalAtualizarRef,
   } = useAtualizarProssionalViewModel();
 
   return (
@@ -22,7 +22,7 @@ const AtualizarProfissionalModal = () => {
       <button className="dropdown-item">Editar</button>
       {/* Modal */}
       <div
-        ref={modalRef}
+        ref={modalAtualizarRef}
         className="modal fade"
         id="atualizarProfissionalModal"
         tabIndex={-1}

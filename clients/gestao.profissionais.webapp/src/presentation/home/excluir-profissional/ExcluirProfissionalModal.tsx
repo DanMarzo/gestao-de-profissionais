@@ -1,45 +1,38 @@
+import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
+import { ProfissionalModel } from "../../../models/profissional.model";
 import { useExcluirProssionalViewModel } from "./ExcluirProssionalModal.view-model";
-import { LoadingOutlined } from "@ant-design/icons";
+
+type Props = {
+  profissional: ProfissionalModel;
+};
 
 const ExcluirProfissionalModal = () => {
   //Carregar especialidades ao iniciar
-  const {
-    tipoDocField,
-    errorsForm,
-    handleSubmit,
-    registerForm,
-    especialidades,
-    setEspecialidadeSelect,
-    registrarProfissional,
-    carregandoEspec,
-    handleModal,
-    // loadingRegistro,
-    modalRef,
-  } = useExcluirProssionalViewModel();
+  const { handleModal, modalExcluirRef } =
+    useExcluirProssionalViewModel(profissional);
 
   return (
     <>
-      <button className="dropdown-item">Excluir</button>
+      <button onClick={() => handleModal(false)} className="dropdown-item">
+        Excluir
+      </button>
       {/* Modal */}
       <div
-        ref={modalRef}
+        ref={modalExcluirRef}
         className="modal fade"
-        id="atualizarProfissionalModal"
+        id={`atualizarProfissionalModal${profissional.id}`}
         tabIndex={-1}
-        aria-labelledby="atualizarProfissionalModalLabel"
+        aria-labelledby={`atualizarProfissionalModalLabel${profissional.id}`}
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered">
-          <form
-            onSubmit={handleSubmit(registrarProfissional)}
-            className="modal-content needs-validation"
-          >
+          <div className="modal-content needs-validation">
             <div className="modal-header">
               <h1
                 className="modal-title fs-5"
-                id="atualizarProfissionalModalLabel"
+                id={`atualizarProfissionalModalLabel${profissional.id}`}
               >
-                Atualizar profissional
+                Excluir Profissional
               </h1>
               <button
                 type="button"
@@ -49,82 +42,12 @@ const ExcluirProfissionalModal = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <div>
-                <label htmlFor="nomeProfissionalForm" className="form-label">
-                  Nome do Profissional
-                </label>
-                <input
-                  {...registerForm("nome")}
-                  type="text"
-                  className="form-control"
-                  id="nomeProfissionalForm"
-                />
-                {errorsForm.nome?.message && (
-                  <div className="text-danger">{errorsForm.nome?.message}</div>
-                )}
-              </div>
-              <div>
-                <label htmlFor="especialidadeForm" className="form-label">
-                  Selecionar especialidade
-                </label>
-                <select
-                  {...registerForm("especialidadeId", { required: true })}
-                  id="especialidadeForm"
-                  className="form-select"
-                  aria-label="Selecionar especialidade"
-                  required
-                  onChange={(item) => {
-                    if (item.target.value) {
-                      setEspecialidadeSelect(
-                        Number.parseInt(item.target.value)
-                      );
-                    }
-                  }}
-                >
-                  <option value={""}></option>
-                  {especialidades.map((item, index) => {
-                    return (
-                      <option key={index} value={item.id}>
-                        {item.nome}
-                      </option>
-                    );
-                  })}
-                </select>
-
-                {errorsForm.especialidadeId?.message && (
-                  <div className="text-danger">
-                    {errorsForm.especialidadeId?.message}
-                  </div>
-                )}
-              </div>
-              <div>
-                <label htmlFor="tipoDocumentoForm" className="form-label">
-                  Tipo documento
-                </label>
-                <input
-                  readOnly
-                  value={`${tipoDocField?.toString() ?? ""}`}
-                  type="text"
-                  className="form-control"
-                  id="tipoDocumentoForm"
-                />
-              </div>
-              <div>
-                <label htmlFor="nroDocumentoForm" className="form-label">
-                  Número do documento
-                </label>
-                <input
-                  {...registerForm("numeroDocumento")}
-                  type="text"
-                  className="form-control"
-                  id="nroDocumentoForm"
-                />
-                {errorsForm.numeroDocumento?.message && (
-                  <div className="text-danger">
-                    {errorsForm.numeroDocumento?.message}
-                  </div>
-                )}
-              </div>
+              Tem certeza que deseja excluir o profissional {profissional.nome}{" "}
+              (
+              {`${nomeTipoDocEspecialidadeEnum(
+                profissional.especialidade.tipoDocumento
+              )} ${profissional.numeroDocumento}`}
+              ? )? Essa ação não poderá ser desfeita!
             </div>
             <div className="modal-footer">
               <button
@@ -134,11 +57,9 @@ const ExcluirProfissionalModal = () => {
               >
                 Cancelar
               </button>
-              <button type="submit" className="btn btn-primary">
-                Salvar
-              </button>
+              <button className="btn btn-danger">Sim, excluir</button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>
