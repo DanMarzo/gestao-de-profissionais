@@ -10,8 +10,6 @@ const AtualizarProfissionalModal = () => {
     registerForm,
     especialidades,
     setEspecialidadeSelect,
-    registrarProfissional,
-    carregandoEspec,
     handleModal,
     // loadingRegistro,
     modalAtualizarRef,
@@ -19,8 +17,6 @@ const AtualizarProfissionalModal = () => {
 
   return (
     <>
-      <button className="dropdown-item">Editar</button>
-      {/* Modal */}
       <div
         ref={modalAtualizarRef}
         className="modal fade"
@@ -31,7 +27,7 @@ const AtualizarProfissionalModal = () => {
       >
         <div className="modal-dialog modal-dialog-centered">
           <form
-            onSubmit={handleSubmit(registrarProfissional)}
+            onSubmit={handleSubmit((values) => console.log(values))}
             className="modal-content needs-validation"
           >
             <div className="modal-header">
