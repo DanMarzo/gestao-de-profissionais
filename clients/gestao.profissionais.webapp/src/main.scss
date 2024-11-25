@@ -4,29 +4,48 @@
 
 /* Your customizations here */
 
+//Cores
+$primary: #015958;
+$secondary: #01595840;
+
 $theme-colors: (
-  primary: #015958,
-  secondary: #01595840,
+  primary: $primary,
+  secondary: $secondary,
   warning: yellow,
   tertiary: #6c757d,
   danger: $danger,
 );
 
+// Configuracao para Paginacao
+
 //Cor da paginacao estiver em foco
-$pagination-focus-color: #015958;
+$pagination-focus-color: $primary;
 $pagination-focus-bg: transparent;
 $pagination-focus-box-shadow: none;
 
 //Cor para active
 $pagination-active-color: #fff;
-$pagination-active-bg: #015958;
-$pagination-active-border-color: #015958;
+$pagination-active-bg: $primary;
+$pagination-active-border-color: $primary;
 
 //Cor dos itens da paginacao
-$pagination-color: #015958;
+$pagination-color: $primary;
 
 //Hover dos itens da paginacao
-$pagination-hover-color: #015958;
-$pagination-hover-bg: #01595840;
+$pagination-hover-color: $primary;
+$pagination-hover-bg: $secondary;
+
+//Configuracao para dropdown
+//Active
+$dropdown-link-active-color: #fff;
+$dropdown-link-active-bg: #fff;
+
+
+//Item hover
+$dropdown-link-hover-bg: $secondary;
+$dropdown-link-hover-color: $primary;
+//Item ativo
+$dropdown-link-active-color:        #fff;
+$dropdown-link-active-bg:           $primary;
 
 @import "bootstrap";

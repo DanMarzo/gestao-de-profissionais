@@ -13,7 +13,7 @@ const RegistrarProfissionalModal = () => {
     registrarProfissional,
     carregandoEspec,
     handleModal,
-    loadingRegistro,
+    // loadingRegistro,
     modalRef,
   } = useRegistrarProssionalViewModel();
 
@@ -22,8 +22,6 @@ const RegistrarProfissionalModal = () => {
       <button
         onClick={() => handleModal(false)}
         className="btn btn-primary d-flex gap-2"
-        // data-bs-toggle="modal"
-        // data-bs-target="#registrarProfissionalModal"
       >
         {carregandoEspec ? (
           <div>

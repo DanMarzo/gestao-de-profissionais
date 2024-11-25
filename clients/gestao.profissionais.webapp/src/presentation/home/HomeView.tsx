@@ -37,6 +37,10 @@ const HomeView = () => {
               </button>
               <ul className="dropdown-menu">
                 <li>
+                  <h6 className="dropdown-header">FILTRAR POR:</h6>
+                </li>
+
+                <li>
                   <button
                     onClick={() => handleSetEspecialidade(null)}
                     className="dropdown-item"
