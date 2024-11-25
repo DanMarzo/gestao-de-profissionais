@@ -63,7 +63,6 @@ const HomeView = () => {
               </ul>
             </div>
           </div>
-
           <div className="col-6 d-flex justify-content-end p-0">
             <RegistrarProfissionalModal />
           </div>
