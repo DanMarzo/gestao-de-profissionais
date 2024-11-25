@@ -25,6 +25,7 @@ const useAtualizarProssionalViewModel = () => {
   const {
     register: registerForm,
     handleSubmit,
+    setValue,
     formState: { errors: errorsForm },
   } = useForm({ resolver: yupResolver(formValidationSchema) });
   const { carregando: carregandoEspec, especialidades } =
@@ -69,14 +70,15 @@ const useAtualizarProssionalViewModel = () => {
   }, [especialidadeSelect]);
 
   useEffect(() => {
-    if(profissionalParaAtualizar){
-      modal?.show()
-    }
-    return () => {
-      
-    }
-  }, [profissionalParaAtualizar])
-  
+    if (profissionalParaAtualizar) {
+      setValue("nome", profissionalParaAtualizar.nome);
+      setValue("especialidadeId", profissionalParaAtualizar.especialidade.id);
+      setValue("numeroDocumento", profissionalParaAtualizar.numeroDocumento);
+      setEspecialidadeSelect(profissionalParaAtualizar.especialidade.id);
+      modal?.show();
+    } else modal?.hide();
+    return () => {};
+  }, [profissionalParaAtualizar]);
 
   const modalAtualizarRef = useRef(null);
   const [modal, setModal] = useState<Modal | null>(null);

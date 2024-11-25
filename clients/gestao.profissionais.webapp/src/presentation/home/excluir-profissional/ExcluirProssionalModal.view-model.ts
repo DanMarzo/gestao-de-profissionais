@@ -25,9 +25,10 @@ const useExcluirProssionalViewModel = () => {
   }, []);
 
   useEffect(() => {
-    if (profissionalParaExcluir) {
+    if (profissionalParaExcluir) 
       modal?.show();
-    }
+    else
+      modal?.hide();
     return () => {};
   }, [profissionalParaExcluir]);
 
