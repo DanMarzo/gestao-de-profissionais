@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { registrarProfissionalService } from "../../../infra/services/registrar-profissional.service";
 import { EspecialidadeContext } from "../../../providers/Especialidade.context";
 import { Modal } from "bootstrap";
+import { ProfissionalContext } from "../../../providers/Profissional.context";
 
 const formValidationSchema = yup.object().shape({
   nome: yup
@@ -28,16 +29,17 @@ const useAtualizarProssionalViewModel = () => {
   } = useForm({ resolver: yupResolver(formValidationSchema) });
   const { carregando: carregandoEspec, especialidades } =
     useContext(EspecialidadeContext);
+  const { profissionalParaAtualizar } = useContext(ProfissionalContext);
 
-  const [loadingRegistro, setLoadingRegistro] = useState(false);
+  const [carregando, setCarregando] = useState(false);
 
   const [especialidadeSelect, setEspecialidadeSelect] = useState<number | null>(
     null
   );
   const [tipoDocField, setTipoDocField] = useState<string | null>("");
 
-  const registrarProfissional = (values: any) => {
-    setLoadingRegistro(true);
+  const atualizarProfisional = (values: any) => {
+    setCarregando(true);
     registrarProfissionalService(values)
       .then((res) => {
         if (res.error) {
@@ -56,7 +58,7 @@ const useAtualizarProssionalViewModel = () => {
       })
       .finally(() => {
         modal?.hide();
-        setLoadingRegistro(false);
+        setCarregando(false);
       });
   };
 
@@ -65,6 +67,16 @@ const useAtualizarProssionalViewModel = () => {
     setTipoDocField(nomeTipoDocEspecialidadeEnum(tipoDoc?.tipoDocumento)); //
     return () => {};
   }, [especialidadeSelect]);
+
+  useEffect(() => {
+    if(profissionalParaAtualizar){
+      modal?.show()
+    }
+    return () => {
+      
+    }
+  }, [profissionalParaAtualizar])
+  
 
   const modalAtualizarRef = useRef(null);
   const [modal, setModal] = useState<Modal | null>(null);
@@ -85,8 +97,8 @@ const useAtualizarProssionalViewModel = () => {
 
   return {
     carregandoEspec,
-    loadingRegistro,
-    registrarProfissional,
+    carregando,
+    atualizarProfisional,
     handleSubmit,
     registerForm,
     errorsForm,
