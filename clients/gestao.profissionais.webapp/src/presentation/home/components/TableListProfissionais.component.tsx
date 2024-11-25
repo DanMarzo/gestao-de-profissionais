@@ -1,5 +1,7 @@
 import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
 import { ProfissionalModel } from "../../../models/profissional.model";
+import { AtualizarProfissionalModal } from "../atualizar-profissional/AtualizarProfissionalModal";
+import { ExcluirProfissionalModal } from "../excluir-profissional/ExcluirProfissionalModal";
 
 type Props = {
   profissionais: Array<ProfissionalModel>;
@@ -32,9 +34,30 @@ const TableListProfissionaisComponent = ({ profissionais }: Props) => {
               </td>
               <td>{profissional.numeroDocumento}</td>
               <td>
-                <button className="btn">
+                <div className="dropdown">
+                  <button
+                    className="btn border-0"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i className="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <h6 className="dropdown-header">AÇÕES:</h6>
+                    </li>
+                    <li>
+                      <AtualizarProfissionalModal />
+                    </li>
+                    <li>
+                      <ExcluirProfissionalModal />
+                    </li>
+                  </ul>
+                </div>
+                {/* <button className="btn">
                   <i className="bi bi-three-dots-vertical"></i>
-                </button>
+                </button> */}
               </td>
             </tr>
           );
