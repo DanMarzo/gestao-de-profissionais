@@ -1,7 +1,7 @@
 ﻿using Gestao.Profissionais.API.Domain.Enums;
 using System.Text.Json.Serialization;
 
-namespace Gestao.Profissionais.API.Application.DTOs;
+namespace Gestao.Profissionais.API.Application.DTOs.EspecialidadeDTOs;
 
 public sealed class EspecialidadeDTO
 {
