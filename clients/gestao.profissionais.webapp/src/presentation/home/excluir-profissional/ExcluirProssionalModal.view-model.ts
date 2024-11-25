@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Modal } from "bootstrap";
-import { ProfissionalModel } from "../../../models/profissional.model";
+import { ProfissionalContext } from "../../../providers/Profissional.context";
 
 const useExcluirProssionalViewModel = () => {
-  const [loadingRegistro, setLoadingRegistro] = useState(false);
+  const [carregando, setCarregando] = useState(false)
+
+  const { profissionalParaExcluir } = useContext(ProfissionalContext);
 
   const modalExcluirRef = useRef(null);
   const [modal, setModal] = useState<Modal | null>(null);
@@ -22,10 +24,18 @@ const useExcluirProssionalViewModel = () => {
     return () => {};
   }, []);
 
+  useEffect(() => {
+    if (profissionalParaExcluir) {
+      modal?.show();
+    }
+    return () => {};
+  }, [profissionalParaExcluir]);
+
   return {
-    loadingRegistro,
+    carregando,
     modalExcluirRef,
     handleModal,
+    profissionalParaExcluir,
   };
 };
 
