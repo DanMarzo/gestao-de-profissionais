@@ -29,7 +29,7 @@ const useRegistrarProssionalViewModel = () => {
   const { carregando: carregandoEspec, especialidades } =
     useContext(EspecialidadeContext);
 
-  const [loadingRegistro, setLoadingRegistro] = useState(false);
+  const [carregando, setCarregando] = useState(false);
 
   const [especialidadeSelect, setEspecialidadeSelect] = useState<number | null>(
     null
@@ -37,7 +37,7 @@ const useRegistrarProssionalViewModel = () => {
   const [tipoDocField, setTipoDocField] = useState<string | null>("");
 
   const registrarProfissional = (values: any) => {
-    setLoadingRegistro(true);
+    setCarregando(true);
     registrarProfissionalService(values)
       .then((res) => {
         if (res.error) {
@@ -56,7 +56,7 @@ const useRegistrarProssionalViewModel = () => {
       })
       .finally(() => {
         modal?.hide();
-        setLoadingRegistro(false);
+        setCarregando(false);
       });
   };
 
@@ -85,7 +85,7 @@ const useRegistrarProssionalViewModel = () => {
 
   return {
     carregandoEspec,
-    loadingRegistro,
+    carregando,
     registrarProfissional,
     handleSubmit,
     registerForm,
