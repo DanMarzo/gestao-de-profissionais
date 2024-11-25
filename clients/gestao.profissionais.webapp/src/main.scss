@@ -47,10 +47,8 @@ $dropdown-link-active-color: #fff;
 $dropdown-link-active-bg: $primary;
 
 $viewport-height: 100vh;
-
 .layoutApp {
-  height: calc(#{$viewport-height} -  #{$font-size-base * $line-height-base + $nav-link-padding-y * 4});
+  height: calc(#{$viewport-height} - #{$font-size-base * $line-height-base + $nav-link-padding-y * 4});
 }
-
 
 @import "bootstrap";
