@@ -23,7 +23,7 @@ const TableListProfissionaisComponent = () => {
         </tr>
       </thead>
       <tbody>
-        {profissionais?.data.map((profissional, index) => {
+        {(profissionais?.data ?? []).map((profissional, index) => {
           return (
             <tr key={index}>
               <th scope="row">{profissional.id}</th>
