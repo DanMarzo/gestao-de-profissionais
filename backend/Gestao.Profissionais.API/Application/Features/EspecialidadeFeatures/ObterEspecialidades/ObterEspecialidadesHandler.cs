@@ -1,5 +1,5 @@
 ﻿using Gestao.Profissionais.API.Application.Contracts;
-using Gestao.Profissionais.API.Application.DTOs;
+using Gestao.Profissionais.API.Application.DTOs.EspecialidadeDTOs;
 
 namespace Gestao.Profissionais.API.Application.Features.EspecialidadeFeatures.ObterEspecialidades;
 

@@ -1,4 +1,4 @@
-﻿using Gestao.Profissionais.API.Application.DTOs;
+﻿using Gestao.Profissionais.API.Application.DTOs.EspecialidadeDTOs;
 using MediatR;
 
 namespace Gestao.Profissionais.API.Application.Features.EspecialidadeFeatures.ObterEspecialidades;
