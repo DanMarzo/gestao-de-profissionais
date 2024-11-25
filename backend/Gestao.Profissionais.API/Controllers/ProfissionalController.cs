@@ -1,6 +1,7 @@
 ﻿using Gestao.Profissionais.API.Application.DTOs.ProfissionalDTOs;
 using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.AtualizarProfissional;
 using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.ExcluirProfissional;
+using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.ListarProfissionais;
 using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.ProfissionalPorId;
 using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.RegistrarProfissional;
 using Microsoft.AspNetCore.Mvc;
@@ -43,8 +44,9 @@ public class ProfissionalController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> ObterTodos([FromQuery] int pagina, [FromQuery] int itens)
+    public async Task<IActionResult> Listar([FromQuery] int pagina, [FromQuery] int? itens)
     {
-        return Ok();
+        var responseList = await this.mediator.Send(new ListarProfissionaisRequest(pagina, itens));
+        return Ok(responseList);
     }
 }
