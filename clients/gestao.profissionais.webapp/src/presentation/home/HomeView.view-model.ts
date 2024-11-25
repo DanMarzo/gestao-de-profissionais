@@ -5,20 +5,32 @@ import { useSearchParams } from "react-router-dom";
 import { obterProfissionaisService } from "../../infra/services/obter-profissionais.service";
 import { toast } from "react-toastify";
 import { EspecialidadeContext } from "../../providers/Especialidade.context";
+import { EspecialidadeModel } from "../../models/especialidade.model";
 
 const HomeViewViewModel = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [listProfissionais, setListProfissionais] =
     useState<ResponseListDTO<ProfissionalModel> | null>();
   const [loading, setLoading] = useState(false);
-
   const { carregando: carregandoEsp, especialidades } =
     useContext(EspecialidadeContext);
 
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] =
+    useState<EspecialidadeModel | null>(null);
+
+  const handleSetEspecialidade = (especialidade: EspecialidadeModel | null) => {
+    const indice = obterIndicePagina();
+    setSearchParams({
+      indice: indice.toString(),
+      especialidade: especialidade ? especialidade!.id.toString() : "",
+    });
+    setEspecialidadeSelecionada(especialidade);
+  };
   const obterProfissionais = () => {
     const indice = obterIndicePagina();
+    const especialidadeId = obterEspecialidadeId();
     setLoading(true);
-    obterProfissionaisService(indice)
+    obterProfissionaisService(indice, especialidadeId)
       .then((res) => {
         if (!res.error) {
           setListProfissionais(res);
@@ -43,6 +55,11 @@ const HomeViewViewModel = () => {
     return Number.parseInt(indice);
   };
 
+  const obterEspecialidadeId = () => {
+    const especialidade = searchParams.get("especialidade");
+    if (!especialidade) return undefined;
+    return Number.parseInt(especialidade);
+  };
   const nextPage = () => {
     if (
       listProfissionais &&
@@ -70,6 +87,8 @@ const HomeViewViewModel = () => {
     nextPage,
     previousPage,
     carregandoEsp,
+    especialidadeSelecionada,
+    handleSetEspecialidade,
   };
 };
 
