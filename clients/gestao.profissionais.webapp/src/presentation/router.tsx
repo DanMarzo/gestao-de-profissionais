@@ -2,11 +2,16 @@ import { createBrowserRouter } from "react-router-dom";
 import HomeView from "./home/HomeView";
 import Layout from "./layout/Layout";
 import ProfissionalView from "./profissional/ProfissionalView";
+import { ProfissionalProvider } from "../providers/Profissional.context";
 
 const routes = createBrowserRouter([
   {
     path: "",
-    element: <Layout />,
+    element: (
+      <ProfissionalProvider>
+        <Layout />
+      </ProfissionalProvider>
+    ),
     children: [
       {
         path: "",
