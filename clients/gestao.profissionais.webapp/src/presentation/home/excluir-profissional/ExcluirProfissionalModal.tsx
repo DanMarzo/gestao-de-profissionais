@@ -1,21 +1,14 @@
 //import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
-import { ProfissionalModel } from "../../../models/profissional.model";
+import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
 import { useExcluirProssionalViewModel } from "./ExcluirProssionalModal.view-model";
-
-type Props = {
-  profissional: ProfissionalModel;
-};
 
 const ExcluirProfissionalModal = () => {
   //Carregar especialidades ao iniciar
-  const { handleModal, modalExcluirRef } = useExcluirProssionalViewModel();
+  const { handleModal, modalExcluirRef, profissionalParaExcluir } =
+    useExcluirProssionalViewModel();
 
   return (
     <>
-      <button onClick={() => handleModal(false)} className="dropdown-item">
-        Excluir
-      </button>
-      {/* Modal */}
       <div
         ref={modalExcluirRef}
         className="modal fade"
@@ -41,12 +34,16 @@ const ExcluirProfissionalModal = () => {
               ></button>
             </div>
             <div className="modal-body">
-              {/* Tem certeza que deseja excluir o profissional {profissional.nome}{" "}
-              (
-              {`${nomeTipoDocEspecialidadeEnum(
-                profissional.especialidade.tipoDocumento
-              )} ${profissional.numeroDocumento}`}
-              ? )? Essa ação não poderá ser desfeita! */}
+              {profissionalParaExcluir && (
+                <>
+                  Tem certeza que deseja excluir o profissional{" "}
+                  {profissionalParaExcluir!.nome} (
+                  {`${nomeTipoDocEspecialidadeEnum(
+                    profissionalParaExcluir!.especialidade.tipoDocumento
+                  )} ${profissionalParaExcluir!.numeroDocumento}`}
+                  )? Essa ação não poderá ser desfeita!
+                </>
+              )}
             </div>
             <div className="modal-footer">
               <button
