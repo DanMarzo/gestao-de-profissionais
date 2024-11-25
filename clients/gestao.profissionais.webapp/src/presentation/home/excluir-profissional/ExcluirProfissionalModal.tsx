@@ -1,6 +1,6 @@
-import { LoadingOutlined } from "@ant-design/icons";
 import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
 import { useExcluirProssionalViewModel } from "./ExcluirProssionalModal.view-model";
+import Carregando from "../../../shared/components/Carregando.component";
 
 const ExcluirProfissionalModal = () => {
   const {
@@ -38,27 +38,18 @@ const ExcluirProfissionalModal = () => {
               ></button>
             </div>
             <div className="modal-body">
-              {carregando ? (
-                <div className="d-flex justify-content-center align-items-center gap-2 ">
-                  <div className="d-flex align-items-center">
-                    <LoadingOutlined />
-                  </div>
-                  <div>Carregando...</div>
-                </div>
-              ) : (
-                <>
-                  {profissionalParaExcluir && (
-                    <>
-                      Tem certeza que deseja excluir o profissional{" "}
-                      {profissionalParaExcluir!.nome} (
-                      {`${nomeTipoDocEspecialidadeEnum(
-                        profissionalParaExcluir!.especialidade.tipoDocumento
-                      )} ${profissionalParaExcluir!.numeroDocumento}`}
-                      )? Essa ação não poderá ser desfeita!
-                    </>
-                  )}
-                </>
-              )}
+              <Carregando carregando={carregando}>
+                {profissionalParaExcluir && (
+                  <>
+                    Tem certeza que deseja excluir o profissional{" "}
+                    {profissionalParaExcluir!.nome} (
+                    {`${nomeTipoDocEspecialidadeEnum(
+                      profissionalParaExcluir!.especialidade.tipoDocumento
+                    )} ${profissionalParaExcluir!.numeroDocumento}`}
+                    )? Essa ação não poderá ser desfeita!
+                  </>
+                )}
+              </Carregando>
             </div>
             <div className="modal-footer">
               <button
