@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Gestao.Profissionais.API.Application.DTOs.EspecialidadeDTOs;
 
 namespace Gestao.Profissionais.API.Application.DTOs.ProfissionalDTOs;
 
@@ -12,6 +13,6 @@ public class ProfissionalDetalhesDTO
     public string Nome { get; set; }
     [JsonPropertyName("numeroDocumento")]
     public string NumeroDocumento { get; set; }
-    [JsonPropertyName("especialidadeId ")]
+    [JsonPropertyName("especialidade")]
     public EspecialidadeDTO Especialidade { get; set; }
 }
