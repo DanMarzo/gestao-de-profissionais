@@ -13,11 +13,10 @@ $theme-colors: (
   secondary: $secondary,
   warning: yellow,
   tertiary: #6c757d,
-  danger: $danger,
+  danger: $danger
 );
 
 // Configuracao para Paginacao
-
 //Cor da paginacao estiver em foco
 $pagination-focus-color: $primary;
 $pagination-focus-bg: transparent;
@@ -40,12 +39,18 @@ $pagination-hover-bg: $secondary;
 $dropdown-link-active-color: #fff;
 $dropdown-link-active-bg: #fff;
 
-
 //Item hover
 $dropdown-link-hover-bg: $secondary;
 $dropdown-link-hover-color: $primary;
 //Item ativo
-$dropdown-link-active-color:        #fff;
-$dropdown-link-active-bg:           $primary;
+$dropdown-link-active-color: #fff;
+$dropdown-link-active-bg: $primary;
+
+$viewport-height: 100vh;
+
+.layoutApp {
+  height: calc(#{$viewport-height} -  #{$font-size-base * $line-height-base + $nav-link-padding-y * 4});
+}
+
 
 @import "bootstrap";

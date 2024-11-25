@@ -4,7 +4,7 @@ const Layout = () => {
   return (
     <>
       <header>
-        <nav className="navbar navbar-expand-lg bg-primary">
+        <nav className="navbar bg-primary">
           <div className="container-fluid">
             <a className="navbar-brand text-white" href="#">
               Gestão de Profissionais
@@ -13,7 +13,9 @@ const Layout = () => {
           </div>
         </nav>
       </header>
-      <Outlet />
+      <div className="layoutApp">
+        <Outlet />
+      </div>
     </>
   );
 };

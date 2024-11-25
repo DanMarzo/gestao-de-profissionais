@@ -22,7 +22,7 @@ const HomeView = () => {
 
   return (
     <Suspense>
-      <main role="main" className="container-fluid p-4">
+      <main role="main" className="container-fluid p-4 overflow-auto h-100">
         <div className="row mb-4">
           <div className="col-6 p-0">
             <div className="dropdown">
