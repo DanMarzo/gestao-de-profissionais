@@ -19,6 +19,7 @@ const AtualizarProfissionalModal = () => {
 
   return (
     <>
+      <button className="dropdown-item">Editar</button>
       {/* Modal */}
       <div
         ref={modalRef}
@@ -144,4 +145,4 @@ const AtualizarProfissionalModal = () => {
   );
 };
 
-export default AtualizarProfissionalModal;
+export { AtualizarProfissionalModal };
