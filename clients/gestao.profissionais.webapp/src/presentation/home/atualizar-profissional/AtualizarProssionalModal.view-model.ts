@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
@@ -8,18 +7,7 @@ import { EspecialidadeContext } from "../../../providers/Especialidade.context";
 import { Modal } from "bootstrap";
 import { ProfissionalContext } from "../../../providers/Profissional.context";
 import { atualizarProfissionalService } from "../../../infra/services/atualizar-profissional.service";
-
-const formValidationSchema = yup.object().shape({
-  nome: yup
-    .string()
-    .required("Nome do profissional é obrigatorio")
-    .min(3, "Minimo 3 caracteres"),
-  numeroDocumento: yup
-    .string()
-    .required("Número do documento é obrigatorio.")
-    .min(3, "Minimo 3 caracteres"),
-  especialidadeId: yup.number().required(),
-});
+import { formProfissionalSchema } from "../../../models/profissional.model";
 
 const useAtualizarProssionalViewModel = () => {
   const {
@@ -27,9 +15,10 @@ const useAtualizarProssionalViewModel = () => {
     handleSubmit,
     setValue,
     formState: { errors: errorsForm },
-  } = useForm({ resolver: yupResolver(formValidationSchema) });
+  } = useForm({ resolver: yupResolver(formProfissionalSchema) });
   const { carregando: carregandoEspec, especialidades } =
     useContext(EspecialidadeContext);
+    
   const {
     profissionalParaAtualizar,
     obterProfissionais,

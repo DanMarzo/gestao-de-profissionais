@@ -5,9 +5,11 @@ import { excluirProfissionalService } from "../../../infra/services/excluir-prof
 import { toast } from "react-toastify";
 
 const useExcluirProssionalViewModel = () => {
-  const [carregando, setCarregando] = useState(false);
-
-  const { profissionalParaExcluir, handleProfissionalParaExcluir,obterProfissionais } = useContext(ProfissionalContext);
+  const {
+    profissionalParaExcluir,
+    handleProfissionalParaExcluir,
+    obterProfissionais,
+  } = useContext(ProfissionalContext);
 
   const modalExcluirRef = useRef(null);
   const [modal, setModal] = useState<Modal | null>(null);
@@ -18,9 +20,8 @@ const useExcluirProssionalViewModel = () => {
       modal!.hide();
     }
   };
-
-  
- const excluirProfissional = () => {
+  const [carregando, setCarregando] = useState(false);
+  const excluirProfissional = () => {
     setCarregando(true);
     excluirProfissionalService(profissionalParaExcluir!.id!)
       .then((res) => {
@@ -60,7 +61,8 @@ const useExcluirProssionalViewModel = () => {
     carregando,
     modalExcluirRef,
     handleModal,
-    profissionalParaExcluir,excluirProfissional
+    profissionalParaExcluir,
+    excluirProfissional,
   };
 };
 
