@@ -1,6 +1,8 @@
 using Gestao.Profissionais.API.Application;
+using Gestao.Profissionais.API.Application.Middleware;
 using Gestao.Profissionais.API.Infra;
 using Gestao.Profissionais.API.Infra.Database;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfraServices(builder.Configuration);
 builder.Services.AddApplicationServices();
+builder.Services.AddExceptionHandler<ExceptionGlobalHandler>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", buider => buider
@@ -31,6 +34,21 @@ if (app.Environment.IsDevelopment())
 await app.ApplyDatabaseConfig();
 app.UseAuthorization();
 
+app.MapGet("/", async () =>
+{
+    try
+    {
+        using var scope = app.Services.CreateScope();
+        var services = scope.ServiceProvider;
+        var context = services.GetRequiredService<ApplicationDataContext>();
+        var especialidades = await context.Set<EspecialidadeEntity>().ToListAsync();
+        return Results.Ok(new { status = especialidades.Any(), message = !especialidades.Any() ? "Nenhuma especialidade localizada" : "" });
+    }
+    catch (Exception ex)
+    {
+        return Results.BadRequest(new { status = false, message = ex.Message });
+    }
+});
 app.MapControllers();
 app.UseCors("CorsPolicy");
 app.Run();
