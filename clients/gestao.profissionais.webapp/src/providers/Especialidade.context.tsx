@@ -13,9 +13,9 @@ const EspecialidadeContext = createContext<EspecialidadesContextProps>(
 );
 
 const EspecialidadeProvider = ({ children }: PropsWithChildren) => {
-  const [especialidades, setEspecialidades] = useState<
-    Array<EspecialidadeModel>
-  >([]);
+  const [especialidades, setEspecialidades] = useState<EspecialidadeModel[]>(
+    []
+  );
   const [carregando, setCarregando] = useState(false);
 
   const obterEspecialidades = async () => {
