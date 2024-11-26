@@ -18,7 +18,7 @@ set PATH=%PATH%
 cd /d "%script_dir%"
 
 :: Caminho do diretório do projeto .NET
-cd /d "%script_dir%backend/"
+cd /d "./backend/"
 echo Iniciando build do projeto .NET...
 dotnet publish -c Release -o ./release_api
 if %ERRORLEVEL% neq 0 (
