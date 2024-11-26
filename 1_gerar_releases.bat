@@ -10,7 +10,7 @@ if %ERRORLEVEL% neq 0 (
 )
 
 :: Caminho do diretório do projeto Node.js
-if not exist "./clients/server.webapp/dist" mkdir "./clients/server.webapp/dist"
+if not exist "./clients/gestao.profissionais.webapp/dist" mkdir "./clients/gestao.profissionais.webapp/dist"
 cd "../clients/gestao.profissionais.webapp"
 echo Instalando dependências do Node.js...
 npm install && npm run build
