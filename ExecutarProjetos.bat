@@ -30,7 +30,7 @@ cd ".."
 :: Caminho do diretório do projeto Node.js
 if not exist "./clients/gestao.profissionais.webapp/dist" mkdir "./clients/gestao.profissionais.webapp/dist"
 cd "./clients/gestao.profissionais.webapp"
-echo Instalando dependencias do React...
+echo Instalando dependencias da Aplicacao React...
 call npm install 
 call npm run build
 if %ERRORLEVEL% neq 0 (
@@ -52,17 +52,15 @@ if %ERRORLEVEL% neq 0 (
 )
 
 cd ".."
-:: Abrir Yarn Dev para o projeto 1
 set dir_webapp=./clients/server.webapp
-echo Instalar dependencias do node para express
+echo Instalar dependencias do node para express executar servidor para React
 start cmd /k "cd /d %dir_webapp% && npm install && npm run start"
 
-:: Abrir Dotnet Run para o projeto .NET
 set dir_webapi=./backend/release_api
 set nome_exe_webapi=Gestao.Profissionais.API.exe
+echo Executar WebAPI
 start cmd /k "cd /d %dir_webapi% && dotnet %nome_exe_webapi%"
 
-:: Mensagem para o usuário
 echo Conclusão dos builds com sucesso!
 pause
 endlocal
