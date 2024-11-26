@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+// import react from "@vitejs/plugin-react-swc";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -19,5 +19,5 @@ export default defineConfig({
       "~bootstrap": path.resolve(__dirname, "node_modules/bootstrap"),
     },
   },
-  plugins: [react()],
+  plugins: [],
 });
