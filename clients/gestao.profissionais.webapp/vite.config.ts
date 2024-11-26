@@ -9,7 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // https://vite.dev/config/
 export default defineConfig({
   build: {
-    outDir: "./release_webapp",
+    outDir: "./dist",
   },
   root: path.resolve(__dirname, "./"),
   server: { port: 5124 },

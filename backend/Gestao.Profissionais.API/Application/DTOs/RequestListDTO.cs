@@ -9,11 +9,11 @@ public class RequestListDTO
     public RequestListDTO(int indice, int? qtde)
     {
         this.Indice = indice;
-        this.Qtde = qtde ?? 10;
+        this.Qtde = qtde ?? 3;
     }
 
     public int Indice { get; }
-    public int Qtde { get; } = 10;
+    public int Qtde { get; } = 3;
 
     public int CalcularItensAPular()
     {
