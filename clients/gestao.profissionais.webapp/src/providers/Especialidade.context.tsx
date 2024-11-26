@@ -22,19 +22,10 @@ const EspecialidadeProvider = ({ children }: PropsWithChildren) => {
     setCarregando(true);
     obterEspecialidadesService()
       .then((result) => {
-        if (result.error) {
-          // toast("Não foi possível obter todas especialidades.", {
-          //   type: "warning",
-          // });
-        } else {
-          setEspecialidades(result.data ?? []);
-        }
+        setEspecialidades(result.data ?? []);
       })
       .catch((err) => {
         console.log(err);
-        // toast("Ocorreu um erro ao obter as especialidades.", {
-        //   type: "error",
-        // });
       })
       .finally(() => setCarregando(false));
   };

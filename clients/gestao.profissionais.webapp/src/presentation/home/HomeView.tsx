@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { HomeViewViewModel } from "./HomeView.view-model";
 import Carregando from "../../shared/components/Carregando.component";
 import Alert from "../../shared/components/Alert.component";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const TableProfissionais = lazy(
   () => import("./components/TableListProfissionais.component")
@@ -17,6 +18,7 @@ const HomeView = () => {
     nextPage,
     previousPage,
     especialidades,
+    carregandoEsp,
     especialidadeSelecionada,
     handleSetEspecialidade,
     setSearchParams,
@@ -24,7 +26,7 @@ const HomeView = () => {
   } = HomeViewViewModel();
 
   return (
-    <Suspense>
+    <Suspense fallback={<LoadingOutlined />}>
       <main role="main" className="container-fluid p-4 overflow-auto h-100">
         <div className="row mb-4 justify-content-between g-2">
           <div className="col-xs-12 col-md-4 col-lg-3 col-xl-2 p-0  justify-content-center justify-content-sm-start">
@@ -51,18 +53,20 @@ const HomeView = () => {
                     Todas
                   </button>
                 </li>
-                {especialidades.map((item, index) => {
-                  return (
-                    <li key={index}>
-                      <button
-                        onClick={() => handleSetEspecialidade(item)}
-                        className="dropdown-item"
-                      >
-                        {item.nome}
-                      </button>
-                    </li>
-                  );
-                })}
+                <Carregando carregando={carregandoEsp}>
+                  {especialidades.map((item, index) => {
+                    return (
+                      <li key={index}>
+                        <button
+                          onClick={() => handleSetEspecialidade(item)}
+                          className="dropdown-item"
+                        >
+                          {item.nome}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </Carregando>
               </ul>
             </div>
           </div>

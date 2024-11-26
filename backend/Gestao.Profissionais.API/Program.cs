@@ -18,7 +18,7 @@ builder.Services.AddExceptionHandler<ExceptionGlobalHandler>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", buider => buider
-        .WithOrigins("http://localhost:5124")
+        .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader());
 });
