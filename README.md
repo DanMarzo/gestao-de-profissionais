@@ -35,7 +35,7 @@
 > npm run dev
 
 - Execução em modo Preview
-> npm run build
+> npm run build\
 > npm run preview
 
 #### Observações
