@@ -39,12 +39,9 @@
 > npm run preview
 
 #### Observações
-A web aplication será executada na porta 5124
+A aplicação React será executada na porta 5124
 
 # Execução por SCRIPT (Windows)
-Em caso do ambiente de execução for Windows, está disponível dois scripts para compilar e executar os projetos.
-
-- 1º Gerar release (1_gerar_release.bat)
-Script responsável por gerar a versão de produção da WebAPI, e tambem do aplicativo React.
-- 2º Executar projetos (2_executar_projetos.bat)
-Script responsável por executar os projetos. Obs: ao utilizar esse script, ele irá executar um servidor em Node com Express para o aplicativo React.
+Em caso da execução ser realizada no Windows, está disponivel um script para compilação e execução dos projetos, no caso do aplicativo em React, o mesmo utiliza de um servidor em Express(Nodejs)
+- Nome do executavel
+> ExecutarProjetos.bat
