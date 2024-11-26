@@ -1,11 +1,15 @@
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import { ProfissionalModel } from "../models/profissional.model";
 import { obterProfissionaisService } from "../infra/services/obter-profissionais.service";
 import { useSearchParams } from "react-router-dom";
 import { ResponseListDTO } from "../infra/services/response/response-list.dto";
 
-interface ProfissionalContextProps {
+type AlertType = {
+  type: "success" | "danger";
+  message: string;
+};
+
+type ProfissionalContextProps = {
   profissionais: ResponseListDTO<ProfissionalModel> | null;
   carregando: boolean;
   obterProfissionais: () => void;
@@ -21,13 +25,16 @@ interface ProfissionalContextProps {
   handleProfissionalParaAtualizar: (
     profissional: ProfissionalModel | null
   ) => void;
-}
+  alertType: AlertType | null;
+  setAlert: (alert: AlertType | null) => void;
+};
 
 const ProfissionalContext = createContext<ProfissionalContextProps>(
   {} as ProfissionalContextProps
 );
 
 const ProfissionalProvider = ({ children }: PropsWithChildren) => {
+  const [alertType, setAlertType] = useState<null | AlertType>(null);
   const [profissionais, setProfissionais] =
     useState<ResponseListDTO<ProfissionalModel> | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -50,17 +57,15 @@ const ProfissionalProvider = ({ children }: PropsWithChildren) => {
       })
       .catch((err) => {
         console.log(err);
-        toast("Não foi possível carregar profissionais.", { type: "error" });
+        //toast("Não foi possível carregar profissionais.", { type: "error" });
         setProfissionais(null);
       })
       .finally(() => setCarregando(false));
   };
 
-  useEffect(() => {
-    obterProfissionais();
-    return () => {};
-  }, [searchParams]);
-
+  const setAlert = (alert: AlertType | null) => {
+    setAlertType(alert);
+  };
   const obterIndicePagina = () => {
     const indice = searchParams.get("indice");
     if (!indice) return 1;
@@ -108,9 +113,14 @@ const ProfissionalProvider = ({ children }: PropsWithChildren) => {
     setProfissionalParaAtualizar(profissional);
   };
 
+  useEffect(() => {
+    obterProfissionais();
+    return () => {};
+  }, [searchParams]);
   return (
     <ProfissionalContext.Provider
       value={{
+        setAlert,
         handleProfissionalParaAtualizar,
         handleProfissionalParaExcluir,
         handleIndiceEspecialidade,
@@ -122,6 +132,7 @@ const ProfissionalProvider = ({ children }: PropsWithChildren) => {
         previousPage,
         profissionalParaAtualizar,
         profissionalParaExcluir,
+        alertType,
       }}
     >
       {children}

@@ -1,7 +1,6 @@
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
 import { EspecialidadeModel } from "../models/especialidade.model";
 import { obterEspecialidadesService } from "../infra/services/obter-especialidades.service";
-import { toast } from "react-toastify";
 
 interface EspecialidadesContextProps {
   especialidades: Array<EspecialidadeModel>;
@@ -24,18 +23,18 @@ const EspecialidadeProvider = ({ children }: PropsWithChildren) => {
     obterEspecialidadesService()
       .then((result) => {
         if (result.error) {
-          toast("Não foi possível obter todas especialidades.", {
-            type: "warning",
-          });
+          // toast("Não foi possível obter todas especialidades.", {
+          //   type: "warning",
+          // });
         } else {
           setEspecialidades(result.data ?? []);
         }
       })
       .catch((err) => {
         console.log(err);
-        toast("Ocorreu um erro ao obter as especialidades.", {
-          type: "error",
-        });
+        // toast("Ocorreu um erro ao obter as especialidades.", {
+        //   type: "error",
+        // });
       })
       .finally(() => setCarregando(false));
   };

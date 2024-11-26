@@ -2,20 +2,22 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
-import { toast } from "react-toastify";
 import { registrarProfissionalService } from "../../../infra/services/registrar-profissional.service";
 import { EspecialidadeContext } from "../../../providers/Especialidade.context";
 import { Modal } from "bootstrap";
 import { formProfissionalSchema } from "../../../models/profissional.model";
+import { ProfissionalContext } from "../../../providers/Profissional.context";
 
 const useRegistrarProssionalViewModel = () => {
   const {
     register: registerForm,
-    handleSubmit,reset,
+    handleSubmit,
+    reset,
     formState: { errors: errorsForm },
   } = useForm({ resolver: yupResolver(formProfissionalSchema) });
   const { carregando: carregandoEspec, especialidades } =
     useContext(EspecialidadeContext);
+  const { setAlert, obterProfissionais } = useContext(ProfissionalContext);
 
   const [carregando, setCarregando] = useState(false);
 
@@ -29,22 +31,27 @@ const useRegistrarProssionalViewModel = () => {
     registrarProfissionalService(values)
       .then((res) => {
         if (res.error) {
-          toast("Não foi possível registrar profissional.", {
-            type: "warning",
+          setAlert({
+            message: "Houve um erro ao registrar o profissional!.",
+            type: "danger",
           });
         } else {
-          toast("Profissional registrado.", { type: "success" });
+          setAlert({
+            message: "Profissional registrado com sucesso!",
+            type: "success",
+          });
+          obterProfissionais();
         }
       })
       .catch(() => {
-        
-        toast("Ocorreu um erro ao registrar profissional.", {
-          type: "error",
+        setAlert({
+          message: "Houve um erro ao registrar o profissional!.",
+          type: "danger",
         });
       })
       .finally(() => {
-        reset()
-        setEspecialidadeSelect(null)
+        reset();
+        setEspecialidadeSelect(null);
         modal?.hide();
         setCarregando(false);
       });

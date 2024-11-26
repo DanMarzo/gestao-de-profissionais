@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 
 const baseURL = import.meta.env.VITE_URL_API;
 
-const http = axios.create({ baseURL });
+const http = axios.create({ baseURL, timeout: 15000 });
 http.interceptors.response.use(
   function (response) {
     return Promise.resolve(response);

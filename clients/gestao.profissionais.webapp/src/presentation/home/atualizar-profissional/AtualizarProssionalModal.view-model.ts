@@ -2,7 +2,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { nomeTipoDocEspecialidadeEnum } from "../../../models/especialidade.model";
-import { toast } from "react-toastify";
 import { EspecialidadeContext } from "../../../providers/Especialidade.context";
 import { Modal } from "bootstrap";
 import { ProfissionalContext } from "../../../providers/Profissional.context";
@@ -18,8 +17,9 @@ const useAtualizarProssionalViewModel = () => {
   } = useForm({ resolver: yupResolver(formProfissionalSchema) });
   const { carregando: carregandoEspec, especialidades } =
     useContext(EspecialidadeContext);
-    
+
   const {
+    setAlert,
     profissionalParaAtualizar,
     obterProfissionais,
     handleProfissionalParaAtualizar,
@@ -47,17 +47,22 @@ const useAtualizarProssionalViewModel = () => {
     atualizarProfissionalService(profissionalParaAtualizar!.id!, values)
       .then((res) => {
         if (!res.error) {
-          toast(`${res.data?.nome} atualizado com sucesso!`, {
+          setAlert({
+            message: `Profissional ${res.data?.nome} atualizado com sucesso!`,
             type: "success",
           });
           obterProfissionais();
         } else
-          toast("Não foi possível atualizar o profissional", {
-            type: "warning",
+          setAlert({
+            message: `Houve um erro ao atualizar o profissional ${profissionalParaAtualizar?.nome ?? ""}!.`,
+            type: "danger",
           });
       })
       .catch(() => {
-        toast("Não foi possível atualizar o profissional", { type: "error" });
+        setAlert({
+          message: `Houve um erro ao atualizar o profissional ${profissionalParaAtualizar?.nome ?? ""}!.`,
+          type: "danger",
+        });
       })
       .finally(() => {
         modal?.hide();

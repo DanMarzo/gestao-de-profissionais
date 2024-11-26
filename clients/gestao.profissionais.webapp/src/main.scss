@@ -9,11 +9,13 @@ $primary: #015958;
 $secondary: #01595840;
 
 $theme-colors: (
+  success: $primary,
   primary: $primary,
   secondary: $secondary,
   warning: yellow,
   tertiary: #6c757d,
   danger: $danger
+  
 );
 
 // Configuracao para Paginacao
@@ -46,9 +48,21 @@ $dropdown-link-hover-color: $primary;
 $dropdown-link-active-color: #fff;
 $dropdown-link-active-bg: $primary;
 
+$alert-success: $primary;
+
+
 $viewport-height: 100vh;
 .layoutApp {
   height: calc(#{$viewport-height} - #{$font-size-base * $line-height-base + $nav-link-padding-y * 4});
 }
+
+// @each $state in map-keys($theme-colors) {
+//   .alert-#{$state} {
+//     --#{$prefix}alert-color: var(--#{$prefix}#{$state}-text-emphasis);
+//     --#{$prefix}alert-bg: var(--#{$prefix}#{$state}-bg-subtle);
+//     --#{$prefix}alert-border-color: var(--#{$prefix}#{$state}-border-subtle);
+//     --#{$prefix}alert-link-color: var(--#{$prefix}#{$state}-text-emphasis);
+//   }
+// }
 
 @import "bootstrap";

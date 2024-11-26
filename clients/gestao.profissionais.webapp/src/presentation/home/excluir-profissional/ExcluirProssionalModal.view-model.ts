@@ -2,13 +2,13 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Modal } from "bootstrap";
 import { ProfissionalContext } from "../../../providers/Profissional.context";
 import { excluirProfissionalService } from "../../../infra/services/excluir-profissional.service";
-import { toast } from "react-toastify";
 
 const useExcluirProssionalViewModel = () => {
   const {
     profissionalParaExcluir,
     handleProfissionalParaExcluir,
     obterProfissionais,
+    setAlert,
   } = useContext(ProfissionalContext);
 
   const modalExcluirRef = useRef(null);
@@ -26,17 +26,26 @@ const useExcluirProssionalViewModel = () => {
     excluirProfissionalService(profissionalParaExcluir!.id!)
       .then((res) => {
         if (res) {
-          toast(`${profissionalParaExcluir?.nome} excluído com sucesso!`, {
+          setAlert({
+            message: `Profissional ${profissionalParaExcluir?.nome} excluído com sucesso!`,
             type: "success",
           });
           obterProfissionais();
         } else
-          toast("Não foi possível excluir o profissional", {
-            type: "warning",
+          setAlert({
+            message: `Houve um erro ao excluir o profissional ${
+              profissionalParaExcluir?.nome ?? ""
+            }!.`,
+            type: "danger",
           });
       })
       .catch(() => {
-        toast("Não foi possível excluir o profissional", { type: "error" });
+        setAlert({
+          message: `Houve um erro ao excluir o profissional ${
+              profissionalParaExcluir?.nome ?? ""
+            }!.`,
+          type: "danger",
+        });
       })
       .finally(() => {
         modal?.hide();

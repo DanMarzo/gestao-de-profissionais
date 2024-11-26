@@ -22,7 +22,7 @@ const RegistrarProfissionalModal = () => {
     <>
       <button
         onClick={() => handleModal(false)}
-        className="btn btn-primary d-flex gap-2"
+        className="btn btn-primary d-flex gap-2 w-100 justify-content-center"
       >
         {carregandoEspec ? (
           <div>
