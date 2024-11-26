@@ -12,7 +12,7 @@ if %ERRORLEVEL% neq 0 (
 :: Caminho do diretório do projeto Node.js
 cd "../clients/gestao.profissionais.webapp"
 echo Instalando dependências do Node.js...
-npm install && npm run build && cd "../.."
+npm install && npm run build
 if %ERRORLEVEL% neq 0 (
     echo Erro ao instalar dependências do Node.js.
     pause
