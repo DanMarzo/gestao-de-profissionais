@@ -18,7 +18,7 @@ set PATH=%PATH%
 cd /d "%script_dir%"
 
 :: Caminho do diretório do projeto .NET
-cd /d "%script_dir%backend/"
+cd /d "./backend/"
 echo Iniciando build do projeto .NET...
 dotnet publish -c Release -o ./release_api
 if %ERRORLEVEL% neq 0 (
@@ -27,8 +27,7 @@ if %ERRORLEVEL% neq 0 (
     exit /b %ERRORLEVEL%
 )
 cd ".."
-:: Caminho do diretório do projeto Node.js
-if not exist "./clients/gestao.profissionais.webapp/dist" mkdir "./clients/gestao.profissionais.webapp/dist"
+
 cd "./clients/gestao.profissionais.webapp"
 echo Instalando dependencias da Aplicacao React...
 call npm install 
