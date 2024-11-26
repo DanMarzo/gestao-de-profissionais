@@ -37,7 +37,7 @@ const HomeView = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Filtrar por Especialidade:
+                Filtrar por Especialidade:{" "}
                 {`${especialidadeSelecionada?.nome ?? "Todas"}`}
               </button>
               <ul className="dropdown-menu">
