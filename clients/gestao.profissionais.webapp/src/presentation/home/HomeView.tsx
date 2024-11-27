@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react";
 import { HomeViewViewModel } from "./HomeView.view-model";
 import Carregando from "../../shared/components/Carregando.component";
-import Alert from "../../shared/components/Alert.component";
 import { LoadingOutlined } from "@ant-design/icons";
+import Alert from "./components/Alert.component";
 
 const TableProfissionais = lazy(
   () => import("./components/TableListProfissionais.component")
