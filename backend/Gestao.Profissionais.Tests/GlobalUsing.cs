@@ -11,3 +11,4 @@ global using Gestao.Profissionais.Domain.Entities.Enums;
 global using Gestao.Profissionais.Application.Features.ProfissionalFeatures.RegistrarProfissional;
 global using Gestao.Profissionais.Application.DTOs;
 global using Gestao.Profissionais.Application.Exceptions;
+global using Gestao.Profissionais.Application.Features.ProfissionalFeatures.ListarProfissionais;
