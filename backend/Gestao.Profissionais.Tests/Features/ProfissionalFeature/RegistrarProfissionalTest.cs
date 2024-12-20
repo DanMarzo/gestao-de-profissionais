@@ -6,7 +6,7 @@ public class RegistrarProfissionalTest
     private async Task ObterRepository()
     {
         var dbContextOptions = new DbContextOptionsBuilder<ApplicationDataContext>()
-          .UseInMemoryDatabase(databaseName: "ProfissionalDb") // Use um banco de dados em memória
+          .UseInMemoryDatabase(databaseName: "RegistrarProfissionalTestDb") // Use um banco de dados em memória
           .Options;
         var context = new ApplicationDataContext(dbContextOptions);
         this.Repository ??= new Repository(context);
