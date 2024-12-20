@@ -26,7 +26,8 @@ if (app.Environment.IsDevelopment())
 }
 
 await app.AutoMigrate();
-await app.ApplyDefaultEntities();
+var contentFile = File.ReadAllText("./default_entities_especialidades.json");
+await app.ApplyDefaultEntities(contentFile);
 app.UseAuthorization();
 
 app.MapGet("/", async () =>

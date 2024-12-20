@@ -1,5 +1,4 @@
-﻿
-namespace Gestao.Profissionais.Application;
+﻿namespace Gestao.Profissionais.Application;
 
 public static class ApplyInjectApplication
 {
@@ -9,14 +8,14 @@ public static class ApplyInjectApplication
         services.AddMediatR(x => x.RegisterServicesFromAssemblies(typeof(ApplyInjectApplication).Assembly));
         return services;
     }
-    public async static Task ApplyDefaultEntities(this WebApplication app)
+    public async static Task ApplyDefaultEntities(this WebApplication app, string contentFile)
     {
         using var scope = app.Services.CreateScope();
         var services = scope.ServiceProvider;
         var loggerFactory = services.GetRequiredService<ILoggerFactory>();
         var repository = services.GetRequiredService<IRepository>();
 
-        var contentFile = File.ReadAllText("./default_entities_especialidades.json");
+        
         var listaEspecialidades = JsonSerializer.Deserialize<IEnumerable<EspecialidadeEntity>>(contentFile) ?? [];
 
         foreach (var especialidade in listaEspecialidades)

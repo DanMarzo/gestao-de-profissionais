@@ -7,13 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Include="default_entities_especialidades.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="13.0.1" />
 		<PackageReference Include="MediatR" Version="12.4.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.Middleware" Version="8.10.0" />
@@ -38,11 +31,5 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Core\Gestao.Profissionais.Domain\Gestao.Profissionais.Domain.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<Content CopyToOutputDirectory="Always" Include="./default_entities_especialidades.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-		</Content>
 	</ItemGroup>
 </Project>

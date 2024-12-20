@@ -27,5 +27,10 @@
 	  <ProjectReference Include="..\Core\Gestao.Profissionais.Infra\Gestao.Profissionais.Infra.csproj" />
 	  <ProjectReference Include="..\Gestao.Profissionais.Application\Gestao.Profissionais.Application.csproj" />
 	</ItemGroup>
-
+	<ItemGroup>
+		<Content CopyToOutputDirectory="Always" Include="./default_entities_especialidades.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
 </Project>
