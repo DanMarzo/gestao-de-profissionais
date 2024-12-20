@@ -5,8 +5,10 @@ public class ListarProfissionaisRequest : RequestListDTO, IRequest<ResponseListD
     public ListarProfissionaisRequest(int indice) : base(indice) { }
     public ListarProfissionaisRequest(int indice, int? qtde, long? especialidadeId) : base(indice, qtde)
     {
-        EspecialidadeId = especialidadeId;
+        this.EspecialidadeId = especialidadeId;
     }
 
     public long? EspecialidadeId { get; }
+
+    public bool IsInvalidIndex() => this.Indice < 1;
 }

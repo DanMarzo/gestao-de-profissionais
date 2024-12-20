@@ -14,6 +14,9 @@ public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisReq
 
     public async Task<ResponseListDTO<ProfissionalDetalhesDTO>> Handle(ListarProfissionaisRequest request, CancellationToken cancellationToken)
     {
+        if (request.IsInvalidIndex())
+            throw new ValidateException($"Indice {request.Indice} é inválido");
+
         int totalItens = request.EspecialidadeId is not null ?
             await repository.CountAsync<ProfissionalEntity>(where: x => x.EspecialidadeId == request.EspecialidadeId)
             : await repository.CountAsync<ProfissionalEntity>();
