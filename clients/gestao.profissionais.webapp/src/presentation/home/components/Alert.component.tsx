@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { ProfissionalContext } from "../../providers/Profissional.context";
+import { ProfissionalContext } from "../../../providers/Profissional.context";
 
 const Alert = () => {
   const { alertType } = useContext(ProfissionalContext);

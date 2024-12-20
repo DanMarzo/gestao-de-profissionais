@@ -1,12 +1,4 @@
-﻿using Gestao.Profissionais.API.Application.DTOs.ProfissionalDTOs;
-using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.AtualizarProfissional;
-using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.ExcluirProfissional;
-using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.ListarProfissionais;
-using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.ProfissionalPorId;
-using Gestao.Profissionais.API.Application.Features.ProfissionalFeatures.RegistrarProfissional;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Gestao.Profissionais.API.Controllers;
+﻿namespace Gestao.Profissionais.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

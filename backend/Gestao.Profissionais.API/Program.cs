@@ -1,9 +1,3 @@
-using Gestao.Profissionais.API.Application;
-using Gestao.Profissionais.API.Application.Middleware;
-using Gestao.Profissionais.API.Infra;
-using Gestao.Profissionais.API.Infra.Database;
-using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -31,7 +25,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-await app.ApplyDatabaseConfig();
+await app.AutoMigrate();
+await app.ApplyDefaultEntities();
 app.UseAuthorization();
 
 app.MapGet("/", async () =>
