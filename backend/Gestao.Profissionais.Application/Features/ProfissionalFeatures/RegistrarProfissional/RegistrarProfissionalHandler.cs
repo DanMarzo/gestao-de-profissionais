@@ -12,6 +12,9 @@ public class RegistrarProfissionalHandler : IRequestHandler<RegistrarProfissiona
 
     public async Task<ResponseCreateAPIDTO<long>> Handle(RegistrarProfissionalRequest request, CancellationToken cancellationToken)
     {
+        if (request.EspecialidadeId == 0)
+            throw new ValidateException($"Especialidade Id {request.EspecialidadeId} é inválido!");
+
         var especialidadeExiste = await repository.EntityExists<EspecialidadeEntity>(x => x.Id == request.EspecialidadeId);
         if (!especialidadeExiste)
             throw new ValidateException($"Especialidade Id {request.EspecialidadeId} informada não localizada!");
