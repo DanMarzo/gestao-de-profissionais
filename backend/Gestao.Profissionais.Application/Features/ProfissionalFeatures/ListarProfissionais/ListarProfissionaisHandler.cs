@@ -1,3 +1,5 @@
+﻿using System.Collections.Generic;
+
 ﻿namespace Gestao.Profissionais.Application.Features.ProfissionalFeatures.ListarProfissionais;
 
 public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisRequest, ResponseListDTO<ProfissionalDetalhesDTO>>
@@ -15,17 +17,16 @@ public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisReq
     public async Task<ResponseListDTO<ProfissionalDetalhesDTO>> Handle(ListarProfissionaisRequest request, CancellationToken cancellationToken)
     {
         if (request.IsInvalidIndex())
-            throw new ValidateException($"Indice {request.Indice} é inválido");
+            throw new ValidateException($"Indice {request.Indice} é inválido.");
 
-        int totalItens = request.EspecialidadeId is not null ?
-            await repository.CountAsync<ProfissionalEntity>(where: x => x.EspecialidadeId == request.EspecialidadeId)
-            : await repository.CountAsync<ProfissionalEntity>();
+        if (request.QtdeNegativa())
+            throw new ValidateException($"Quantidade de itens da busca não pode ser negativo {request.Indice}.");
 
-        var result = new ResponseListDTO<ProfissionalDetalhesDTO>(request, totalItens);
-        if (totalItens == 0)
-            return result;
-        //Para melhor visualizacao foi utilizado 'IF ELSE'
-        IEnumerable<ProfissionalEntity> profissionais = [];
+        if (request.QtdeMaior20())
+            throw new ValidateException($"Quantidade de itens da busca não pode ser superior a 20 - Qtde informada {request.Indice}.");
+
+        var totalItens = 0;
+        List<Expression<Func<ProfissionalEntity, object>>> include = [];
         if (request.EspecialidadeId is not null)
         {
             profissionais = await repository.ListEntities<ProfissionalEntity>(
