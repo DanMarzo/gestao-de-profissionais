@@ -32,11 +32,18 @@ public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisReq
             include = [inc => inc.Especialidade];
         }
         else
-        {
-            profissionais = await repository.ListEntities<ProfissionalEntity>(
+            totalItens = await this.repository.CountAsync<ProfissionalEntity>();
+
+        var result = new ResponseListDTO<ProfissionalDetalhesDTO>(request, totalItens);
+        if (totalItens == 0)
+            return result;
+
+        var profissionais = await
+            this.repository
+            .ListEntities<ProfissionalEntity>(
                 request,
-                includes: [inc => inc.Especialidade]);
-        }
+                includes: include);
+
 
         var profissionaisDTO = mapper.Map<IEnumerable<ProfissionalDetalhesDTO>>(profissionais);
         result.Data = profissionaisDTO;
