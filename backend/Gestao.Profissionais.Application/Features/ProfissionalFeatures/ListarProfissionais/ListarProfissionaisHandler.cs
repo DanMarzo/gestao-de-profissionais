@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Logging;
 
-﻿namespace Gestao.Profissionais.Application.Features.ProfissionalFeatures.ListarProfissionais;
+namespace Gestao.Profissionais.Application.Features.ProfissionalFeatures.ListarProfissionais;
 
 public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisRequest, ResponseListDTO<ProfissionalDetalhesDTO>>
 {
