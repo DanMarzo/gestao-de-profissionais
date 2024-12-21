@@ -47,6 +47,7 @@ public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisReq
 
         var profissionaisDTO = mapper.Map<IEnumerable<ProfissionalDetalhesDTO>>(profissionais);
         result.Data = profissionaisDTO;
+        this.logger.LogInformation($"Response {JsonSerializer.Serialize(result)}");
         return result;
     }
 }
