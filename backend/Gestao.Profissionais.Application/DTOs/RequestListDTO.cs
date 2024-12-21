@@ -4,12 +4,12 @@ public class RequestListDTO
 {
     public RequestListDTO(int indice)
     {
-        Indice = indice;
+        this.Indice = indice;
     }
     public RequestListDTO(int indice, int? qtde)
     {
-        Indice = indice;
-        Qtde = qtde ?? 3;
+        this.Indice = indice;
+        this.Qtde = qtde ?? 3;
     }
 
     public int Indice { get; }
@@ -21,4 +21,6 @@ public class RequestListDTO
         return pular;
     }
     public bool IsInvalidIndex() => this.Indice < 1;
+    public bool QtdeNegativa() => this.Qtde < 0;
+    public bool QtdeMaior20() => this.Qtde > 20;
 }
