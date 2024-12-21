@@ -10,5 +10,5 @@ public class ListarProfissionaisRequest : RequestListDTO, IRequest<ResponseListD
 
     public long? EspecialidadeId { get; }
 
-    public bool IsInvalidIndex() => this.Indice < 1;
+    
 }

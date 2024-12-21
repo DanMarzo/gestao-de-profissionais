@@ -20,4 +20,5 @@ public class RequestListDTO
         int pular = (Indice - 1) * Qtde;
         return pular;
     }
+    public bool IsInvalidIndex() => this.Indice < 1;
 }
