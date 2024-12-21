@@ -12,3 +12,4 @@ global using Gestao.Profissionais.Application.Features.ProfissionalFeatures.Regi
 global using Gestao.Profissionais.Application.DTOs;
 global using Gestao.Profissionais.Application.Exceptions;
 global using Gestao.Profissionais.Application.Features.ProfissionalFeatures.ListarProfissionais;
+global using Gestao.Profissionais.Application.DTOs.ProfissionalDTOs;

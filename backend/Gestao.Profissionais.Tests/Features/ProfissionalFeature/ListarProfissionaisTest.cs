@@ -32,4 +32,96 @@ public class ListarProfissionaisTest
             await handler.Handle(request, new CancellationToken());
         });
     }
+    [Fact]
+    public async void ObterProfissionaisComQtdeMaior20()
+    {
+        await this.ObterRepository();
+        var mockLogger = new Mock<ILogger<ListarProfissionaisHandler>>();
+
+        var profissionalProfile = new ProfissionalMapping();
+        var profile = new MapperConfiguration(x => x.AddProfile(profissionalProfile));
+        IMapper mapper = new Mapper(profile);
+        var request = new ListarProfissionaisRequest(1, 21);
+        var handler = new ListarProfissionaisHandler(this.Repository, mapper, mockLogger.Object);
+
+        await Assert.ThrowsAsync<ValidateException>(async () =>
+        {
+            await handler.Handle(request, new CancellationToken());
+        });
+    }
+    [Fact]
+    public async void ObterProfissionaisComQtdeNegativa()
+    {
+        await this.ObterRepository();
+        var mockLogger = new Mock<ILogger<ListarProfissionaisHandler>>();
+
+        var profissionalProfile = new ProfissionalMapping();
+        var profile = new MapperConfiguration(x => x.AddProfile(profissionalProfile));
+        IMapper mapper = new Mapper(profile);
+        var request = new ListarProfissionaisRequest(1, -1);
+        var handler = new ListarProfissionaisHandler(this.Repository, mapper, mockLogger.Object);
+
+        await Assert.ThrowsAsync<ValidateException>(async () =>
+        {
+            await handler.Handle(request, new CancellationToken());
+        });
+    }
+    [Fact]
+    public async void ObterProfissionaisComEspecialidadeInexistente()
+    {
+        await this.ObterRepository();
+        var mockLogger = new Mock<ILogger<ListarProfissionaisHandler>>();
+
+        var profissionalProfile = new ProfissionalMapping();
+        var profile = new MapperConfiguration(x => x.AddProfile(profissionalProfile));
+        IMapper mapper = new Mapper(profile);
+        var request = new ListarProfissionaisRequest(1, 20, 10000);
+        var handler = new ListarProfissionaisHandler(this.Repository, mapper, mockLogger.Object);
+        await Assert.ThrowsAsync<ValidateException>(async () =>
+        {
+            await handler.Handle(request, new CancellationToken());
+        });
+    }
+    [Fact]
+    public async void ObterProfissionaisSemQtde()
+    {
+        await this.ObterRepository();
+        var mockLogger = new Mock<ILogger<ListarProfissionaisHandler>>();
+
+        var profissionalProfile = new ProfissionalMapping();
+        var profile = new MapperConfiguration(x => x.AddProfile(profissionalProfile));
+        IMapper mapper = new Mapper(profile);
+        var request = new ListarProfissionaisRequest(1);
+        var handler = new ListarProfissionaisHandler(this.Repository, mapper, mockLogger.Object);
+        var response = await handler.Handle(request, new CancellationToken());
+        Assert.IsType<ResponseListDTO<ProfissionalDetalhesDTO>>(response);
+    }
+    [Fact]
+    public async void ObterProfissionaisComQtde()
+    {
+        await this.ObterRepository();
+        var mockLogger = new Mock<ILogger<ListarProfissionaisHandler>>();
+
+        var profissionalProfile = new ProfissionalMapping();
+        var profile = new MapperConfiguration(x => x.AddProfile(profissionalProfile));
+        IMapper mapper = new Mapper(profile);
+        var request = new ListarProfissionaisRequest(1, 20);
+        var handler = new ListarProfissionaisHandler(this.Repository, mapper, mockLogger.Object);
+        var response = await handler.Handle(request, new CancellationToken());
+        Assert.IsType<ResponseListDTO<ProfissionalDetalhesDTO>>(response);
+    }
+    [Fact]
+    public async void ObterProfissionaisComQtdeEEspecialidadeId()
+    {
+        await this.ObterRepository();
+        var mockLogger = new Mock<ILogger<ListarProfissionaisHandler>>();
+
+        var profissionalProfile = new ProfissionalMapping();
+        var profile = new MapperConfiguration(x => x.AddProfile(profissionalProfile));
+        IMapper mapper = new Mapper(profile);
+        var request = new ListarProfissionaisRequest(1, 20, 1);
+        var handler = new ListarProfissionaisHandler(this.Repository, mapper, mockLogger.Object);
+        var response = await handler.Handle(request, new CancellationToken());
+        Assert.IsType<ResponseListDTO<ProfissionalDetalhesDTO>>(response);
+    }
 }
