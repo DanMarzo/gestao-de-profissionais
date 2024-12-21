@@ -23,4 +23,21 @@ public class RequestListDTO
     public bool IsInvalidIndex() => this.Indice < 1;
     public bool QtdeNegativa() => this.Qtde < 0;
     public bool QtdeMaior20() => this.Qtde > 20;
+
+    public void ExecutarValidacoes<TException>() where TException : Exception
+    {
+        Exception? exception = null;
+
+        if (this.IsInvalidIndex())
+            exception = (TException)Activator.CreateInstance(typeof(TException), $"Indice {this.Indice} é inválido.")!;
+
+        if (this.QtdeNegativa())
+            exception = (TException)Activator.CreateInstance(typeof(TException), $"Quantidade de itens da busca não pode ser negativo {this.Qtde}.")!;
+
+        if (this.QtdeMaior20())
+            exception = (TException)Activator.CreateInstance(typeof(TException), $"Quantidade de itens da busca não pode ser superior a 20 - Qtde informada {this.Qtde}.")!;
+
+        if (exception is not null)
+            throw exception;
+    }
 }
