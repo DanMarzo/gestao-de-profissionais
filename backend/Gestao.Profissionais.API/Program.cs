@@ -45,6 +45,7 @@ app.MapGet("/", async () =>
         return Results.BadRequest(new { status = false, message = ex.Message });
     }
 });
+app.UseExceptionHandler(options => { });
 app.MapControllers();
 app.UseCors("CorsPolicy");
 app.Run();
