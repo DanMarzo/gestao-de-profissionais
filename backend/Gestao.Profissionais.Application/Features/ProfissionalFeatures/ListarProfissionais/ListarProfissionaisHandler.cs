@@ -16,14 +16,9 @@ public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisReq
 
     public async Task<ResponseListDTO<ProfissionalDetalhesDTO>> Handle(ListarProfissionaisRequest request, CancellationToken cancellationToken)
     {
-        if (request.IsInvalidIndex())
-            throw new ValidateException($"Indice {request.Indice} é inválido.");
-
-        if (request.QtdeNegativa())
-            throw new ValidateException($"Quantidade de itens da busca não pode ser negativo {request.Indice}.");
-
-        if (request.QtdeMaior20())
-            throw new ValidateException($"Quantidade de itens da busca não pode ser superior a 20 - Qtde informada {request.Indice}.");
+        this.logger.LogInformation($"Request {JsonSerializer.Serialize(request)}");
+        //Efetuar validacoes
+        request.ExecutarValidacoes<ValidateException>();
 
         var totalItens = 0;
         List<Expression<Func<ProfissionalEntity, object>>> include = [];
