@@ -24,10 +24,12 @@ public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisReq
         List<Expression<Func<ProfissionalEntity, object>>> include = [];
         if (request.EspecialidadeId is not null)
         {
-            profissionais = await repository.ListEntities<ProfissionalEntity>(
-                request,
-                includes: [inc => inc.Especialidade],
-                where: x => x.EspecialidadeId == request.EspecialidadeId);
+            var especialidadeExiste = await this.repository
+                .EntityExists<EspecialidadeEntity>(x => x.Id == request.EspecialidadeId);
+            if (!especialidadeExiste) 
+                throw new ValidateException($"Especialidade Id {request.EspecialidadeId} não localizada.", HttpStatusCode.NotFound);
+            totalItens = await this.repository.CountAsync<ProfissionalEntity>(where: x => x.EspecialidadeId == request.EspecialidadeId);
+            include = [inc => inc.Especialidade];
         }
         else
         {
