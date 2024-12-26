@@ -1,4 +1,4 @@
-﻿namespace Gestao.Profissionais.Application.Contracts;
+﻿namespace Gestao.Profissionais.Domain.Interfaces;
 
 public interface IRepository
 {
@@ -18,9 +18,9 @@ public interface IRepository
         ) where T : class;
     Task<int> ExecuteDeleteAsync<T>(Expression<Func<T, bool>> where) where T : class;
 
-    Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request) where T : class;
-    Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request, List<Expression<Func<T, object>>> includes) where T : class;
-    Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request, List<Expression<Func<T, object>>> includes, Expression<Func<T, bool>> where) where T : class;
+    Task<IEnumerable<T>> ListEntities<T>(RequestListModel request) where T : class;
+    Task<IEnumerable<T>> ListEntities<T>(RequestListModel request, List<Expression<Func<T, object>>> includes) where T : class;
+    Task<IEnumerable<T>> ListEntities<T>(RequestListModel request, List<Expression<Func<T, object>>> includes, Expression<Func<T, bool>> where) where T : class;
     Task<int> CountAsync<T>() where T : class;
     Task<int> CountAsync<T>(Expression<Func<T, bool>> where) where T : class;
 }

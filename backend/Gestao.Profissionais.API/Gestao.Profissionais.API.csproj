@@ -7,30 +7,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AutoMapper" Version="13.0.1" />
-		<PackageReference Include="MediatR" Version="12.4.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.11" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\Core\Gestao.Profissionais.Domain\Gestao.Profissionais.Domain.csproj" />
-	  <ProjectReference Include="..\Core\Gestao.Profissionais.Infra\Gestao.Profissionais.Infra.csproj" />
-	  <ProjectReference Include="..\Gestao.Profissionais.Application\Gestao.Profissionais.Application.csproj" />
-	</ItemGroup>
+
 	<ItemGroup>
 		<Content CopyToOutputDirectory="Always" Include="./default_entities_especialidades.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 		</Content>
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Gestao.Profissionais.Infra.Ioc\Gestao.Profissionais.Infra.Ioc.csproj" />
 	</ItemGroup>
 </Project>

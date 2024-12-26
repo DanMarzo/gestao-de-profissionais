@@ -1,6 +1,6 @@
 ﻿namespace Gestao.Profissionais.Application.Features.ProfissionalFeatures.RegistrarProfissional;
 
-public class RegistrarProfissionalHandler : IRequestHandler<RegistrarProfissionalRequest, ResponseCreateAPIDTO<long>>
+public class RegistrarProfissionalHandler : IRequestHandler<RegistrarProfissionalRequest, ResponseCreateAPIModel<long>>
 {
     private readonly IRepository repository;
     private readonly ILogger<RegistrarProfissionalHandler> logger;
@@ -10,7 +10,7 @@ public class RegistrarProfissionalHandler : IRequestHandler<RegistrarProfissiona
         this.logger = logger;
     }
 
-    public async Task<ResponseCreateAPIDTO<long>> Handle(RegistrarProfissionalRequest request, CancellationToken cancellationToken)
+    public async Task<ResponseCreateAPIModel<long>> Handle(RegistrarProfissionalRequest request, CancellationToken cancellationToken)
     {
         if (request.EspecialidadeId == 0)
             throw new ValidateException($"Especialidade Id {request.EspecialidadeId} é inválido!");
@@ -20,6 +20,6 @@ public class RegistrarProfissionalHandler : IRequestHandler<RegistrarProfissiona
             throw new ValidateException($"Especialidade Id {request.EspecialidadeId} informada não localizada!");
         var profissional = request.CriarProfissional();
         await repository.AddAsync(profissional);
-        return new ResponseCreateAPIDTO<long>(profissional.Id);
+        return new ResponseCreateAPIModel<long>(profissional.Id);
     }
 }

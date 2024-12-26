@@ -1,7 +1,4 @@
-﻿using Gestao.Profissionais.Application.Features.EspecialidadeFeatures.ObterEspecialidades;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Gestao.Profissionais.API.Controllers;
+﻿namespace Gestao.Profissionais.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

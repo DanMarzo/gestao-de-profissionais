@@ -1,3 +1,5 @@
+using Gestao.Profissionais.Infra.Ioc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,8 +8,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddInfraServices(builder.Configuration);
-builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructure(builder.Configuration);
+
 builder.Services.AddExceptionHandler<ExceptionGlobalHandler>();
 builder.Services.AddCors(options =>
 {
@@ -25,9 +27,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-await app.AutoMigrate();
 var contentFile = File.ReadAllText("./default_entities_especialidades.json");
-await app.ApplyDefaultEntities(contentFile);
+await app.ApplyDefaultTasks(contentFile);
+
 app.UseAuthorization();
 
 app.MapGet("/", async () =>

@@ -94,7 +94,7 @@ public class ListarProfissionaisTest
         var request = new ListarProfissionaisRequest(1);
         var handler = new ListarProfissionaisHandler(this.Repository, mapper, mockLogger.Object);
         var response = await handler.Handle(request, new CancellationToken());
-        Assert.IsType<ResponseListDTO<ProfissionalDetalhesDTO>>(response);
+        Assert.IsType<ResponseListModel<ProfissionalDetalhesDTO>>(response);
     }
     [Fact]
     public async void ObterProfissionaisComQtde()
@@ -108,7 +108,7 @@ public class ListarProfissionaisTest
         var request = new ListarProfissionaisRequest(1, 20);
         var handler = new ListarProfissionaisHandler(this.Repository, mapper, mockLogger.Object);
         var response = await handler.Handle(request, new CancellationToken());
-        Assert.IsType<ResponseListDTO<ProfissionalDetalhesDTO>>(response);
+        Assert.IsType<ResponseListModel<ProfissionalDetalhesDTO>>(response);
     }
     [Fact]
     public async void ObterProfissionaisComQtdeEEspecialidadeId()
@@ -122,6 +122,6 @@ public class ListarProfissionaisTest
         var request = new ListarProfissionaisRequest(1, 20, 1);
         var handler = new ListarProfissionaisHandler(this.Repository, mapper, mockLogger.Object);
         var response = await handler.Handle(request, new CancellationToken());
-        Assert.IsType<ResponseListDTO<ProfissionalDetalhesDTO>>(response);
+        Assert.IsType<ResponseListModel<ProfissionalDetalhesDTO>>(response);
     }
 }

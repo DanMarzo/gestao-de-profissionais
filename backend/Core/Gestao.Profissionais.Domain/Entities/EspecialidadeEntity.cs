@@ -1,6 +1,4 @@
-﻿using Gestao.Profissionais.Domain.Entities.Enums;
-
-namespace Gestao.Profissionais.Domain.Entities;
+﻿namespace Gestao.Profissionais.Domain.Entities;
 
 public sealed class EspecialidadeEntity
 {

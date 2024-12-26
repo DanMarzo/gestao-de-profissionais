@@ -64,12 +64,12 @@ public class Repository : IRepository
         context.Entry(entity).State = EntityState.Modified;
         return await context.SaveChangesAsync();
     }
-    public async Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request) where T : class
+    public async Task<IEnumerable<T>> ListEntities<T>(RequestListModel request) where T : class
     {
         var entities = await context.Set<T>().Skip(request.CalcularItensAPular()).Take(request.Qtde).ToListAsync();
         return entities;
     }
-    public async Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request, Expression<Func<T, bool>> where) where T : class
+    public async Task<IEnumerable<T>> ListEntities<T>(RequestListModel request, Expression<Func<T, bool>> where) where T : class
     {
         var entities = await context.Set<T>().Where(where).Skip(request.CalcularItensAPular()).Take(request.Qtde).ToListAsync();
         return entities;
@@ -86,7 +86,7 @@ public class Repository : IRepository
         return count;
     }
 
-    public async Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request, List<Expression<Func<T, object>>> includes) where T : class
+    public async Task<IEnumerable<T>> ListEntities<T>(RequestListModel request, List<Expression<Func<T, object>>> includes) where T : class
     {
         IQueryable<T> query = context.Set<T>();
         if (includes != null)
@@ -94,7 +94,7 @@ public class Repository : IRepository
         return await query.Skip(request.CalcularItensAPular()).Take(request.Qtde).ToListAsync();
     }
 
-    public async Task<IEnumerable<T>> ListEntities<T>(RequestListDTO request, List<Expression<Func<T, object>>> includes, Expression<Func<T, bool>> where) where T : class
+    public async Task<IEnumerable<T>> ListEntities<T>(RequestListModel request, List<Expression<Func<T, object>>> includes, Expression<Func<T, bool>> where) where T : class
     {
         IQueryable<T> query = context.Set<T>().Where(where);
         if (includes != null)

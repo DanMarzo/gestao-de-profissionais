@@ -1,0 +1,10 @@
+﻿global using Gestao.Profissionais.Domain.Entities;
+global using Gestao.Profissionais.Infra.Database;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using System.Text.Json;
+global using Gestao.Profissionais.Domain.Interfaces;
+global using System.Reflection;

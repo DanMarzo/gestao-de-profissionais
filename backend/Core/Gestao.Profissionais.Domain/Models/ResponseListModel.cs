@@ -1,8 +1,8 @@
-﻿namespace Gestao.Profissionais.Application.DTOs;
+﻿namespace Gestao.Profissionais.Domain.Models;
 
-public class ResponseListDTO<T>
+public class ResponseListModel<T>
 {
-    public ResponseListDTO(RequestListDTO request, int totalItens)
+    public ResponseListModel(RequestListModel request, int totalItens)
     {
         Qtde = request.Qtde;
         Indice = request.Indice;

@@ -1,3 +1,5 @@
+
+
 namespace Gestao.Profissionais.Tests.Features.ProfissionalFeature;
 
 public class RegistrarProfissionalTest
@@ -66,6 +68,6 @@ public class RegistrarProfissionalTest
         };
         var handler = new RegistrarProfissionalHandler(this.Repository, mockLogger.Object);
         var response = await handler.Handle(request, new CancellationToken());
-        Assert.IsType<ResponseCreateAPIDTO<long>>(response);
+        Assert.IsType<ResponseCreateAPIModel<long>>(response);
     }
 }

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Gestao.Profissionais.Domain\Gestao.Profissionais.Domain.csproj" />
+    <ProjectReference Include="..\Core\Gestao.Profissionais.Infra\Gestao.Profissionais.Infra.csproj" />
+    <ProjectReference Include="..\Gestao.Profissionais.Application\Gestao.Profissionais.Application.csproj" />
+  </ItemGroup>
+
+</Project>

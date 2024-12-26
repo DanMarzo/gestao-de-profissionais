@@ -1,6 +1,6 @@
 ﻿namespace Gestao.Profissionais.Application.Features.ProfissionalFeatures.ListarProfissionais;
 
-public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisRequest, ResponseListDTO<ProfissionalDetalhesDTO>>
+public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisRequest, ResponseListModel<ProfissionalDetalhesDTO>>
 {
     private readonly IRepository repository;
     private readonly IMapper mapper;
@@ -12,7 +12,7 @@ public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisReq
         this.logger = logger;
     }
 
-    public async Task<ResponseListDTO<ProfissionalDetalhesDTO>> Handle(ListarProfissionaisRequest request, CancellationToken cancellationToken)
+    public async Task<ResponseListModel<ProfissionalDetalhesDTO>> Handle(ListarProfissionaisRequest request, CancellationToken cancellationToken)
     {
         this.logger.LogInformation($"Request {JsonSerializer.Serialize(request)}");
         //Efetuar validacoes
@@ -32,7 +32,7 @@ public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisReq
         else
             totalItens = await this.repository.CountAsync<ProfissionalEntity>();
 
-        var result = new ResponseListDTO<ProfissionalDetalhesDTO>(request, totalItens);
+        var result = new ResponseListModel<ProfissionalDetalhesDTO>(request, totalItens);
         if (totalItens == 0)
             return result;
 
