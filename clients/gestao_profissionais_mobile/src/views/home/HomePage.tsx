@@ -3,16 +3,14 @@ import {RootStackParamList} from '../../../App';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 const HomePage = () => {
-  const navigate = useNavigation<NavigationProp<RootStackParamList>>();
+  const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
 
   console.log(navigate);
   return (
     <View>
       <Button
         title="Registrar Profissional"
-        onPress={() =>
-          navigate.navigate('RegistrarProfissionaisPage', {value: 'tete'})
-        }
+        onPress={() => navigate('RegistrarProfissionaisPage', {value: 'tete'})}
       />
       <Text>HomePage</Text>
     </View>

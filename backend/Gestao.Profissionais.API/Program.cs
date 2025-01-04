@@ -21,11 +21,11 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 var contentFile = File.ReadAllText("./default_entities_especialidades.json");
 await app.ApplyDefaultTasks(contentFile);
