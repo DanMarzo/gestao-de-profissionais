@@ -1,17 +1,17 @@
 import {Button, Text, View} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../App';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 const HomePage = () => {
-  const {navigation} =
-    useNavigation<StackScreenProps<RootStackParamList, 'HomePage'>>();
+  const navigate = useNavigation<NavigationProp<RootStackParamList>>();
+
+  console.log(navigate);
   return (
     <View>
       <Button
         title="Registrar Profissional"
         onPress={() =>
-          navigation.push('RegistrarProfissionaisPage', {value: 'teste'})
+          navigate.navigate('RegistrarProfissionaisPage', {value: 'tete'})
         }
       />
       <Text>HomePage</Text>
