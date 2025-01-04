@@ -11,7 +11,7 @@ public class ProfissionalController : ControllerBase
     public async Task<IActionResult> Registrar([FromBody] RegistrarProfissionalRequest request)
     {
         var profissionalId = await mediator.Send(request);
-        return Created($"{profissionalId.Id}", profissionalId);
+        return Created(nameof(PorId), profissionalId);
     }
 
     [HttpDelete("{id:long}")]
