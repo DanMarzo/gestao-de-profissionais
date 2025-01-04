@@ -9,4 +9,4 @@ const RegistrarProfissionaisPage = ({route}: any) => {
   );
 };
 
-export default RegistrarProfissionaisPage;
+export {RegistrarProfissionaisPage};

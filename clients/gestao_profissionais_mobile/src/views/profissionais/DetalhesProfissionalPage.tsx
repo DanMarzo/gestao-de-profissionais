@@ -5,4 +5,4 @@ const DetalhesProfissionalPage = () => {
   return <View></View>;
 };
 
-export default DetalhesProfissionalPage;
+export {DetalhesProfissionalPage};
