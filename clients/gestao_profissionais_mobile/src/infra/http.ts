@@ -1,6 +1,6 @@
 import axios, {AxiosError} from 'axios';
 
-const http = axios.create({baseURL: 'http://localhost:5123', timeout: 15000});
+const http = axios.create({baseURL: 'http://192.168.1.2:5123', timeout: 15000});
 http.interceptors.response.use(
   function (response) {
     return Promise.resolve(response);
