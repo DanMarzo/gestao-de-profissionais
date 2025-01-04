@@ -4,14 +4,19 @@ import {ResponseListDTO} from '../../infra/services/response/response-list.dto';
 import {ProfissionalModel} from '../../models/profissional.model';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {obterProfissionaisService} from '../../infra/services/obter-profissionais.service';
+import {IndexPath} from '@ui-kitten/components';
 
 const HomePageViewModel = () => {
-  const {carregando: carregandoEsp, especialidades} = useContext(EspecialidadeContext);
+  const {carregando: carregandoEsp, especialidades} =
+    useContext(EspecialidadeContext);
   const [carregando, setCarregando] = useState(false);
-  const [profissionais, setProfissionais] = useState<ResponseListDTO<ProfissionalModel> | null>(null);
-
+  const [profissionais, setProfissionais] =
+    useState<ResponseListDTO<ProfissionalModel> | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<IndexPath>(
+    new IndexPath(0),
+  );
   const [params, setParams] = useState<{
-    especialidadeId?: number ;
+    especialidadeId?: number;
     indice: number;
   }>({indice: 1});
 
@@ -31,14 +36,23 @@ const HomePageViewModel = () => {
         }
       })
       .catch(err => {
-        console.log("------ ERRO")
+        console.log('------ ERRO');
         console.log(err);
         setProfissionais(null);
       })
       .finally(() => setCarregando(false));
   };
 
-  return {carregandoEsp, especialidades, carregando, profissionais, params ,obterProfissionais};
+  return {
+    carregandoEsp,
+    especialidades,
+    carregando,
+    profissionais,
+    params,
+    obterProfissionais,
+    selectedIndex,
+    setSelectedIndex,
+  };
 };
 
 export {HomePageViewModel};
