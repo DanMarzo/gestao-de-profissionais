@@ -21,7 +21,6 @@ const HomePageViewModel = () => {
   }, [params]);
 
   const obterProfissionais = () => {
-    console.log(1)
     const indice = params.indice;
     const especialidadeId = params.especialidadeId;
     setCarregando(true);

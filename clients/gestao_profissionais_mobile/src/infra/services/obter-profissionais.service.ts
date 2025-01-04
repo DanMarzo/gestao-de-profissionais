@@ -17,6 +17,7 @@ const obterProfissionaisService = async (
     const response = await http.get('/api/Profissional', {
       params,
     });
+    console.log(response)
     return new ResponseListDTO<ProfissionalModel>(response);
   } catch (error) {
     console.log(error);
