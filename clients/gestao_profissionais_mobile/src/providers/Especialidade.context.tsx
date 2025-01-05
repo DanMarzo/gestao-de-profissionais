@@ -22,7 +22,6 @@ const EspecialidadeProvider = ({children}: PropsWithChildren) => {
     setCarregando(true);
     obterEspecialidadesService()
       .then(result => {
-        console.log(result);
         setEspecialidades(result.data ?? []);
       })
       .catch(err => {
