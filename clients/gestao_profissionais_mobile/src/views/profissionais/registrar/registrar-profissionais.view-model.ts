@@ -6,7 +6,7 @@ import {
 } from '../../../models/profissional.model';
 import {useContext, useEffect, useState} from 'react';
 import {EspecialidadeContext} from '../../../providers/Especialidade.context';
-import {IndexPath} from '@ui-kitten/components';
+// import {IndexPath} from '@ui-kitten/components';
 import {EspecialidadeModel} from '../../../models/especialidade.model';
 import {registrarProfissionalService} from '../../../infra/services/registrar-profissional.service';
 import {Toast} from '../../../shared/theme/toasts';
@@ -23,7 +23,7 @@ const useRegistrarProfissionalViewModel = () => {
   } = useForm({resolver: yupResolver(formProfissionalSchema)});
   const {goBack} = useNavigation<NavigationProp<RootStackParamList>>();
   const [carregando, setCarregando] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState<IndexPath>(new IndexPath(0));
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [especialidade, setEspecialidade] = useState<EspecialidadeModel | undefined>(undefined);
   const especialidadeContext = useContext(EspecialidadeContext);
 
@@ -49,8 +49,8 @@ const useRegistrarProfissionalViewModel = () => {
     }
   };
 
-  const handleEspecialidade = (index: IndexPath) => {
-    let espec = especialidadeContext.especialidades[index.row];
+  const handleEspecialidade = (index: number) => {
+    let espec = especialidadeContext.especialidades[index];
     setEspecialidade(espec);
     setValueForm('especialidadeId', espec.id);
   };
@@ -58,7 +58,7 @@ const useRegistrarProfissionalViewModel = () => {
   useEffect(() => {
     if (especialidade) {
       let index = especialidadeContext.especialidades.indexOf(especialidade);
-      setSelectedIndex(new IndexPath(index));
+      setSelectedIndex(index);
     }
     return () => {};
   }, []);

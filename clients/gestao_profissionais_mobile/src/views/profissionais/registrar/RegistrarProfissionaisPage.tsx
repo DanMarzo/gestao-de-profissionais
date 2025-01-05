@@ -1,8 +1,16 @@
 import React from 'react';
 import {Controller} from 'react-hook-form';
-import {ActivityIndicator, Modal, StyleSheet, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Button,
+  Modal,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import {useRegistrarProfissionalViewModel} from './registrar-profissionais.view-model';
-import {Button, Input, Select, SelectItem, Text} from '@ui-kitten/components';
+// import {Input, Select, SelectItem} from '@ui-kitten/components';
 import {nomeTipoDocEspecialidadeEnum} from '../../../models/especialidade.model';
 
 const RegistrarProfissionaisPage = () => {
@@ -28,12 +36,10 @@ const RegistrarProfissionaisPage = () => {
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#ffffff" />
 
-          <Text style={styles.loadingText} status="primary">
-            Carregando...
-          </Text>
+          <Text style={styles.loadingText}>Carregando...</Text>
         </View>
       </Modal>
-      <Select
+      {/* <Select
         selectedIndex={selectedIndex}
         value={
           <Text>{`${especialidade?.nome ?? 'Selecione a especialidade'}`}</Text>
@@ -43,7 +49,7 @@ const RegistrarProfissionaisPage = () => {
         {especialidades.map(item => (
           <SelectItem title={item.nome} key={item.id} />
         ))}
-      </Select>
+      </Select> */}
       {errorsForm.especialidadeId && (
         <Text>{errorsForm.especialidadeId.message}</Text>
       )}
@@ -51,7 +57,7 @@ const RegistrarProfissionaisPage = () => {
         control={controlForm}
         name="nome"
         render={({field: {onChange, onBlur, value}}) => (
-          <Input
+          <TextInput
             placeholder="Nome"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -61,7 +67,7 @@ const RegistrarProfissionaisPage = () => {
       />
       {errorsForm.nome && <Text>{errorsForm.nome.message}</Text>}
 
-      <Input
+      <TextInput
         value={nomeTipoDocEspecialidadeEnum(especialidade?.tipoDocumento)}
         readOnly
       />
@@ -70,7 +76,7 @@ const RegistrarProfissionaisPage = () => {
         control={controlForm}
         name="numeroDocumento"
         render={({field: {onChange, onBlur, value}}) => (
-          <Input
+          <TextInput
             placeholder="Número documento"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -82,9 +88,7 @@ const RegistrarProfissionaisPage = () => {
         <Text>{errorsForm.numeroDocumento.message}</Text>
       )}
 
-      <Button status="primary" onPress={handleSubmit(registrarProfissional)}>
-        <Text>Enviar</Text>
-      </Button>
+      <Button title="Enviar" onPress={handleSubmit(registrarProfissional)} />
     </View>
   );
 };

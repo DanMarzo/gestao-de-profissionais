@@ -5,14 +5,22 @@ import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {colorDefault} from './src/shared/theme/colors';
 import {HomePage} from './src/views/home/HomePage';
 import {EspecialidadeProvider} from './src/providers/Especialidade.context';
-import * as eva from '@eva-design/eva';
-import {ApplicationProvider} from '@ui-kitten/components';
 import {ProfissionalModel} from './src/models/profissional.model';
 import {RegistrarProfissionaisPage} from './src/views/profissionais/registrar/RegistrarProfissionaisPage';
 import {DetalhesProfissionalPage} from './src/views/profissionais/DetalhesProfissionalPage';
 import {AtualizarProfissionalPage} from './src/views/profissionais/atualizar/AtualizarProfissionalPage';
-import {default as themeLight} from './theme.json';
+import themeLight from './theme.json';
+import {MD3LightTheme, PaperProvider} from 'react-native-paper';
+import {ThemeProp} from 'react-native-paper/lib/typescript/types';
 
+const theme: ThemeProp = {
+  ...MD3LightTheme,
+  colors: {
+    ...MD3LightTheme.colors,
+    primary: themeLight['color-primary-500'],
+    secondary: themeLight['color-primary-500'],
+  },
+};
 type RootStackParamList = {
   HomePage: undefined;
   RegistrarProfissionaisPage: undefined;
@@ -37,7 +45,8 @@ const App = (): React.JSX.Element => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <ApplicationProvider {...eva} theme={{...eva.light, ...themeLight}}>
+    // <PaperProvider {...eva} theme={{...eva.light, ...themeLight}}>
+    <PaperProvider theme={theme}>
       <EspecialidadeProvider>
         <NavigationContainer theme={themeDefault}>
           <Stack.Navigator initialRouteName="HomePage">
@@ -84,7 +93,7 @@ const App = (): React.JSX.Element => {
           </Stack.Navigator>
         </NavigationContainer>
       </EspecialidadeProvider>
-    </ApplicationProvider>
+    </PaperProvider>
   );
 };
 
