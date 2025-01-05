@@ -11,6 +11,7 @@ import {ProfissionalModel} from './src/models/profissional.model';
 import {RegistrarProfissionaisPage} from './src/views/profissionais/registrar/RegistrarProfissionaisPage';
 import {DetalhesProfissionalPage} from './src/views/profissionais/DetalhesProfissionalPage';
 import {AtualizarProfissionalPage} from './src/views/profissionais/atualizar/AtualizarProfissionalPage';
+import {default as themeLight} from './theme.json';
 
 type RootStackParamList = {
   HomePage: undefined;
@@ -36,8 +37,7 @@ const App = (): React.JSX.Element => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
-      {/* <ProfissionalProvider> */}
+    <ApplicationProvider {...eva} theme={{...eva.light, ...themeLight}}>
       <EspecialidadeProvider>
         <NavigationContainer theme={themeDefault}>
           <Stack.Navigator initialRouteName="HomePage">
@@ -84,7 +84,6 @@ const App = (): React.JSX.Element => {
           </Stack.Navigator>
         </NavigationContainer>
       </EspecialidadeProvider>
-      {/* </ProfissionalProvider> */}
     </ApplicationProvider>
   );
 };

@@ -71,7 +71,6 @@ const useRegistrarProfissionalViewModel = () => {
     especialidades: especialidadeContext.especialidades,
     carregandoEspecialidade: especialidadeContext.carregando,
     selectedIndex,
-    setSelectedIndex,
     handleEspecialidade,
     especialidade,
     carregando,

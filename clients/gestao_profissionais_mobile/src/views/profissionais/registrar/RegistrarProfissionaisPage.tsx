@@ -1,26 +1,38 @@
 import React from 'react';
 import {Controller} from 'react-hook-form';
-import {Text, View} from 'react-native';
+import {ActivityIndicator, Modal, StyleSheet, View} from 'react-native';
 import {useRegistrarProfissionalViewModel} from './registrar-profissionais.view-model';
-import {Button, Input, Select, SelectItem} from '@ui-kitten/components';
+import {Button, Input, Select, SelectItem, Text} from '@ui-kitten/components';
 import {nomeTipoDocEspecialidadeEnum} from '../../../models/especialidade.model';
 
 const RegistrarProfissionaisPage = () => {
   const {
     controlForm,
     errorsForm,
-    handleSubmit,
-    registrarProfissional,
     especialidades,
     carregandoEspecialidade,
     selectedIndex,
-    setSelectedIndex,
-    handleEspecialidade,
     especialidade,
+    carregando,
+    handleSubmit,
+    registrarProfissional,
+    handleEspecialidade,
   } = useRegistrarProfissionalViewModel();
 
   return (
     <View style={{flexDirection: 'column', flex: 1}}>
+      <Modal
+        visible={carregando || carregandoEspecialidade}
+        transparent
+        animationType="fade">
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#ffffff" />
+
+          <Text style={styles.loadingText} status="primary">
+            Carregando...
+          </Text>
+        </View>
+      </Modal>
       <Select
         selectedIndex={selectedIndex}
         value={
@@ -70,11 +82,29 @@ const RegistrarProfissionaisPage = () => {
         <Text>{errorsForm.numeroDocumento.message}</Text>
       )}
 
-      <Button onPress={handleSubmit(registrarProfissional)}>
+      <Button status="primary" onPress={handleSubmit(registrarProfissional)}>
         <Text>Enviar</Text>
       </Button>
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fundo semi-transparente
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    // color: colorDefault.,
+    marginTop: 10,
+    fontSize: 16,
+  },
+});
 export {RegistrarProfissionaisPage};

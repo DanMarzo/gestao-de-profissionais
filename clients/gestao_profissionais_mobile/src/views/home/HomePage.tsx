@@ -1,8 +1,8 @@
-import {Button, FlatList, Text, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../../App';
 import {HomePageViewModel} from './home-page.view-model';
-import {Select, SelectItem} from '@ui-kitten/components';
+import {Button, Select, SelectItem, Text} from '@ui-kitten/components';
 
 const HomePage = () => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
@@ -30,11 +30,10 @@ const HomePage = () => {
           <SelectItem title={item.nome} key={item.id} />
         ))}
       </Select>
-      <Button
-        title="Registrar Profissional"
-        onPress={() => navigate('RegistrarProfissionaisPage')}
-      />
-      <Button title="Obter profissional" onPress={() => obterProfissionais()} />
+      <Button onPress={() => navigate('RegistrarProfissionaisPage')}>
+        Registrar Profissional
+      </Button>
+      <Button onPress={() => obterProfissionais()}>Obter profissional</Button>
       <FlatList
         data={profissionais?.data ?? []}
         renderItem={({item}) => (
