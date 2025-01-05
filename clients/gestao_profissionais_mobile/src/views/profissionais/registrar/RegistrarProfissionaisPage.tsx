@@ -1,8 +1,9 @@
 import React from 'react';
 import {Controller} from 'react-hook-form';
 import {Text, View} from 'react-native';
-import {useRegistrarProssionalViewModel} from './registrar-profissionais.view-model';
+import {useRegistrarProfissionalViewModel} from './registrar-profissionais.view-model';
 import {Button, Input, Select, SelectItem} from '@ui-kitten/components';
+import {nomeTipoDocEspecialidadeEnum} from '../../../models/especialidade.model';
 
 const RegistrarProfissionaisPage = () => {
   const {
@@ -14,20 +15,19 @@ const RegistrarProfissionaisPage = () => {
     carregandoEspecialidade,
     selectedIndex,
     setSelectedIndex,
-  } = useRegistrarProssionalViewModel();
+    handleEspecialidade,
+    especialidade,
+  } = useRegistrarProfissionalViewModel();
 
   return (
     <View style={{flexDirection: 'column', flex: 1}}>
       <Select
         selectedIndex={selectedIndex}
         value={
-          <Text>{`${
-            especialidades[selectedIndex.row]?.nome ??
-            'Selecione a especialidade'
-          }`}</Text>
+          <Text>{`${especialidade?.nome ?? 'Selecione a especialidade'}`}</Text>
         }
         placeholder="Especialidade"
-        onSelect={index => setSelectedIndex(index as any)}>
+        onSelect={index => handleEspecialidade(index as any)}>
         {especialidades.map(item => (
           <SelectItem title={item.nome} key={item.id} />
         ))}
@@ -48,6 +48,11 @@ const RegistrarProfissionaisPage = () => {
         )}
       />
       {errorsForm.nome && <Text>{errorsForm.nome.message}</Text>}
+
+      <Input
+        value={nomeTipoDocEspecialidadeEnum(especialidade?.tipoDocumento)}
+        readOnly
+      />
 
       <Controller
         control={controlForm}
