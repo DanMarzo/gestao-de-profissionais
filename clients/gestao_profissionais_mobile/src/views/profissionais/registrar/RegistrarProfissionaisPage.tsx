@@ -1,17 +1,9 @@
 import React from 'react';
 import {Controller} from 'react-hook-form';
-import {
-  ActivityIndicator,
-  Modal,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {ActivityIndicator, Modal, StyleSheet, Text, View} from 'react-native';
 import {useRegistrarProfissionalViewModel} from './registrar-profissionais.view-model';
-// import {Input, Select, SelectItem} from '@ui-kitten/components';
 import {nomeTipoDocEspecialidadeEnum} from '../../../models/especialidade.model';
-import {Button, Menu} from 'react-native-paper';
+import {Button, Menu, TextInput} from 'react-native-paper';
 
 const RegistrarProfissionaisPage = () => {
   const {
@@ -29,7 +21,7 @@ const RegistrarProfissionaisPage = () => {
   } = useRegistrarProfissionalViewModel();
 
   return (
-    <View style={{flexDirection: 'column', flex: 1}}>
+    <View style={{flex: 1, gap: 4}}>
       <Modal
         visible={carregando || carregandoEspecialidade}
         transparent
@@ -65,16 +57,17 @@ const RegistrarProfissionaisPage = () => {
         name="nome"
         render={({field: {onChange, onBlur, value}}) => (
           <TextInput
-            placeholder="Nome"
-            onBlur={onBlur}
-            onChangeText={onChange}
+            label="Nome"
             value={value}
+            onChangeText={onChange}
+            onBlur={onBlur}
           />
         )}
       />
       {errorsForm.nome && <Text>{errorsForm.nome.message}</Text>}
 
       <TextInput
+        label="Tipo documento"
         value={nomeTipoDocEspecialidadeEnum(especialidadeSelect?.tipoDocumento)}
         readOnly
       />
@@ -84,7 +77,7 @@ const RegistrarProfissionaisPage = () => {
         name="numeroDocumento"
         render={({field: {onChange, onBlur, value}}) => (
           <TextInput
-            placeholder="Número documento"
+            label="Número documento"
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -95,7 +88,9 @@ const RegistrarProfissionaisPage = () => {
         <Text>{errorsForm.numeroDocumento.message}</Text>
       )}
 
-      <Button onPress={handleSubmit(registrarProfissional)}>Enviar</Button>
+      <Button mode="contained" onPress={handleSubmit(registrarProfissional)}>
+        Enviar
+      </Button>
     </View>
   );
 };

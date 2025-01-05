@@ -17,7 +17,7 @@ const HomePage = () => {
   } = useHomePageViewModel();
 
   return (
-    <View>
+    <View style={{flex: 1, gap: 4}}>
       <Menu
         visible={visibleDropdown}
         onDismiss={() => handleDropdown(false)}

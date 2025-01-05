@@ -45,11 +45,10 @@ const App = (): React.JSX.Element => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    // <PaperProvider {...eva} theme={{...eva.light, ...themeLight}}>
     <PaperProvider theme={theme}>
       <EspecialidadeProvider>
         <NavigationContainer theme={themeDefault}>
-          <Stack.Navigator initialRouteName="HomePage">
+          <Stack.Navigator initialRouteName="RegistrarProfissionaisPage">
             <Stack.Screen
               name="HomePage"
               component={HomePage}
