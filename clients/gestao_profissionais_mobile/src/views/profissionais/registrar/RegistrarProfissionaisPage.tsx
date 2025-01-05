@@ -2,7 +2,6 @@ import React from 'react';
 import {Controller} from 'react-hook-form';
 import {
   ActivityIndicator,
-  Button,
   Modal,
   StyleSheet,
   Text,
@@ -12,6 +11,7 @@ import {
 import {useRegistrarProfissionalViewModel} from './registrar-profissionais.view-model';
 // import {Input, Select, SelectItem} from '@ui-kitten/components';
 import {nomeTipoDocEspecialidadeEnum} from '../../../models/especialidade.model';
+import {Button, Menu} from 'react-native-paper';
 
 const RegistrarProfissionaisPage = () => {
   const {
@@ -19,12 +19,13 @@ const RegistrarProfissionaisPage = () => {
     errorsForm,
     especialidades,
     carregandoEspecialidade,
-    selectedIndex,
-    especialidade,
     carregando,
+    especialidadeSelect,
+    visibleDropdown,
     handleSubmit,
     registrarProfissional,
     handleEspecialidade,
+    handleDropdown,
   } = useRegistrarProfissionalViewModel();
 
   return (
@@ -35,21 +36,27 @@ const RegistrarProfissionaisPage = () => {
         animationType="fade">
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#ffffff" />
-
           <Text style={styles.loadingText}>Carregando...</Text>
         </View>
       </Modal>
-      {/* <Select
-        selectedIndex={selectedIndex}
-        value={
-          <Text>{`${especialidade?.nome ?? 'Selecione a especialidade'}`}</Text>
-        }
-        placeholder="Especialidade"
-        onSelect={index => handleEspecialidade(index as any)}>
-        {especialidades.map(item => (
-          <SelectItem title={item.nome} key={item.id} />
-        ))}
-      </Select> */}
+      <Menu
+        visible={visibleDropdown}
+        onDismiss={() => handleDropdown(false)}
+        anchor={
+          <Button onPress={() => handleDropdown()}>
+            {especialidadeSelect?.nome ?? 'Selecione uma especialidade'}
+          </Button>
+        }>
+        {especialidades.map(item => {
+          return (
+            <Menu.Item
+              key={item.id}
+              onPress={() => handleEspecialidade(item)}
+              title={item.nome}
+            />
+          );
+        })}
+      </Menu>
       {errorsForm.especialidadeId && (
         <Text>{errorsForm.especialidadeId.message}</Text>
       )}
@@ -68,7 +75,7 @@ const RegistrarProfissionaisPage = () => {
       {errorsForm.nome && <Text>{errorsForm.nome.message}</Text>}
 
       <TextInput
-        value={nomeTipoDocEspecialidadeEnum(especialidade?.tipoDocumento)}
+        value={nomeTipoDocEspecialidadeEnum(especialidadeSelect?.tipoDocumento)}
         readOnly
       />
 
@@ -88,7 +95,7 @@ const RegistrarProfissionaisPage = () => {
         <Text>{errorsForm.numeroDocumento.message}</Text>
       )}
 
-      <Button title="Enviar" onPress={handleSubmit(registrarProfissional)} />
+      <Button onPress={handleSubmit(registrarProfissional)}>Enviar</Button>
     </View>
   );
 };

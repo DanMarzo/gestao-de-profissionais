@@ -6,11 +6,9 @@ import {obterProfissionaisService} from '../../infra/services/obter-profissionai
 import {EspecialidadeModel} from '../../models/especialidade.model';
 
 const useHomePageViewModel = () => {
-  const {carregando: carregandoEsp, especialidades} =
-    useContext(EspecialidadeContext);
+  const {carregando: carregandoEsp, especialidades} = useContext(EspecialidadeContext);
   const [carregando, setCarregando] = useState(false);
-  const [profissionais, setProfissionais] =
-    useState<ResponseListDTO<ProfissionalModel> | null>(null);
+  const [profissionais, setProfissionais] = useState<ResponseListDTO<ProfissionalModel> | null>(null);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [especialidadeSelect, setEspecialidadeSelect] = useState<
     EspecialidadeModel | undefined

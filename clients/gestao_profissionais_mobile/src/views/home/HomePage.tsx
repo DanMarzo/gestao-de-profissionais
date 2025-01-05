@@ -29,6 +29,7 @@ const HomePage = () => {
         {especialidades.map(item => {
           return (
             <Menu.Item
+              key={item.id}
               onPress={() => handleEspecialidade(item)}
               title={item.nome}
             />
