@@ -6,7 +6,6 @@ import {
 } from '../../../models/profissional.model';
 import {useContext, useEffect, useState} from 'react';
 import {EspecialidadeContext} from '../../../providers/Especialidade.context';
-// import {IndexPath} from '@ui-kitten/components';
 import {EspecialidadeModel} from '../../../models/especialidade.model';
 import {registrarProfissionalService} from '../../../infra/services/registrar-profissional.service';
 import {Toast} from '../../../shared/theme/toasts';

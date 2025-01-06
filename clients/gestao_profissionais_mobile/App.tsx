@@ -48,7 +48,7 @@ const App = (): React.JSX.Element => {
     <PaperProvider theme={theme}>
       <EspecialidadeProvider>
         <NavigationContainer theme={themeDefault}>
-          <Stack.Navigator initialRouteName="RegistrarProfissionaisPage">
+          <Stack.Navigator initialRouteName="HomePage">
             <Stack.Screen
               name="HomePage"
               component={HomePage}

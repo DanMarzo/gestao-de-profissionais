@@ -2,8 +2,13 @@ import React from 'react';
 import {Controller} from 'react-hook-form';
 import {ActivityIndicator, Modal, StyleSheet, Text, View} from 'react-native';
 import {useRegistrarProfissionalViewModel} from './registrar-profissionais.view-model';
-import {nomeTipoDocEspecialidadeEnum} from '../../../models/especialidade.model';
-import {Button, Menu, TextInput} from 'react-native-paper';
+import {
+  EspecialidadeModel,
+  nomeTipoDocEspecialidadeEnum,
+} from '../../../models/especialidade.model';
+import {Button, TextInput} from 'react-native-paper';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {CustomMenu} from '../../../shared/components/Menu.component';
 
 const RegistrarProfissionaisPage = () => {
   const {
@@ -19,9 +24,10 @@ const RegistrarProfissionaisPage = () => {
     handleEspecialidade,
     handleDropdown,
   } = useRegistrarProfissionalViewModel();
+  const insets = useSafeAreaInsets();
 
   return (
-    <View style={{flex: 1, gap: 4}}>
+    <View style={{flex: 1, gap: 4, paddingBottom: insets.bottom}}>
       <Modal
         visible={carregando || carregandoEspecialidade}
         transparent
@@ -31,24 +37,15 @@ const RegistrarProfissionaisPage = () => {
           <Text style={styles.loadingText}>Carregando...</Text>
         </View>
       </Modal>
-      <Menu
-        visible={visibleDropdown}
+      <CustomMenu<EspecialidadeModel>
+        handleItem={item => handleEspecialidade(item)}
+        items={especialidades}
         onDismiss={() => handleDropdown(false)}
-        anchor={
-          <Button onPress={() => handleDropdown()}>
-            {especialidadeSelect?.nome ?? 'Selecione uma especialidade'}
-          </Button>
-        }>
-        {especialidades.map(item => {
-          return (
-            <Menu.Item
-              key={item.id}
-              onPress={() => handleEspecialidade(item)}
-              title={item.nome}
-            />
-          );
-        })}
-      </Menu>
+        onPress={() => handleDropdown(true)}
+        titleItem="nome"
+        valueText={especialidadeSelect?.nome ?? 'Selecione uma especialidade'}
+        visible={visibleDropdown}
+      />
       {errorsForm.especialidadeId && (
         <Text>{errorsForm.especialidadeId.message}</Text>
       )}

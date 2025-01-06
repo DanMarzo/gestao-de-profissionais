@@ -1,8 +1,10 @@
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../../App';
 import {useHomePageViewModel} from './home-page.view-model';
-import {Button, Menu} from 'react-native-paper';
+import {Button} from 'react-native-paper';
+import {CustomMenu} from '../../shared/components/Menu.component';
+import {EspecialidadeModel} from '../../models/especialidade.model';
 
 const HomePage = () => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
@@ -18,24 +20,15 @@ const HomePage = () => {
 
   return (
     <View style={{flex: 1, gap: 4}}>
-      <Menu
-        visible={visibleDropdown}
+      <CustomMenu<EspecialidadeModel>
+        handleItem={item => handleEspecialidade(item)}
+        items={especialidades}
         onDismiss={() => handleDropdown(false)}
-        anchor={
-          <Button onPress={() => handleDropdown()}>
-            {especialidadeSelect?.nome ?? 'Selecione uma especialidade'}
-          </Button>
-        }>
-        {especialidades.map(item => {
-          return (
-            <Menu.Item
-              key={item.id}
-              onPress={() => handleEspecialidade(item)}
-              title={item.nome}
-            />
-          );
-        })}
-      </Menu>
+        onPress={() => handleDropdown(true)}
+        titleItem="nome"
+        valueText={especialidadeSelect?.nome ?? 'Selecione uma especialidade'}
+        visible={visibleDropdown}
+      />
       <Button
         mode="contained"
         onPress={() => navigate('RegistrarProfissionaisPage')}>
@@ -55,5 +48,10 @@ const HomePage = () => {
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+});
 export {HomePage};
