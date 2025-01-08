@@ -8,7 +8,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {colorDefault} from '../shared/theme/colors';
 import {HomePage} from './home/HomePage';
 import {RegistrarProfissionaisPage} from './profissionais/registrar/RegistrarProfissionaisPage';
-import {AtualizarProfissionalPage} from './profissionais/atualizar/AtualizarProfissionalPage';
+import {
+  AtualizarProfissionalPage,
+  PropsAtualizarProfissional,
+} from './profissionais/atualizar/AtualizarProfissionalPage';
 
 const themeDefault: ReactNavigation.Theme = {
   ...DefaultTheme,
@@ -23,7 +26,7 @@ type RootStackParamList = {
   HomePage: undefined;
   RegistrarProfissionaisPage: undefined;
   DetalhesProfissionalPage: PropsDetalhesProfissional;
-  AtualizarProfissionalPage: {profissional: ProfissionalModel};
+  AtualizarProfissionalPage: PropsAtualizarProfissional;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
