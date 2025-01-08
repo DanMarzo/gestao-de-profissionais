@@ -1,10 +1,12 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../../App';
 import {useHomePageViewModel} from './home-page.view-model';
-import {Button} from 'react-native-paper';
 import {CustomMenu} from '../../shared/components/Menu.component';
 import {EspecialidadeModel} from '../../models/especialidade.model';
+import {ProfissionalModel} from '../../models/profissional.model';
+import {Button} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomePage = () => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
@@ -17,7 +19,6 @@ const HomePage = () => {
     handleEspecialidade,
     handleDropdown,
   } = useHomePageViewModel();
-
   return (
     <View style={{flex: 1, gap: 4}}>
       <CustomMenu<EspecialidadeModel>
@@ -30,28 +31,52 @@ const HomePage = () => {
         visible={visibleDropdown}
       />
       <Button
+        style={styles.floatButton}
         mode="contained"
         onPress={() => navigate('RegistrarProfissionaisPage')}>
-        Registrar Profissional
+        <Icon name="plus" size={20} />
       </Button>
       <Button mode="contained" onPress={() => obterProfissionais()}>
         Obter profissional
       </Button>
       <FlatList
         data={profissionais?.data ?? []}
-        renderItem={({item}) => (
-          <View>
-            <Text>{item.nome}</Text>
-          </View>
-        )}
+        renderItem={({item}) => ProfissionalItem(item)}
       />
     </View>
   );
 };
+
+const ProfissionalItem = (profissional: ProfissionalModel) => {
+  return (
+    <TouchableOpacity
+      onPress={() => console.log(profissional.id)}
+      style={[styles.itemList]}>
+      <Text>{profissional.nome}</Text>
+    </TouchableOpacity>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
+  },
+  itemList: {
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  floatButton: {
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    height: 70,
+    borderRadius: '50%',
   },
 });
 export {HomePage};
