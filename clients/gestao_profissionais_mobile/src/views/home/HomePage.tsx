@@ -1,6 +1,6 @@
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../App';
+import {RootStackParamList} from '../route';
 import {useHomePageViewModel} from './home-page.view-model';
 import {CustomMenu} from '../../shared/components/Menu.component';
 import {EspecialidadeModel} from '../../models/especialidade.model';
