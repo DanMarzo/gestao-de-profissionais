@@ -1,20 +1,10 @@
 import React from 'react';
 import {useColorScheme} from 'react-native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
-import {colorDefault} from './src/shared/theme/colors';
-import {HomePage} from './src/views/home/HomePage';
 import {EspecialidadeProvider} from './src/providers/Especialidade.context';
-import {ProfissionalModel} from './src/models/profissional.model';
-import {RegistrarProfissionaisPage} from './src/views/profissionais/registrar/RegistrarProfissionaisPage';
-import {
-  DetalhesProfissionalPage,
-  PropsDetalhesProfissional,
-} from './src/views/profissionais/detalhes/DetalhesProfissionalPage';
-import {AtualizarProfissionalPage} from './src/views/profissionais/atualizar/AtualizarProfissionalPage';
 import themeLight from './theme.json';
 import {MD3LightTheme, PaperProvider} from 'react-native-paper';
 import {ThemeProp} from 'react-native-paper/lib/typescript/types';
+import {Routes} from './src/views/route';
 
 const theme: ThemeProp = {
   ...MD3LightTheme,
@@ -24,23 +14,6 @@ const theme: ThemeProp = {
     secondary: themeLight['color-primary-500'],
   },
 };
-type RootStackParamList = {
-  HomePage: undefined;
-  RegistrarProfissionaisPage: undefined;
-  DetalhesProfissionalPage: PropsDetalhesProfissional;
-  AtualizarProfissionalPage: {profissional: ProfissionalModel};
-};
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
-const themeDefault: ReactNavigation.Theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: colorDefault.primary,
-    text: 'white',
-  },
-};
 
 const App = (): React.JSX.Element => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -48,55 +21,10 @@ const App = (): React.JSX.Element => {
   return (
     <PaperProvider theme={theme}>
       <EspecialidadeProvider>
-        <NavigationContainer theme={themeDefault}>
-          <Stack.Navigator initialRouteName="HomePage">
-            <Stack.Screen
-              name="HomePage"
-              component={HomePage}
-              options={{
-                title: 'Profissionais',
-                headerStyle: {
-                  backgroundColor: colorDefault.primary,
-                },
-              }}
-            />
-            <Stack.Screen
-              name="RegistrarProfissionaisPage"
-              component={RegistrarProfissionaisPage}
-              options={{
-                title: 'Registrar Profissional',
-                headerStyle: {
-                  backgroundColor: colorDefault.primary,
-                },
-              }}
-            />
-            <Stack.Screen
-              name="DetalhesProfissionalPage"
-              component={DetalhesProfissionalPage}
-              options={{
-                title: 'Detalhes Profissional',
-                headerStyle: {
-                  backgroundColor: colorDefault.primary,
-                },
-              }}
-            />
-            <Stack.Screen
-              name="AtualizarProfissionalPage"
-              component={AtualizarProfissionalPage}
-              options={{
-                title: 'Atualizar Profissional',
-                headerStyle: {
-                  backgroundColor: colorDefault.primary,
-                },
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <Routes />
       </EspecialidadeProvider>
     </PaperProvider>
   );
 };
 
 export default App;
-export {Stack};
-export type {RootStackParamList};
