@@ -41,17 +41,26 @@ const HomePage = () => {
       </Button>
       <FlatList
         data={profissionais?.data ?? []}
-        renderItem={({item}) => ProfissionalItem(item)}
+        renderItem={({item}) =>
+          ProfissionalItem({
+            profissional: item,
+            onPress: () =>
+              navigate('DetalhesProfissionalPage', {profissional: item}),
+          })
+        }
       />
     </View>
   );
 };
 
-const ProfissionalItem = (profissional: ProfissionalModel) => {
+type ProfissionalProps = {
+  profissional: ProfissionalModel;
+  onPress: () => void;
+};
+
+const ProfissionalItem = ({onPress, profissional}: ProfissionalProps) => {
   return (
-    <TouchableOpacity
-      onPress={() => console.log(profissional.id)}
-      style={[styles.itemList]}>
+    <TouchableOpacity onPress={onPress} style={[styles.itemList]}>
       <Text>{profissional.nome}</Text>
     </TouchableOpacity>
   );

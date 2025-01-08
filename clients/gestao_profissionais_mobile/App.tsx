@@ -7,7 +7,10 @@ import {HomePage} from './src/views/home/HomePage';
 import {EspecialidadeProvider} from './src/providers/Especialidade.context';
 import {ProfissionalModel} from './src/models/profissional.model';
 import {RegistrarProfissionaisPage} from './src/views/profissionais/registrar/RegistrarProfissionaisPage';
-import {DetalhesProfissionalPage} from './src/views/profissionais/DetalhesProfissionalPage';
+import {
+  DetalhesProfissionalPage,
+  PropsDetalhesProfissional,
+} from './src/views/profissionais/detalhes/DetalhesProfissionalPage';
 import {AtualizarProfissionalPage} from './src/views/profissionais/atualizar/AtualizarProfissionalPage';
 import themeLight from './theme.json';
 import {MD3LightTheme, PaperProvider} from 'react-native-paper';
@@ -24,9 +27,7 @@ const theme: ThemeProp = {
 type RootStackParamList = {
   HomePage: undefined;
   RegistrarProfissionaisPage: undefined;
-  DetalhesProfissionalPage: {
-    profissional: ProfissionalModel;
-  };
+  DetalhesProfissionalPage: PropsDetalhesProfissional;
   AtualizarProfissionalPage: {profissional: ProfissionalModel};
 };
 
