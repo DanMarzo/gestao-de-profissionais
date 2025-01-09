@@ -25,5 +25,10 @@ public class ResponseListModel<T>
     [JsonPropertyName("indice")]
     public int Indice { get; }
     [JsonPropertyName("data")]
-    public IEnumerable<T> Data { get; set; }
+    public IEnumerable<T> Data { get; private set; }
+
+    public void IncluirItens(IEnumerable<T> list)
+    {
+        this.Data = list;
+    }
 }
