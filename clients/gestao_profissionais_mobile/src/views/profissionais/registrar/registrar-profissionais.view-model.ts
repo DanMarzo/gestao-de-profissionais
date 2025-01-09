@@ -4,16 +4,18 @@ import {
   formProfissionalSchema,
   RegistrarProfissionalDTO,
 } from '../../../models/profissional.model';
-import {useContext, useEffect, useState} from 'react';
-import {EspecialidadeContext} from '../../../providers/Especialidade.context';
+import { useEffect, useState} from 'react';
 import {EspecialidadeModel} from '../../../models/especialidade.model';
 import {registrarProfissionalService} from '../../../infra/services/registrar-profissional.service';
 import {Toast} from '../../../shared/theme/toasts';
 import {ToastAndroid} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import { RootStackParamList } from '../../route';
+import { useSelector } from 'react-redux';
+import { especialidadeStateSelector } from '../../../shared/state/especialidade/especialidade.selector';
 
 const useRegistrarProfissionalViewModel = () => {
+  const {especialidades} = useSelector(especialidadeStateSelector)
   const {
     setValue: setValueForm,
     handleSubmit,
@@ -28,7 +30,7 @@ const useRegistrarProfissionalViewModel = () => {
   >(undefined);
   const handleDropdown = (value: boolean = true) => setVisibleDropdown(value);
 
-  const especialidadeContext = useContext(EspecialidadeContext);
+  // const especialidadeContext = useContext(EspecialidadeContext);
 
   const registrarProfissional = async (
     novoProfissional: RegistrarProfissionalDTO,
@@ -70,8 +72,8 @@ const useRegistrarProfissionalViewModel = () => {
   return {
     controlForm,
     errorsForm,
-    especialidades: especialidadeContext.especialidades,
-    carregandoEspecialidade: especialidadeContext.carregando,
+    especialidades,
+    carregandoEspecialidade: true,
     especialidadeSelect,
     carregando,
     visibleDropdown,
