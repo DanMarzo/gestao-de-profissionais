@@ -1,14 +1,18 @@
-import {useContext, useEffect, useState} from 'react';
-import {EspecialidadeContext} from '../../providers/Especialidade.context';
+import {useEffect, useState} from 'react';
 import {ResponseListDTO} from '../../infra/services/response/response-list.dto';
 import {ProfissionalModel} from '../../models/profissional.model';
 import {obterProfissionaisService} from '../../infra/services/obter-profissionais.service';
 import {EspecialidadeModel} from '../../models/especialidade.model';
+import {useSelector} from 'react-redux';
+import {State} from '../../types';
 
 const useHomePageViewModel = () => {
-  const {carregando: carregandoEsp, especialidades} = useContext(EspecialidadeContext);
+  const {especialidades, carregando: carregandoEsp} = useSelector(
+    (state: State) => state.especialidade,
+  );
   const [carregando, setCarregando] = useState(false);
-  const [profissionais, setProfissionais] = useState<ResponseListDTO<ProfissionalModel> | null>(null);
+  const [profissionais, setProfissionais] =
+    useState<ResponseListDTO<ProfissionalModel> | null>(null);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [especialidadeSelect, setEspecialidadeSelect] = useState<
     EspecialidadeModel | undefined
@@ -56,7 +60,7 @@ const useHomePageViewModel = () => {
     visibleDropdown,
     obterProfissionais,
     handleEspecialidade,
-    handleDropdown
+    handleDropdown,
   };
 };
 
