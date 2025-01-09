@@ -12,11 +12,13 @@ const DetalhesProfissionalPage = () => {
   const {navigate, params} = useDetalhesProfissionalViewModel();
   return (
     <View>
-      <Text>{JSON.stringify(params)}</Text>
+      <Text>{JSON.stringify(params, null, 2)}</Text>
       <Button
         mode="contained"
         onPress={() =>
-          navigate('AtualizarProfissionalPage', {profissional: params})
+          navigate('AtualizarProfissionalPage', {
+            profissional: params.profissional,
+          })
         }>
         <Icon name="edit" />
       </Button>
