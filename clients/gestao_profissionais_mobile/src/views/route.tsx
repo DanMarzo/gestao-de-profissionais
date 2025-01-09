@@ -1,9 +1,12 @@
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  RouteProp,
+} from '@react-navigation/native';
 import {
   DetalhesProfissionalPage,
   PropsDetalhesProfissional,
 } from './profissionais/detalhes/DetalhesProfissionalPage';
-import {ProfissionalModel} from '../models/profissional.model';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {colorDefault} from '../shared/theme/colors';
 import {HomePage} from './home/HomePage';
@@ -13,6 +16,19 @@ import {
   PropsAtualizarProfissional,
 } from './profissionais/atualizar/AtualizarProfissionalPage';
 
+type RootStackParamList = {
+  HomePage: undefined;
+  RegistrarProfissionaisPage: undefined;
+  DetalhesProfissionalPage: PropsDetalhesProfissional;
+  AtualizarProfissionalPage: PropsAtualizarProfissional;
+};
+
+type RootRouteProps<RouteName extends keyof RootStackParamList> = RouteProp<
+  RootStackParamList,
+  RouteName
+>;
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const themeDefault: ReactNavigation.Theme = {
   ...DefaultTheme,
   colors: {
@@ -21,15 +37,6 @@ const themeDefault: ReactNavigation.Theme = {
     text: 'white',
   },
 };
-
-type RootStackParamList = {
-  HomePage: undefined;
-  RegistrarProfissionaisPage: undefined;
-  DetalhesProfissionalPage: PropsDetalhesProfissional;
-  AtualizarProfissionalPage: PropsAtualizarProfissional;
-};
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Routes = () => {
   return (
@@ -81,4 +88,4 @@ const Routes = () => {
 };
 
 export {Routes};
-export type {RootStackParamList};
+export type {RootStackParamList, RootRouteProps};
