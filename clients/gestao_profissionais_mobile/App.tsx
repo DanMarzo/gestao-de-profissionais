@@ -8,6 +8,7 @@ import {Routes} from './src/views/route';
 import {Provider as ReduxProvider} from 'react-redux';
 import {store} from './src/infra/config-redux';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {RouteProp} from '@react-navigation/native';
 
 const theme: ThemeProp = {
   ...MD3LightTheme,
