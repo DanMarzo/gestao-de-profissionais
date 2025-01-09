@@ -16,6 +16,12 @@ class RegistrarProfissionalDTO {
   numeroDocumento: string;
 }
 
+class AtualizarProfissionalDTO {
+  especialidadeId: number;
+  nome: string;
+  numeroDocumento: string;
+}
+
 const formProfissionalSchema = yup.object().shape({
   nome: yup
     .string()
@@ -28,4 +34,9 @@ const formProfissionalSchema = yup.object().shape({
   especialidadeId: yup.number().required('Especialidade é obrigatório.'),
 });
 
-export {ProfissionalModel, formProfissionalSchema, RegistrarProfissionalDTO};
+export {
+  RegistrarProfissionalDTO,
+  AtualizarProfissionalDTO,
+  ProfissionalModel,
+  formProfissionalSchema,
+};
