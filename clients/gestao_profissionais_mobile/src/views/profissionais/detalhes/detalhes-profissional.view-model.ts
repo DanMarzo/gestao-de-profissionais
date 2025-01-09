@@ -1,20 +1,18 @@
 import {
   NavigationProp,
-  RouteProp,
   useFocusEffect,
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
 import {useCallback} from 'react';
-import {RootStackParamList} from '../../route';
-import {PropsDetalhesProfissional} from './DetalhesProfissionalPage';
+import {RootRouteProps, RootStackParamList} from '../../route';
 
 const useDetalhesProfissionalViewModel = () => {
-  const {params} = useRoute<RouteProp<PropsDetalhesProfissional>>();
+  const {params} = useRoute<RootRouteProps<'DetalhesProfissionalPage'>>();
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
   useFocusEffect(
     useCallback(() => {
-        console.log(params)
+        console.log(params.profissional)
       return () => {};
     }, [params]),
   );
