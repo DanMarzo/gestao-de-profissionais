@@ -11,7 +11,7 @@ import {registrarProfissionalService} from '../../../infra/services/registrar-pr
 import {Toast} from '../../../shared/theme/toasts';
 import {ToastAndroid} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../../App';
+import { RootStackParamList } from '../../route';
 
 const useRegistrarProfissionalViewModel = () => {
   const {
