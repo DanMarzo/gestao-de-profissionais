@@ -19,15 +19,18 @@ public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisReq
         request.ExecutarValidacoes<ValidateException>();
 
         var totalItens = 0;
-        List<Expression<Func<ProfissionalEntity, object>>> include = [];
+
+        Expression<Func<ProfissionalEntity, bool>>? where = null;
+
         if (request.EspecialidadeId is not null)
         {
-            var especialidadeExiste = await this.repository
-                .EntityExists<EspecialidadeEntity>(x => x.Id == request.EspecialidadeId);
-            if (!especialidadeExiste) 
+            where = x => x.EspecialidadeId == request.EspecialidadeId;
+            var especialidadeExiste = await this.repository.EntityExists<EspecialidadeEntity>(x => x.Id == request.EspecialidadeId);
+
+            if (!especialidadeExiste)
                 throw new ValidateException($"Especialidade Id {request.EspecialidadeId} não localizada.", HttpStatusCode.NotFound);
-            totalItens = await this.repository.CountAsync<ProfissionalEntity>(where: x => x.EspecialidadeId == request.EspecialidadeId);
-            include = [inc => inc.Especialidade];
+
+            totalItens = await this.repository.CountAsync(where);
         }
         else
             totalItens = await this.repository.CountAsync<ProfissionalEntity>();
@@ -36,15 +39,12 @@ public class ListarProfissionaisHandler : IRequestHandler<ListarProfissionaisReq
         if (totalItens == 0)
             return result;
 
-        var profissionais = await
-            this.repository
-            .ListEntities<ProfissionalEntity>(
-                request,
-                includes: include);
-
+        var profissionais = await this.repository
+            .ListEntities(request, includes: [inc => inc.Especialidade], where: where);
 
         var profissionaisDTO = mapper.Map<IEnumerable<ProfissionalDetalhesDTO>>(profissionais);
-        result.Data = profissionaisDTO;
+
+        result.IncluirItens(profissionaisDTO);
         this.logger.LogInformation($"Response {JsonSerializer.Serialize(result)}");
         return result;
     }
