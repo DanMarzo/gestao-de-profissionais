@@ -20,7 +20,7 @@ public interface IRepository
 
     Task<IEnumerable<T>> ListEntities<T>(RequestListModel request) where T : class;
     Task<IEnumerable<T>> ListEntities<T>(RequestListModel request, List<Expression<Func<T, object>>> includes) where T : class;
-    Task<IEnumerable<T>> ListEntities<T>(RequestListModel request, List<Expression<Func<T, object>>> includes, Expression<Func<T, bool>> where) where T : class;
+    Task<IEnumerable<T>> ListEntities<T>(RequestListModel request, List<Expression<Func<T, object>>> includes, Expression<Func<T, bool>>? where) where T : class;
     Task<int> CountAsync<T>() where T : class;
     Task<int> CountAsync<T>(Expression<Func<T, bool>> where) where T : class;
 }

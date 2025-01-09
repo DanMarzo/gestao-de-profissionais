@@ -94,11 +94,16 @@ public class Repository : IRepository
         return await query.Skip(request.CalcularItensAPular()).Take(request.Qtde).ToListAsync();
     }
 
-    public async Task<IEnumerable<T>> ListEntities<T>(RequestListModel request, List<Expression<Func<T, object>>> includes, Expression<Func<T, bool>> where) where T : class
+    public async Task<IEnumerable<T>> ListEntities<T>(RequestListModel request, List<Expression<Func<T, object>>> includes, Expression<Func<T, bool>>? where) where T : class
     {
-        IQueryable<T> query = context.Set<T>().Where(where);
-        if (includes != null)
+        IQueryable<T> query = context.Set<T>();
+
+        if (where is not null)
+            query = query.Where(where);
+
+        if (includes is not null)
             query = includes.Aggregate(query, (current, include) => current.Include(include));
+
         return await query.Skip(request.CalcularItensAPular()).Take(request.Qtde).ToListAsync();
     }
 }
