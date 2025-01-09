@@ -1,5 +1,7 @@
 ﻿
 
+using Gestao.Profissionais.Application.DTOs.EspecialidadeDTOs;
+
 namespace Gestao.Profissionais.Infra.Ioc;
 
 public static class InjectDependences
@@ -30,13 +32,13 @@ public static class InjectDependences
 
         if (!string.IsNullOrEmpty(contentFile))
         {
-            var listaEspecialidades = JsonSerializer.Deserialize<IEnumerable<EspecialidadeEntity>>(contentFile) ?? [];
+            var listaEspecialidades = JsonSerializer.Deserialize<IEnumerable<EspecialidadeDTO>>(contentFile) ?? [];
 
             foreach (var especialidade in listaEspecialidades)
             {
                 var especialidadeExiste = await repository.EntityExists<EspecialidadeEntity>(x => x.Id == especialidade.Id);
                 if (especialidadeExiste) continue;
-                await repository.AddAsync(especialidade);
+                await repository.AddAsync(new EspecialidadeEntity(especialidade.Id, especialidade.Nome, especialidade.TipoDocumento));
             }
         }
     }
