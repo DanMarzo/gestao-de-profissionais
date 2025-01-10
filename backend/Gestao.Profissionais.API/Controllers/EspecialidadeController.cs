@@ -10,7 +10,7 @@ public class EspecialidadeController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> ObterTodas()
     {
-        var entidades = await this.mediator.Send(new ObterEspecialidadesRequest());
+        var entidades = await this.mediator.Send(new ObterEspecialidadesQueryRequest());
         return Ok(entidades);
     }
 }
