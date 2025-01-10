@@ -1,19 +1,19 @@
-﻿namespace Gestao.Profissionais.Application.Features.ProfissionalFeatures.ProfissionalPorId;
+﻿namespace Gestao.Profissionais.Application.Features.ProfissionalFeatures.Queries.ProfissionalPorId;
 
-public class ProfissionalPorIdHandler : IRequestHandler<ProfissionalPorIdRequest, ProfissionalDetalhesDTO>
+public class ProfissionalPorIdQueryHandler : IRequestHandler<ProfissionalPorIdQueryRequest, ProfissionalDetalhesDTO>
 {
-    private readonly ILogger<ProfissionalPorIdHandler> logger;
+    private readonly ILogger<ProfissionalPorIdQueryHandler> logger;
     private readonly IRepository repository;
     private readonly IMapper mapper;
 
-    public ProfissionalPorIdHandler(ILogger<ProfissionalPorIdHandler> logger, IRepository repository, IMapper mapper)
+    public ProfissionalPorIdQueryHandler(ILogger<ProfissionalPorIdQueryHandler> logger, IRepository repository, IMapper mapper)
     {
         this.logger = logger;
         this.repository = repository;
         this.mapper = mapper;
     }
 
-    public async Task<ProfissionalDetalhesDTO> Handle(ProfissionalPorIdRequest request, CancellationToken cancellationToken)
+    public async Task<ProfissionalDetalhesDTO> Handle(ProfissionalPorIdQueryRequest request, CancellationToken cancellationToken)
     {
         var profissional = await repository.GetEntityAsync<ProfissionalEntity>(x => x.Id == request.Id, includes: [inc => inc.Especialidade])
             ?? throw new ValidateException("Não foi possível localizar o profissional", HttpStatusCode.NotFound);

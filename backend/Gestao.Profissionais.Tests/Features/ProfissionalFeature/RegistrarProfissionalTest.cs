@@ -1,5 +1,7 @@
 
 
+using Gestao.Profissionais.Application.Features.ProfissionalFeatures.Commands.RegistrarProfissional;
+
 namespace Gestao.Profissionais.Tests.Features.ProfissionalFeature;
 
 public class RegistrarProfissionalTest
@@ -21,14 +23,14 @@ public class RegistrarProfissionalTest
     public async void RegistrarProfissionalComEspecialidadeInvalida()
     {
         await ObterRepository();
-        var mockLogger = new Mock<ILogger<RegistrarProfissionalHandler>>();
-        var request = new RegistrarProfissionalRequest()
+        var mockLogger = new Mock<ILogger<RegistrarProfissionalCommandHandler>>();
+        var request = new RegistrarProfissionalCommandRequest()
         {
             EspecialidadeId = 0,
             Nome = "Profissional Teste",
             NumeroDocumento = "12345678909"
         };
-        var handler = new RegistrarProfissionalHandler(this.Repository, mockLogger.Object);
+        var handler = new RegistrarProfissionalCommandHandler(this.Repository, mockLogger.Object);
 
         await Assert.ThrowsAsync<ValidateException>(async () =>
         {
@@ -40,14 +42,14 @@ public class RegistrarProfissionalTest
     public async void RegistrarProfissionalComEspecialidadeNaoExistente()
     {
         await ObterRepository();
-        var mockLogger = new Mock<ILogger<RegistrarProfissionalHandler>>();
-        var request = new RegistrarProfissionalRequest()
+        var mockLogger = new Mock<ILogger<RegistrarProfissionalCommandHandler>>();
+        var request = new RegistrarProfissionalCommandRequest()
         {
             EspecialidadeId = 1000,
             Nome = "Profissional Teste",
             NumeroDocumento = "12345678909"
         };
-        var handler = new RegistrarProfissionalHandler(this.Repository, mockLogger.Object);
+        var handler = new RegistrarProfissionalCommandHandler(this.Repository, mockLogger.Object);
 
         await Assert.ThrowsAsync<ValidateException>(async () =>
         {
@@ -59,14 +61,14 @@ public class RegistrarProfissionalTest
     public async void RegistrarProfissionalComSucesso()
     {
         await ObterRepository();
-        var mockLogger = new Mock<ILogger<RegistrarProfissionalHandler>>();
-        var request = new RegistrarProfissionalRequest()
+        var mockLogger = new Mock<ILogger<RegistrarProfissionalCommandHandler>>();
+        var request = new RegistrarProfissionalCommandRequest()
         {
             EspecialidadeId = 1,
             Nome = "Profissional Teste",
             NumeroDocumento = "12345678909"
         };
-        var handler = new RegistrarProfissionalHandler(this.Repository, mockLogger.Object);
+        var handler = new RegistrarProfissionalCommandHandler(this.Repository, mockLogger.Object);
         var response = await handler.Handle(request, new CancellationToken());
         Assert.IsType<ResponseCreateAPIModel<long>>(response);
     }

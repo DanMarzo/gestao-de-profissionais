@@ -1,18 +1,18 @@
-﻿namespace Gestao.Profissionais.Application.Features.ProfissionalFeatures.AtualizarProfissional;
+﻿namespace Gestao.Profissionais.Application.Features.ProfissionalFeatures.Commands.AtualizarProfissional;
 
-public class AtualizarProfissionalHandler : IRequestHandler<AtualizarProfissionalRequest, ProfissionalDetalhesDTO>
+public class AtualizarProfissionalCommandHandler : IRequestHandler<AtualizarProfissionalCommandRequest, ProfissionalDetalhesDTO>
 {
     private readonly IRepository repository;
-    private readonly ILogger<AtualizarProfissionalHandler> logger;
+    private readonly ILogger<AtualizarProfissionalCommandHandler> logger;
     private readonly IMapper mapper;
-    public AtualizarProfissionalHandler(IRepository repository, ILogger<AtualizarProfissionalHandler> logger, IMapper mapper)
+    public AtualizarProfissionalCommandHandler(IRepository repository, ILogger<AtualizarProfissionalCommandHandler> logger, IMapper mapper)
     {
         this.repository = repository;
         this.logger = logger;
         this.mapper = mapper;
     }
 
-    public async Task<ProfissionalDetalhesDTO> Handle(AtualizarProfissionalRequest request, CancellationToken cancellationToken)
+    public async Task<ProfissionalDetalhesDTO> Handle(AtualizarProfissionalCommandRequest request, CancellationToken cancellationToken)
     {
         var profissional = await repository.GetEntityAsync<ProfissionalEntity>
             (x => x.Id == request.Id, true, [inc => inc.Especialidade])
