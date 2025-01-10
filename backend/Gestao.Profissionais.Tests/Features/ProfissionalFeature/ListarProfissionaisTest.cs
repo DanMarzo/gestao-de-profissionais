@@ -1,6 +1,4 @@
-﻿using Gestao.Profissionais.Application.Features.ProfissionalFeatures.Queries.ListarProfissionais;
-
-namespace Gestao.Profissionais.Tests.Features.ProfissionalFeature;
+﻿namespace Gestao.Profissionais.Tests.Features.ProfissionalFeature;
 
 public class ListarProfissionaisTest
 {

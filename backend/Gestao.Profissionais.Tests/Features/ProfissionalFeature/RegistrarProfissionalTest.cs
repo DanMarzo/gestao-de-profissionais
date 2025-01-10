@@ -1,7 +1,3 @@
-
-
-using Gestao.Profissionais.Application.Features.ProfissionalFeatures.Commands.RegistrarProfissional;
-
 namespace Gestao.Profissionais.Tests.Features.ProfissionalFeature;
 
 public class RegistrarProfissionalTest
@@ -19,8 +15,8 @@ public class RegistrarProfissionalTest
             await this.Repository.AddAsync(new EspecialidadeEntity { Id = 1, Nome = "Pediatra", TipoDocumento = TipoDocEspecialidadeEnum.CRM });
     }
 
-    [Fact]
-    public async void RegistrarProfissionalComEspecialidadeInvalida()
+    [Fact(DisplayName = "Registrar Profissional com especialidade inválida")]
+    public async Task RegistrarProfissionalComEspecialidadeInvalida()
     {
         await ObterRepository();
         var mockLogger = new Mock<ILogger<RegistrarProfissionalCommandHandler>>();
@@ -32,13 +28,15 @@ public class RegistrarProfissionalTest
         };
         var handler = new RegistrarProfissionalCommandHandler(this.Repository, mockLogger.Object);
 
-        await Assert.ThrowsAsync<ValidateException>(async () =>
-        {
-            await handler.Handle(request, new CancellationToken());
-        });
+        Func<Task> act = async () => await handler.Handle(request, new CancellationToken());
+        
+        await act
+            .Should()
+            .ThrowAsync<ValidateException>()
+            .WithMessage($"Especialidade Id {request.EspecialidadeId} é inválido!");
     }
 
-    [Fact]
+    [Fact(DisplayName = "Registrar profissional com especialidade não existente" )]
     public async void RegistrarProfissionalComEspecialidadeNaoExistente()
     {
         await ObterRepository();
@@ -50,11 +48,13 @@ public class RegistrarProfissionalTest
             NumeroDocumento = "12345678909"
         };
         var handler = new RegistrarProfissionalCommandHandler(this.Repository, mockLogger.Object);
+     
+        Func<Task> act = async () => await handler.Handle(request, new CancellationToken());
 
-        await Assert.ThrowsAsync<ValidateException>(async () =>
-        {
-            await handler.Handle(request, new CancellationToken());
-        });
+        await act
+            .Should()
+            .ThrowAsync<ValidateException>()
+            .WithMessage($"Especialidade Id {request.EspecialidadeId} informada não localizada!");
     }
 
     [Fact]

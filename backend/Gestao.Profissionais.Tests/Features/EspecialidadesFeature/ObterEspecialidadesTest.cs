@@ -1,6 +1,4 @@
-﻿using Gestao.Profissionais.Application.Features.EspecialidadeFeatures.Queries.ObterEspecialidades;
-
-namespace Gestao.Profissionais.Tests.Features.EspecialidadesFeature;
+﻿namespace Gestao.Profissionais.Tests.Features.EspecialidadesFeature;
 
 public class ObterEspecialidadesTest
 {
