@@ -29,14 +29,14 @@ public class RegistrarProfissionalTest
         var handler = new RegistrarProfissionalCommandHandler(this.Repository, mockLogger.Object);
 
         Func<Task> act = async () => await handler.Handle(request, new CancellationToken());
-        
+
         await act
             .Should()
             .ThrowAsync<ValidateException>()
             .WithMessage($"Especialidade Id {request.EspecialidadeId} é inválido!");
     }
 
-    [Fact(DisplayName = "Registrar profissional com especialidade não existente" )]
+    [Fact(DisplayName = "Registrar profissional com especialidade não existente")]
     public async void RegistrarProfissionalComEspecialidadeNaoExistente()
     {
         await ObterRepository();
@@ -48,7 +48,7 @@ public class RegistrarProfissionalTest
             NumeroDocumento = "12345678909"
         };
         var handler = new RegistrarProfissionalCommandHandler(this.Repository, mockLogger.Object);
-     
+
         Func<Task> act = async () => await handler.Handle(request, new CancellationToken());
 
         await act
@@ -57,7 +57,7 @@ public class RegistrarProfissionalTest
             .WithMessage($"Especialidade Id {request.EspecialidadeId} informada não localizada!");
     }
 
-    [Fact]
+    [Fact(DisplayName = "Registrar profissionais com sucesso")]
     public async void RegistrarProfissionalComSucesso()
     {
         await ObterRepository();
@@ -69,7 +69,10 @@ public class RegistrarProfissionalTest
             NumeroDocumento = "12345678909"
         };
         var handler = new RegistrarProfissionalCommandHandler(this.Repository, mockLogger.Object);
-        var response = await handler.Handle(request, new CancellationToken());
-        Assert.IsType<ResponseCreateAPIModel<long>>(response);
+
+        var result = await handler.Handle(request, new CancellationToken());
+
+        result.Should()
+            .BeOfType<ResponseCreateAPIModel<long>>();
     }
 }
