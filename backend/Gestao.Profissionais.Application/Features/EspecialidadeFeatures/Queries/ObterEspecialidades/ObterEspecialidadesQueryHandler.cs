@@ -1,18 +1,18 @@
-﻿namespace Gestao.Profissionais.Application.Features.EspecialidadeFeatures.ObterEspecialidades;
+﻿namespace Gestao.Profissionais.Application.Features.EspecialidadeFeatures.Queries.ObterEspecialidades;
 
-public class ObterEspecialidadesHandler : IRequestHandler<ObterEspecialidadesRequest, IEnumerable<EspecialidadeDTO>>
+public class ObterEspecialidadesQueryHandler : IRequestHandler<ObterEspecialidadesQueryRequest, IEnumerable<EspecialidadeDTO>>
 {
     private readonly IRepository repository;
-    private readonly ILogger<ObterEspecialidadesHandler> logger;
+    private readonly ILogger<ObterEspecialidadesQueryHandler> logger;
     private readonly IMapper mapper;
-    public ObterEspecialidadesHandler(IRepository repository, ILogger<ObterEspecialidadesHandler> logger, IMapper mapper)
+    public ObterEspecialidadesQueryHandler(IRepository repository, ILogger<ObterEspecialidadesQueryHandler> logger, IMapper mapper)
     {
         this.repository = repository;
         this.logger = logger;
         this.mapper = mapper;
     }
 
-    public async Task<IEnumerable<EspecialidadeDTO>> Handle(ObterEspecialidadesRequest request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<EspecialidadeDTO>> Handle(ObterEspecialidadesQueryRequest request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Request: Lista de especialidades.");
 

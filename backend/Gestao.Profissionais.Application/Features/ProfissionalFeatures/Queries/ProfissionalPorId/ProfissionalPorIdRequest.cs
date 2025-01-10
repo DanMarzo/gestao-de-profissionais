@@ -1,4 +1,4 @@
-﻿namespace Gestao.Profissionais.Application.Features.ProfissionalFeatures.ProfissionalPorId;
+﻿namespace Gestao.Profissionais.Application.Features.ProfissionalFeatures.Queries.ProfissionalPorId;
 
 public class ProfissionalPorIdRequest : IRequest<ProfissionalDetalhesDTO>
 {

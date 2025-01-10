@@ -1,4 +1,6 @@
-﻿namespace Gestao.Profissionais.API.Controllers;
+﻿using Gestao.Profissionais.Application.Features.ProfissionalFeatures.Commands.RegistrarProfissional;
+
+namespace Gestao.Profissionais.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -8,7 +10,7 @@ public class ProfissionalController : ControllerBase
     public ProfissionalController(IMediator mediator) { this.mediator = mediator; }
 
     [HttpPost]
-    public async Task<IActionResult> Registrar([FromBody] RegistrarProfissionalRequest request)
+    public async Task<IActionResult> Registrar([FromBody] RegistrarProfissionalCommandRequest request)
     {
         var profissionalId = await mediator.Send(request);
         return Created(nameof(PorId), profissionalId);

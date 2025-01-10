@@ -1,4 +1,6 @@
-﻿namespace Gestao.Profissionais.Tests.Features.EspecialidadesFeature;
+﻿using Gestao.Profissionais.Application.Features.EspecialidadeFeatures.Queries.ObterEspecialidades;
+
+namespace Gestao.Profissionais.Tests.Features.EspecialidadesFeature;
 
 public class ObterEspecialidadesTest
 {
@@ -17,12 +19,12 @@ public class ObterEspecialidadesTest
     {
         //Simula a tarefa inicial da API onde eh inserido especialidades padrao
         var repository = ObterRepository();
-        var mockLogger = new Mock<ILogger<ObterEspecialidadesHandler>>();
+        var mockLogger = new Mock<ILogger<ObterEspecialidadesQueryHandler>>();
         var especialidadeProfile = new EspecialidadesMapping();
         var configuration = new MapperConfiguration(cfg => cfg.AddProfile(especialidadeProfile));
         IMapper mapper = new Mapper(configuration);
-        var request = new ObterEspecialidadesRequest();
-        var handler = new ObterEspecialidadesHandler(repository, mockLogger.Object, mapper);
+        var request = new ObterEspecialidadesQueryRequest();
+        var handler = new ObterEspecialidadesQueryHandler(repository, mockLogger.Object, mapper);
         var response = await handler.Handle(request, new CancellationToken());
         Assert.True(response.Any());
     }
