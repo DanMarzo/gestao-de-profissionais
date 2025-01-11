@@ -49,6 +49,7 @@ public class ListarProfissionaisTest
             await handler.Handle(request, new CancellationToken());
         });
     }
+    
     [Fact]
     public async void ObterProfissionaisComQtdeNegativa()
     {
@@ -66,6 +67,7 @@ public class ListarProfissionaisTest
             await handler.Handle(request, new CancellationToken());
         });
     }
+
     [Fact]
     public async void ObterProfissionaisComEspecialidadeInexistente()
     {
@@ -82,6 +84,7 @@ public class ListarProfissionaisTest
             await handler.Handle(request, new CancellationToken());
         });
     }
+
     [Fact]
     public async void ObterProfissionaisSemQtde()
     {
@@ -96,6 +99,7 @@ public class ListarProfissionaisTest
         var response = await handler.Handle(request, new CancellationToken());
         Assert.IsType<ResponseListModel<ProfissionalDetalhesDTO>>(response);
     }
+
     [Fact]
     public async void ObterProfissionaisComQtde()
     {
@@ -110,6 +114,7 @@ public class ListarProfissionaisTest
         var response = await handler.Handle(request, new CancellationToken());
         Assert.IsType<ResponseListModel<ProfissionalDetalhesDTO>>(response);
     }
+
     [Fact]
     public async void ObterProfissionaisComQtdeEEspecialidadeId()
     {
