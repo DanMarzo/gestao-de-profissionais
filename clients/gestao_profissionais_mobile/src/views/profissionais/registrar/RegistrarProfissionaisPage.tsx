@@ -8,7 +8,7 @@ import {
 } from '../../../models/especialidade.model';
 import {Button, TextInput} from 'react-native-paper';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {CustomMenu} from '../../../shared/components/Menu.component';
+import {SelectDropdown} from '../../../shared/components/SelectDropdown';
 
 const RegistrarProfissionaisPage = () => {
   const {
@@ -37,14 +37,17 @@ const RegistrarProfissionaisPage = () => {
           <Text style={styles.loadingText}>Carregando...</Text>
         </View>
       </Modal>
-      <CustomMenu<EspecialidadeModel>
-        handleItem={item => handleEspecialidade(item)}
-        items={especialidades}
-        onDismiss={() => handleDropdown(false)}
-        onPress={() => handleDropdown(true)}
-        titleItem="nome"
-        valueText={especialidadeSelect?.nome ?? 'Selecione uma especialidade'}
-        visible={visibleDropdown}
+      <SelectDropdown
+        isFocus={visibleDropdown}
+        readonly={false}
+        data={especialidades}
+        search
+        labelField="nome"
+        valueField="id"
+        value={especialidadeSelect}
+        onFocus={() => handleDropdown(true)}
+        onBlur={() => handleDropdown(false)}
+        onChange={(item: EspecialidadeModel) => handleEspecialidade(item)}
       />
       {errorsForm.especialidadeId && (
         <Text>{errorsForm.especialidadeId.message}</Text>

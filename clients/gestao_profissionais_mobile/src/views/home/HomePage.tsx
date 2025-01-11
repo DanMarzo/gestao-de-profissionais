@@ -36,15 +36,6 @@ const HomePage = () => {
           handleEspecialidade(item);
         }}
       />
-      {/* <CustomMenu<EspecialidadeModel>
-        handleItem={item => handleEspecialidade(item)}
-        items={especialidades}
-        onDismiss={() => handleDropdown(false)}
-        onPress={() => handleDropdown(true)}
-        titleItem="nome"
-        valueText={especialidadeSelect?.nome ?? 'Selecione uma especialidade'}
-        visible={visibleDropdown}
-      /> */}
       <Button
         style={styles.floatButton}
         mode="contained"
