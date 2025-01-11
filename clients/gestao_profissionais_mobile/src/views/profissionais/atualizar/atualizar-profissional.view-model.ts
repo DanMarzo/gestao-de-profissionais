@@ -31,12 +31,13 @@ const useAtualizarProfissionalViewModel = () => {
     control: controlForm,
     formState: {errors: errorsForm},
   } = useForm({resolver: yupResolver(formProfissionalSchema)});
+
   const {params} = useRoute<RootRouteProps<'AtualizarProfissionalPage'>>();
   const {goBack} = useNavigation<NavigationProp<RootStackParamList>>();
-  const [especialidadeSelect, setEspecialidadeSelect] = useState<
-    EspecialidadeModel | undefined
-  >(undefined);
+
+  const [especialidadeSelect, setEspecialidadeSelect] = useState<EspecialidadeModel | undefined>(undefined);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
+  const [readonly, setReadonly] = useState<boolean>(true);
   const handleDropdown = (value: boolean = true) => setVisibleDropdown(value);
   const {especialidades, carregando} = useSelector(
     (state: State) => state.especialidade,
@@ -95,6 +96,10 @@ const useAtualizarProfissionalViewModel = () => {
     }
   };
 
+  const handleReadonly = (state: boolean = false) => {
+    setReadonly(state);
+  };
+
   return {
     visibleDropdown,
     errorsForm,
@@ -103,10 +108,12 @@ const useAtualizarProfissionalViewModel = () => {
     especialidades,
     carregandoEspec: carregando,
     carregando: atualizarProfissioal.isPending,
+    readonly,
     atualizar: atualizarProfissioal.mutate,
     handleSubmit,
     handleDropdown,
     handleEspecialidade,
+    handleReadonly
   };
 };
 

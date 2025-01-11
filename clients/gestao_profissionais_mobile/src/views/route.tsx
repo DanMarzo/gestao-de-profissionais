@@ -3,10 +3,6 @@ import {
   DefaultTheme,
   RouteProp,
 } from '@react-navigation/native';
-import {
-  DetalhesProfissionalPage,
-  PropsDetalhesProfissional,
-} from './profissionais/detalhes/DetalhesProfissionalPage';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {colorDefault} from '../shared/theme/colors';
 import {HomePage} from './home/HomePage';
@@ -19,7 +15,6 @@ import {
 type RootStackParamList = {
   HomePage: undefined;
   RegistrarProfissionaisPage: undefined;
-  DetalhesProfissionalPage: PropsDetalhesProfissional;
   AtualizarProfissionalPage: PropsAtualizarProfissional;
 };
 
@@ -63,20 +58,10 @@ const Routes = () => {
           }}
         />
         <Stack.Screen
-          name="DetalhesProfissionalPage"
-          component={DetalhesProfissionalPage}
-          options={{
-            title: 'Detalhes Profissional',
-            headerStyle: {
-              backgroundColor: colorDefault.primary,
-            },
-          }}
-        />
-        <Stack.Screen
           name="AtualizarProfissionalPage"
           component={AtualizarProfissionalPage}
           options={{
-            title: 'Atualizar Profissional',
+            title: 'Detalhes Profissional',
             headerStyle: {
               backgroundColor: colorDefault.primary,
             },

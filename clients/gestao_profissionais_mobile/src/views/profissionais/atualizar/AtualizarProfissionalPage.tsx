@@ -1,4 +1,3 @@
-import React from 'react';
 import {Modal, StyleSheet, Text, View} from 'react-native';
 import {ProfissionalModel} from '../../../models/profissional.model';
 import {useAtualizarProfissionalViewModel} from './atualizar-profissional.view-model';
@@ -19,6 +18,7 @@ const AtualizarProfissionalPage = () => {
     handleDropdown,
     handleEspecialidade,
     handleSubmit,
+    handleReadonly,
     controlForm,
     errorsForm,
     especialidadeSelect,
@@ -26,6 +26,7 @@ const AtualizarProfissionalPage = () => {
     especialidades,
     carregandoEspec,
     carregando,
+    readonly,
   } = useAtualizarProfissionalViewModel();
   const insets = useSafeAreaInsets();
 
@@ -57,6 +58,7 @@ const AtualizarProfissionalPage = () => {
         name="nome"
         render={({field: {onChange, onBlur, value}}) => (
           <TextInput
+            readOnly={readonly}
             label="Nome"
             value={value}
             onChangeText={onChange}
@@ -77,6 +79,7 @@ const AtualizarProfissionalPage = () => {
         name="numeroDocumento"
         render={({field: {onChange, onBlur, value}}) => (
           <TextInput
+            readOnly={readonly}
             label="Número documento"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -88,11 +91,23 @@ const AtualizarProfissionalPage = () => {
         <Text>{errorsForm.numeroDocumento.message}</Text>
       )}
 
-      <Button
-        mode="contained"
-        onPress={handleSubmit(value => atualizar(value))}>
-        Enviar
-      </Button>
+      {readonly ? (
+        <Button mode="contained" onPress={() => handleReadonly()}>
+          Editar
+        </Button>
+      ) : (
+        <>
+          <Button
+            icon={'edit'}
+            mode="contained"
+            onPress={handleSubmit(value => atualizar(value))}>
+            Enviar
+          </Button>
+          <Button mode="text" onPress={() => handleReadonly(true)}>
+            Cancelar
+          </Button>
+        </>
+      )}
     </View>
   );
 };
