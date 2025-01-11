@@ -1,14 +1,13 @@
 import {Modal, StyleSheet, Text, View} from 'react-native';
 import {ProfissionalModel} from '../../../models/profissional.model';
 import {useAtualizarProfissionalViewModel} from './atualizar-profissional.view-model';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ActivityIndicator, Button, TextInput} from 'react-native-paper';
 import {Controller} from 'react-hook-form';
 import {
   EspecialidadeModel,
   nomeTipoDocEspecialidadeEnum,
 } from '../../../models/especialidade.model';
-import {CustomMenu} from '../../../shared/components/Menu.component';
+import {SelectDropdown} from '../../../shared/components/SelectDropdown';
 
 type PropsAtualizarProfissional = {profissional: ProfissionalModel};
 
@@ -22,16 +21,14 @@ const AtualizarProfissionalPage = () => {
     controlForm,
     errorsForm,
     especialidadeSelect,
-    visibleDropdown,
+    isFocus,
     especialidades,
     carregandoEspec,
     carregando,
     readonly,
   } = useAtualizarProfissionalViewModel();
-  const insets = useSafeAreaInsets();
-
   return (
-    <View style={{flex: 1, gap: 4, paddingBottom: insets.bottom}}>
+    <View style={{flex: 1, gap: 8, padding: 8}}>
       <Modal
         visible={carregando || carregandoEspec}
         transparent
@@ -41,14 +38,21 @@ const AtualizarProfissionalPage = () => {
           <Text style={styles.loadingText}>Carregando...</Text>
         </View>
       </Modal>
-      <CustomMenu<EspecialidadeModel>
-        handleItem={item => handleEspecialidade(item)}
-        items={especialidades}
-        onDismiss={() => handleDropdown(false)}
-        onPress={() => handleDropdown(true)}
-        titleItem="nome"
-        valueText={especialidadeSelect?.nome ?? 'Selecione uma especialidade'}
-        visible={visibleDropdown}
+
+      <SelectDropdown
+        isFocus={isFocus}
+        readonly={readonly}
+        data={especialidades}
+        search
+        labelField="nome"
+        valueField="id"
+        value={especialidadeSelect}
+        onFocus={() => handleDropdown(true)}
+        onBlur={() => handleDropdown(false)}
+        onChange={(item: EspecialidadeModel) => {
+          console.log(item);
+          handleEspecialidade(item);
+        }}
       />
       {errorsForm.especialidadeId && (
         <Text>{errorsForm.especialidadeId.message}</Text>
@@ -92,13 +96,12 @@ const AtualizarProfissionalPage = () => {
       )}
 
       {readonly ? (
-        <Button mode="contained" onPress={() => handleReadonly()}>
+        <Button icon="pencil" mode="contained" onPress={() => handleReadonly()}>
           Editar
         </Button>
       ) : (
         <>
           <Button
-            icon={'edit'}
             mode="contained"
             onPress={handleSubmit(value => atualizar(value))}>
             Enviar

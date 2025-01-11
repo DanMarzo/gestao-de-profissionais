@@ -2,11 +2,11 @@ import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../route';
 import {useHomePageViewModel} from './home-page.view-model';
-import {CustomMenu} from '../../shared/components/Menu.component';
 import {EspecialidadeModel} from '../../models/especialidade.model';
 import {ProfissionalModel} from '../../models/profissional.model';
 import {Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {SelectDropdown} from '../../shared/components/SelectDropdown';
 
 const HomePage = () => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
@@ -20,8 +20,23 @@ const HomePage = () => {
     handleDropdown,
   } = useHomePageViewModel();
   return (
-    <View style={{flex: 1, gap: 4}}>
-      <CustomMenu<EspecialidadeModel>
+    <View style={{flex: 1, gap: 8, padding: 8}}>
+      <SelectDropdown
+        isFocus={visibleDropdown}
+        readonly={true}
+        data={especialidades}
+        search
+        labelField="nome"
+        valueField="id"
+        value={especialidadeSelect}
+        onFocus={() => handleDropdown(true)}
+        onBlur={() => handleDropdown(false)}
+        onChange={(item: EspecialidadeModel) => {
+          console.log(item);
+          handleEspecialidade(item);
+        }}
+      />
+      {/* <CustomMenu<EspecialidadeModel>
         handleItem={item => handleEspecialidade(item)}
         items={especialidades}
         onDismiss={() => handleDropdown(false)}
@@ -29,7 +44,7 @@ const HomePage = () => {
         titleItem="nome"
         valueText={especialidadeSelect?.nome ?? 'Selecione uma especialidade'}
         visible={visibleDropdown}
-      />
+      /> */}
       <Button
         style={styles.floatButton}
         mode="contained"
@@ -45,7 +60,7 @@ const HomePage = () => {
           ProfissionalItem({
             profissional: item,
             onPress: () =>
-              navigate('DetalhesProfissionalPage', {profissional: item}),
+              navigate('AtualizarProfissionalPage', {profissional: item}),
           })
         }
       />

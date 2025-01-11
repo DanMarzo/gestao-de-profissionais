@@ -36,9 +36,9 @@ const useAtualizarProfissionalViewModel = () => {
   const {goBack} = useNavigation<NavigationProp<RootStackParamList>>();
 
   const [especialidadeSelect, setEspecialidadeSelect] = useState<EspecialidadeModel | undefined>(undefined);
-  const [visibleDropdown, setVisibleDropdown] = useState(false);
+  const [isFocus, setIsFocus] = useState(false);
   const [readonly, setReadonly] = useState<boolean>(true);
-  const handleDropdown = (value: boolean = true) => setVisibleDropdown(value);
+  const handleDropdown = (value: boolean = true) => setIsFocus(value);
   const {especialidades, carregando} = useSelector(
     (state: State) => state.especialidade,
   );
@@ -101,7 +101,7 @@ const useAtualizarProfissionalViewModel = () => {
   };
 
   return {
-    visibleDropdown,
+    isFocus,
     errorsForm,
     especialidadeSelect,
     controlForm,
