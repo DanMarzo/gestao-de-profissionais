@@ -23,7 +23,7 @@ const HomePage = () => {
     <View style={{flex: 1, gap: 8, padding: 8}}>
       <SelectDropdown
         isFocus={visibleDropdown}
-        readonly={true}
+        readonly={false}
         data={especialidades}
         search
         labelField="nome"
