@@ -15,7 +15,7 @@ public class ListarProfissionaisTest
             await this.Repository.AddAsync(new EspecialidadeEntity { Id = 1, Nome = "Pediatra", TipoDocumento = TipoDocEspecialidadeEnum.CRM });
     }
 
-    [Fact]
+    [Fact(DisplayName = "Obter lista de profissionais com indice negativo")]
     public async void ObterProfissionaisComIndiceNegativo()
     {
         await this.ObterRepository();
@@ -27,12 +27,14 @@ public class ListarProfissionaisTest
         var request = new ListarProfissionaisQueryRequest(-1);
         var handler = new ListarProfissionaisQueryHandler(this.Repository, mapper, mockLogger.Object);
 
-        await Assert.ThrowsAsync<ValidateException>(async () =>
-        {
-            await handler.Handle(request, new CancellationToken());
-        });
+        Func<Task> act = async () => await handler.Handle(request, new CancellationToken());
+
+        await act.Should()
+            .ThrowAsync<ValidateException>()
+            .WithMessage($"Indice {request.Indice} é inválido.");
     }
-    [Fact]
+
+    [Fact(DisplayName = "Obter profissinais qtde maior que 20")]
     public async void ObterProfissionaisComQtdeMaior20()
     {
         await this.ObterRepository();
@@ -44,13 +46,14 @@ public class ListarProfissionaisTest
         var request = new ListarProfissionaisQueryRequest(1, 21);
         var handler = new ListarProfissionaisQueryHandler(this.Repository, mapper, mockLogger.Object);
 
-        await Assert.ThrowsAsync<ValidateException>(async () =>
-        {
-            await handler.Handle(request, new CancellationToken());
-        });
+        Func<Task> act = async () => await handler.Handle(request, new CancellationToken());
+
+        await act.Should()
+            .ThrowAsync<ValidateException>()
+            .WithMessage($"Quantidade de itens da busca não pode ser superior a 20 - Qtde informada {request.Qtde}.");
     }
-    
-    [Fact]
+
+    [Fact(DisplayName = "Obter profissionais com qtde negativa")]
     public async void ObterProfissionaisComQtdeNegativa()
     {
         await this.ObterRepository();
@@ -62,13 +65,14 @@ public class ListarProfissionaisTest
         var request = new ListarProfissionaisQueryRequest(1, -1);
         var handler = new ListarProfissionaisQueryHandler(this.Repository, mapper, mockLogger.Object);
 
-        await Assert.ThrowsAsync<ValidateException>(async () =>
-        {
-            await handler.Handle(request, new CancellationToken());
-        });
+        Func<Task> func = async () => await handler.Handle(request, new CancellationToken());
+
+        await func.Should()
+            .ThrowAsync<ValidateException>()
+            .WithMessage($"Quantidade de itens da busca não pode ser negativo {request.Qtde}.");
     }
 
-    [Fact]
+    [Fact(DisplayName = "Obter profissional com especialidade inexistente")]
     public async void ObterProfissionaisComEspecialidadeInexistente()
     {
         await this.ObterRepository();
@@ -79,10 +83,14 @@ public class ListarProfissionaisTest
         IMapper mapper = new Mapper(profile);
         var request = new ListarProfissionaisQueryRequest(1, 20, 10000);
         var handler = new ListarProfissionaisQueryHandler(this.Repository, mapper, mockLogger.Object);
-        await Assert.ThrowsAsync<ValidateException>(async () =>
-        {
-            await handler.Handle(request, new CancellationToken());
-        });
+
+        Func<Task> func = async () => await handler.Handle(request, new CancellationToken());
+
+        await func.Should()
+            .ThrowAsync<ValidateException>()
+            .Where(
+                ex => ex.Message == $"Especialidade Id {request.EspecialidadeId} não localizada." 
+                && ex.StatusCode == HttpStatusCode.NotFound);
     }
 
     [Fact]

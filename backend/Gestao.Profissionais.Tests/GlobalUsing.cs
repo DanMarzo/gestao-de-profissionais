@@ -14,3 +14,4 @@ global using FluentAssertions;
 global using Gestao.Profissionais.Application.Features.ProfissionalFeatures.Commands.RegistrarProfissional;
 global using Gestao.Profissionais.Application.Features.ProfissionalFeatures.Queries.ListarProfissionais;
 global using Gestao.Profissionais.Application.Features.EspecialidadeFeatures.Queries.ObterEspecialidades;
+global using System.Net;

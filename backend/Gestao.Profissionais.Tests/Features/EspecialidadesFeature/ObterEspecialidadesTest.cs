@@ -12,7 +12,7 @@ public class ObterEspecialidadesTest
         repository.AddAsync(new EspecialidadeEntity { Id = 1, Nome = "Pediatra", TipoDocumento = TipoDocEspecialidadeEnum.CRM }).Wait();
         return repository;
     }
-    [Fact]
+    [Fact(DisplayName = "Especialidades com sucesso")]
     public async void EspecialidadeDefault()
     {
         //Simula a tarefa inicial da API onde eh inserido especialidades padrao
