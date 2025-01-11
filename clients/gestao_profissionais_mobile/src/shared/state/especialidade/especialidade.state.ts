@@ -1,6 +1,6 @@
 import {obterEspecialidadesService} from '../../../infra/services/obter-especialidades.service';
 import {EspecialidadeModel} from '../../../models/especialidade.model';
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 type EspecialidadeState = {
   especialidades: Array<EspecialidadeModel>;
@@ -10,34 +10,28 @@ const initialState: EspecialidadeState = {
   especialidades: [],
   carregando: false,
 };
-const getEspecialidadesAction = createAsyncThunk(
-  'getEspecialidadesAction',
-  async () => {
-    const response = await obterEspecialidadesService();
-    return response.data;
-  },
-);
+// const getEspecialidadesAction = createAsyncThunk(
+//   'getEspecialidadesAction',
+//   async () => {
+//     const response = await obterEspecialidadesService();
+//     return response.data;
+//   },
+// );
 
 const especialidade = createSlice({
   name: 'especialidade',
   initialState,
-  reducers: {},
-  extraReducers: builder => {
-    builder.addCase(getEspecialidadesAction.fulfilled, (state, action) => {
-      const lista = action?.payload;
-      state.especialidades = lista ?? [];
+  reducers: {
+    getEspecialidadesAction: (state) => {
+      state.carregando = true;
+    },
+    getEspecialidadesIsSuccessAction: (state, action: PayloadAction<any>) => {
+      state.especialidades = action.payload;
       state.carregando = false;
-    }),
-      builder.addCase(getEspecialidadesAction.pending, (state, action) => {
-        state.carregando = true;
-      }),
-      builder.addDefaultCase((state, action) => {
-        state.carregando = false;
-      });
+    },
   },
 });
 
-export const {actions: especialidadeActions, reducer: especialidadeReducer} =
-  especialidade;
-export {getEspecialidadesAction};
+export const {getEspecialidadesAction, getEspecialidadesIsSuccessAction} = especialidade.actions;
+export const especialidadeReducer = especialidade.reducer;
 export type {EspecialidadeState};

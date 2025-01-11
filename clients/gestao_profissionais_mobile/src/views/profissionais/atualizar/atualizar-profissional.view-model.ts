@@ -21,7 +21,7 @@ import {
 import {useSelector} from 'react-redux';
 import {getEspecialidadesAction} from '../../../shared/state/especialidade/especialidade.state';
 import {atualizarProfissionalService} from '../../../infra/services/atualizar-profissional.service';
-import {useAppDispatch} from '../../../infra/config-redux';
+import {useAppDispatch} from '../../../redux/config-redux';
 import {State} from '../../../types';
 
 const useAtualizarProfissionalViewModel = () => {

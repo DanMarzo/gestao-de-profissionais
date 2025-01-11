@@ -18,9 +18,11 @@ const HomePage = () => {
     obterProfissionais,
     handleEspecialidade,
     handleDropdown,
+    obterEspecidadades,
   } = useHomePageViewModel();
   return (
     <View style={{flex: 1, gap: 8, padding: 8}}>
+      <Button onPress={() => obterEspecidadades()}>Obter especialidades</Button>
       <SelectDropdown
         isFocus={visibleDropdown}
         readonly={false}
