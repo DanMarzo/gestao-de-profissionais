@@ -1,28 +1,7 @@
-import {
-  NavigationContainer,
-  DefaultTheme,
-  RouteProp,
-} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {
-  AtualizarProfissionalPage,
-  PropsAtualizarProfissional,
-} from '../profissionais/atualizar/AtualizarProfissionalPage';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {colorDefault} from '../../shared/theme/colors';
-import {HomeTabs} from './tabs/home.tabs';
-import {HomePage} from '../home/HomePage';
+import {RoutesStack} from './stacks/home.stack';
 
-type RootStackParamList = {
-  HomeTabs: undefined;
-  AtualizarProfissionalPage: PropsAtualizarProfissional;
-};
-
-type RootRouteProps<RouteName extends keyof RootStackParamList> = RouteProp<
-  RootStackParamList,
-  RouteName
->;
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
 const themeDefault: ReactNavigation.Theme = {
   ...DefaultTheme,
   colors: {
@@ -35,10 +14,10 @@ const themeDefault: ReactNavigation.Theme = {
 const Routes = () => {
   return (
     <NavigationContainer theme={themeDefault}>
-      <HomeTabs />
+      <RoutesStack />
     </NavigationContainer>
   );
 };
 
 export {Routes};
-export type {RootStackParamList, RootRouteProps};
+// export type {RootStackParamList, RootRouteProps};

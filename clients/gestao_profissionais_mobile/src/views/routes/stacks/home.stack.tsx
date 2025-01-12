@@ -4,35 +4,44 @@ import {
   AtualizarProfissionalPage,
   PropsAtualizarProfissional,
 } from '../../profissionais/atualizar/AtualizarProfissionalPage';
-import {RouteProp} from '@react-navigation/native';
-import {HomePage} from '../../home/HomePage';
+import {NavigatorScreenParams, RouteProp} from '@react-navigation/native';
+import {colorDefault} from '../../../shared/theme/colors';
+import {HomeTabs, HomeStackTabsParamList} from '../tabs/home/home.tabs';
 
-type HomeRootStackParamList = {
-  HomePage: undefined;
+type RootStackParamList = {
+  HomeTabs: NavigatorScreenParams<HomeStackTabsParamList>;
   AtualizarProfissionalPage: PropsAtualizarProfissional;
 };
 
-type HomeRootRouteProps<RouteName extends keyof HomeRootStackParamList> =
-  RouteProp<HomeRootStackParamList, RouteName>;
+type RootRouteProps<RouteName extends keyof RootStackParamList> = RouteProp<
+  RootStackParamList,
+  RouteName
+>;
 
-const Stack = createNativeStackNavigator<HomeRootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const HomeStack = () => {
+const RoutesStack = () => {
   return (
-    <Stack.Navigator initialRouteName="HomePage">
+    <Stack.Navigator initialRouteName="HomeTabs">
       <Stack.Screen
-        name="HomePage"
+        name="HomeTabs"
         options={{headerShown: false}}
-        component={HomePage}
+        component={HomeTabs}
       />
       <Stack.Screen
         name="AtualizarProfissionalPage"
         component={AtualizarProfissionalPage}
-        options={{headerShown: false}}
+        options={{
+          headerShown: true,
+          title: 'Atualizar',
+          headerStyle: {
+            backgroundColor: colorDefault.primary,
+          },
+        }}
       />
     </Stack.Navigator>
   );
 };
 
-export default HomeStack;
-export type {HomeRootRouteProps, HomeRootStackParamList};
+export {RoutesStack};
+export type {RootRouteProps, RootStackParamList};
