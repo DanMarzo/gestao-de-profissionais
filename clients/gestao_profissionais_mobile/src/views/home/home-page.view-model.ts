@@ -8,12 +8,9 @@ import {State} from '../../types';
 import { getEspecialidadesAction } from '../../shared/state/especialidade/especialidade.state';
 
 const useHomePageViewModel = () => {
-  const {especialidades, carregando: carregandoEsp} = useSelector(
-    (state: State) => state.especialidade,
-  );
+  const {especialidades, carregando: carregandoEsp} = useSelector((state: State) => state.especialidade);
   const [carregando, setCarregando] = useState(false);
-  const [profissionais, setProfissionais] =
-    useState<ResponseListDTO<ProfissionalModel> | null>(null);
+  const [profissionais, setProfissionais] = useState<ResponseListDTO<ProfissionalModel> | null>(null);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [especialidadeSelect, setEspecialidadeSelect] = useState<EspecialidadeModel | undefined>(undefined);
   const dispatch = useDispatch();
@@ -31,6 +28,7 @@ const useHomePageViewModel = () => {
 
   useEffect(() => {
     obterProfissionais();
+    dispatch(getEspecialidadesAction())
     return () => {};
   }, [params]);
 
@@ -50,12 +48,9 @@ const useHomePageViewModel = () => {
       .finally(() => setCarregando(false));
   };
 
-  const obterEspecidadades = () => {
-    dispatch(getEspecialidadesAction())
-  }
+  
 
   return {
-    obterEspecidadades,
     carregandoEsp,
     especialidades,
     carregando,

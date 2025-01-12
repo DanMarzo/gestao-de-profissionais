@@ -35,13 +35,14 @@ const useAtualizarProfissionalViewModel = () => {
   const {params} = useRoute<RootRouteProps<'AtualizarProfissionalPage'>>();
   const {goBack} = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const [especialidadeSelect, setEspecialidadeSelect] = useState<EspecialidadeModel | undefined>(undefined);
+  const [especialidadeSelect, setEspecialidadeSelect] = useState<
+    EspecialidadeModel | undefined
+  >(undefined);
   const [isFocus, setIsFocus] = useState(false);
   const [readonly, setReadonly] = useState<boolean>(true);
   const handleDropdown = (value: boolean = true) => setIsFocus(value);
-  const {especialidades, carregando} = useSelector(
-    (state: State) => state.especialidade,
-  );
+  const {especialidades, carregando, messageErrorGetEspecialidades} =
+    useSelector((state: State) => state.especialidade);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -49,23 +50,28 @@ const useAtualizarProfissionalViewModel = () => {
     setValueForm('nome', profissional.nome);
     setValueForm('numeroDocumento', profissional.numeroDocumento);
     getEspecialidade();
+    dispatch(getEspecialidadesAction());
     return () => {};
   }, []);
 
+  useEffect(() => {
+    if (messageErrorGetEspecialidades) {
+      Toast(messageErrorGetEspecialidades, ToastAndroid.BOTTOM);
+      goBack();
+      return;
+    }
+    if (especialidades.length != 0) {
+      const especialidade = especialidades?.find(
+        item => item.id == params.profissional.especialidade.id,
+      );
+      handleEspecialidade(especialidade);
+      return;
+    }
+    return () => {};
+  }, [messageErrorGetEspecialidades, especialidades]);
+
   const getEspecialidade = async () => {
-    await dispatch(getEspecialidadesAction())
-      .then(() => {
-        const especialidade = especialidades?.find(
-          item => item.id == params.profissional.especialidade.id,
-        );
-        if (especialidade) {
-          handleEspecialidade(especialidade);
-        }
-      })
-      .catch(() => {
-        Toast('Não foi possível obter especialidades.', ToastAndroid.BOTTOM);
-        goBack();
-      });
+    dispatch(getEspecialidadesAction());
   };
 
   const atualizarProfissioal = useMutation({
@@ -113,7 +119,7 @@ const useAtualizarProfissionalViewModel = () => {
     handleSubmit,
     handleDropdown,
     handleEspecialidade,
-    handleReadonly
+    handleReadonly,
   };
 };
 

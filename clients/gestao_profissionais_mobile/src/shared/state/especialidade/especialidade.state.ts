@@ -4,13 +4,13 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 type EspecialidadeState = {
   especialidades: Array<EspecialidadeModel>;
   carregando: boolean;
-  message: string;
+  messageErrorGetEspecialidades: string;
 };
 
 const initialState: EspecialidadeState = {
   especialidades: [],
   carregando: false,
-  message: '',
+  messageErrorGetEspecialidades: '',
 };
 
 const especialidade = createSlice({
@@ -29,7 +29,7 @@ const especialidade = createSlice({
       state.carregando = false;
     },
     isErrorEspecialidadesAction: (state, action: PayloadAction<string>) => {
-      state.message = action.payload;
+      state.messageErrorGetEspecialidades = action.payload;
       state.carregando = false;
       state.especialidades = [];
     },

@@ -11,26 +11,24 @@ import {Toast} from '../../../shared/theme/toasts';
 import {ToastAndroid} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import { RootStackParamList } from '../../route';
-import { useSelector } from 'react-redux';
-import { especialidadeStateSelector } from '../../../shared/state/especialidade/especialidade.selector';
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from '../../../types';
+import { getEspecialidadesAction } from '../../../shared/state/especialidade/especialidade.state';
 
 const useRegistrarProfissionalViewModel = () => {
-  const {especialidades} = useSelector(especialidadeStateSelector)
   const {
     setValue: setValueForm,
     handleSubmit,
     control: controlForm,
     formState: {errors: errorsForm},
   } = useForm({resolver: yupResolver(formProfissionalSchema)});
+  const dispatch = useDispatch()
   const {goBack} = useNavigation<NavigationProp<RootStackParamList>>();
   const [carregando, setCarregando] = useState(false);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
-  const [especialidadeSelect, setEspecialidadeSelect] = useState<
-    EspecialidadeModel | undefined
-  >(undefined);
+  const [especialidadeSelect, setEspecialidadeSelect] = useState<EspecialidadeModel | undefined>(undefined);
+  const {especialidades, carregando: carregandoEspecialidades, messageErrorGetEspecialidades} = useSelector((state: State) => state.especialidade);
   const handleDropdown = (value: boolean = true) => setVisibleDropdown(value);
-
-  // const especialidadeContext = useContext(EspecialidadeContext);
 
   const registrarProfissional = async (
     novoProfissional: RegistrarProfissionalDTO,
@@ -63,24 +61,32 @@ const useRegistrarProfissionalViewModel = () => {
   };
 
   useEffect(() => {
-    if (especialidadeSelect) {
-      setValueForm("especialidadeId", especialidadeSelect.id);
+    dispatch(getEspecialidadesAction())
+    return () => {}
+  }, [])
+  
+  useEffect(() => {
+    if(messageErrorGetEspecialidades){
+      Toast(messageErrorGetEspecialidades, ToastAndroid.BOTTOM);
+      goBack()
+      return;
     }
-    return () => {};
-  }, []);
+    return () => {}
+  }, [messageErrorGetEspecialidades])
 
   return {
     controlForm,
     errorsForm,
     especialidades,
-    carregandoEspecialidade: true,
+    carregandoEspecialidades,
     especialidadeSelect,
     carregando,
     visibleDropdown,
     registrarProfissional,
     handleSubmit,
     handleEspecialidade,
-    handleDropdown
+    handleDropdown,
+    goBack
   };
 };
 

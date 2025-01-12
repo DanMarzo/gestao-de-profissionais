@@ -18,11 +18,9 @@ const HomePage = () => {
     obterProfissionais,
     handleEspecialidade,
     handleDropdown,
-    obterEspecidadades,
   } = useHomePageViewModel();
   return (
     <View style={{flex: 1, gap: 8, padding: 8}}>
-      <Button onPress={() => obterEspecidadades()}>Obter especialidades</Button>
       <SelectDropdown
         isFocus={visibleDropdown}
         readonly={false}
@@ -41,7 +39,10 @@ const HomePage = () => {
       <Button
         style={styles.floatButton}
         mode="contained"
-        onPress={() => navigate('RegistrarProfissionaisPage')}>
+        onPress={() => {
+          console.log();
+          navigate('RegistrarProfissionaisPage');
+        }}>
         <Icon name="plus" size={20} />
       </Button>
       <Button mode="contained" onPress={() => obterProfissionais()}>
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 70,
+    zIndex: 999,
     position: 'absolute',
     bottom: 10,
     right: 10,

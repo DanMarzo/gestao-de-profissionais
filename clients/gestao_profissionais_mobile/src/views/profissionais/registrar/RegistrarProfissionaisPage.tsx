@@ -15,7 +15,7 @@ const RegistrarProfissionaisPage = () => {
     controlForm,
     errorsForm,
     especialidades,
-    carregandoEspecialidade,
+    carregandoEspecialidades,
     carregando,
     especialidadeSelect,
     visibleDropdown,
@@ -23,13 +23,14 @@ const RegistrarProfissionaisPage = () => {
     registrarProfissional,
     handleEspecialidade,
     handleDropdown,
+    goBack,
   } = useRegistrarProfissionalViewModel();
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={{flex: 1, gap: 4, paddingBottom: insets.bottom}}>
+    <View style={{flex: 1, gap: 8, paddingVertical: insets.bottom}}>
       <Modal
-        visible={carregando || carregandoEspecialidade}
+        visible={carregando || carregandoEspecialidades}
         transparent
         animationType="fade">
         <View style={styles.loadingContainer}>
@@ -89,7 +90,10 @@ const RegistrarProfissionaisPage = () => {
       )}
 
       <Button mode="contained" onPress={handleSubmit(registrarProfissional)}>
-        Enviar
+        Registrar
+      </Button>
+      <Button mode="text" onPress={() => goBack()}>
+        Cancelar
       </Button>
     </View>
   );
@@ -108,7 +112,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loadingText: {
-    // color: colorDefault.,
     marginTop: 10,
     fontSize: 16,
   },
