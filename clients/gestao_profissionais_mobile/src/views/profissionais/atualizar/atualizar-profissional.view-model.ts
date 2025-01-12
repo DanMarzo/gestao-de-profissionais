@@ -9,7 +9,6 @@ import {
   EspecialidadeModel,
   nomeTipoDocEspecialidadeEnum,
 } from '../../../models/especialidade.model';
-import {RootRouteProps, RootStackParamList} from '../../route';
 import {Toast} from '../../../shared/theme/toasts';
 import {ToastAndroid} from 'react-native';
 import {useForm} from 'react-hook-form';
@@ -23,6 +22,7 @@ import {getEspecialidadesAction} from '../../../shared/state/especialidade/espec
 import {atualizarProfissionalService} from '../../../infra/services/atualizar-profissional.service';
 import {useAppDispatch} from '../../../redux/config-redux';
 import {State} from '../../../types';
+import { RootRouteProps, RootStackParamList } from '../../routes';
 
 const useAtualizarProfissionalViewModel = () => {
   const {

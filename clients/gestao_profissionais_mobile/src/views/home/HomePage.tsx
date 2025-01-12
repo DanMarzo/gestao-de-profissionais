@@ -1,12 +1,12 @@
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../route';
 import {useHomePageViewModel} from './home-page.view-model';
 import {EspecialidadeModel} from '../../models/especialidade.model';
 import {ProfissionalModel} from '../../models/profissional.model';
 import {Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {SelectDropdown} from '../../shared/components/SelectDropdown';
+import {RootStackParamList} from '../routes';
 
 const HomePage = () => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
@@ -41,7 +41,7 @@ const HomePage = () => {
         mode="contained"
         onPress={() => {
           console.log();
-          navigate('RegistrarProfissionaisPage');
+          navigate('HomeTabs');
         }}>
         <Icon name="plus" size={20} />
       </Button>

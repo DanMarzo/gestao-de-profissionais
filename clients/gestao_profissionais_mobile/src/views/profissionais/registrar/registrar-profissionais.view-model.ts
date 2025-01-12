@@ -10,10 +10,10 @@ import {registrarProfissionalService} from '../../../infra/services/registrar-pr
 import {Toast} from '../../../shared/theme/toasts';
 import {ToastAndroid} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import { RootStackParamList } from '../../route';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../types';
 import { getEspecialidadesAction } from '../../../shared/state/especialidade/especialidade.state';
+import { RootStackParamList } from '../../routes';
 
 const useRegistrarProfissionalViewModel = () => {
   const {
