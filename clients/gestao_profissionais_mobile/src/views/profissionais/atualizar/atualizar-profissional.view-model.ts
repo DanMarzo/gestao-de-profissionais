@@ -22,7 +22,7 @@ import {getEspecialidadesAction} from '../../../shared/state/especialidade/espec
 import {atualizarProfissionalService} from '../../../infra/services/atualizar-profissional.service';
 import {useAppDispatch} from '../../../redux/config-redux';
 import {State} from '../../../types';
-import { RootRouteProps, RootStackParamList } from '../../routes';
+import { RootRouteProps, RootStackParamList } from '../../routes/stacks/home.stack';
 
 const useAtualizarProfissionalViewModel = () => {
   const {
