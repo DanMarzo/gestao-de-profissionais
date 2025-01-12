@@ -1,5 +1,5 @@
 import {call, Effect, put, takeLatest} from 'redux-saga/effects';
-import {obterEspecialidadesService} from '../../infra/services/obter-especialidades.service';
+import {obterEspecialidadesService} from '../../infra/services/especialidades/obter-especialidades.service';
 import {EspecialidadeModel} from '../../models/especialidade.model';
 import {ResponseAPIDTO} from '../../infra/services/response/response.api.dto';
 import {

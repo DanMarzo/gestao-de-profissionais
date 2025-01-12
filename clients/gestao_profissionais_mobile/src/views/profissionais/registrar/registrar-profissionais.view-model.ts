@@ -6,7 +6,7 @@ import {
 } from '../../../models/profissional.model';
 import { useEffect, useState} from 'react';
 import {EspecialidadeModel} from '../../../models/especialidade.model';
-import {registrarProfissionalService} from '../../../infra/services/registrar-profissional.service';
+import {registrarProfissionalService} from '../../../infra/services/profissionais/registrar-profissional.service';
 import {Toast} from '../../../shared/theme/toasts';
 import {ToastAndroid} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';

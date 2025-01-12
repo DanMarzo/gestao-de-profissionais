@@ -1,42 +1,43 @@
 import {useEffect, useState} from 'react';
 import {ResponseListDTO} from '../../infra/services/response/response-list.dto';
 import {ProfissionalModel} from '../../models/profissional.model';
-import {obterProfissionaisService} from '../../infra/services/obter-profissionais.service';
+import {
+  obterProfissionaisService,
+  ObterProfissionaisServiceProps,
+} from '../../infra/services/profissionais/obter-profissionais.service';
 import {EspecialidadeModel} from '../../models/especialidade.model';
 import {useDispatch, useSelector} from 'react-redux';
 import {State} from '../../types';
-import { getEspecialidadesAction } from '../../shared/state/especialidade/especialidade.state';
+import {getEspecialidadesAction} from '../../shared/state/especialidade/especialidade.state';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../routes/stacks/home.stack';
 
 const useHomePageViewModel = () => {
-  const {especialidades, carregando: carregandoEsp} = useSelector((state: State) => state.especialidade);
+  const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
+  const {especialidades, carregando: carregandoEspecialidades} = useSelector((state: State) => state.especialidade);
+  const dispatch = useDispatch();
   const [carregando, setCarregando] = useState(false);
   const [profissionais, setProfissionais] = useState<ResponseListDTO<ProfissionalModel> | null>(null);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
-  const [especialidadeSelect, setEspecialidadeSelect] = useState<EspecialidadeModel | undefined>(undefined);
-  const dispatch = useDispatch();
-  const [params, setParams] = useState<{
-    especialidadeId?: number;
-    indice: number;
-  }>({indice: 1});
-
+  const [params, setParams] = useState<ObterProfissionaisServiceProps>({pagina: 1});
   const handleDropdown = (value: boolean = true) => setVisibleDropdown(value);
 
   const handleEspecialidade = (especialidade?: EspecialidadeModel) => {
     setVisibleDropdown(false);
-    setEspecialidadeSelect(especialidade);
+    setParams((rest)=>{
+      return {...rest, especialidade}
+    });
   };
 
   useEffect(() => {
     obterProfissionais();
-    dispatch(getEspecialidadesAction())
+    dispatch(getEspecialidadesAction());
     return () => {};
   }, [params]);
 
   const obterProfissionais = () => {
-    const indice = params.indice;
-    const especialidadeId = params.especialidadeId;
     setCarregando(true);
-    obterProfissionaisService(indice, especialidadeId)
+    obterProfissionaisService(params)
       .then(res => {
         if (!res.error) {
           setProfissionais(res);
@@ -48,19 +49,17 @@ const useHomePageViewModel = () => {
       .finally(() => setCarregando(false));
   };
 
-  
-
   return {
-    carregandoEsp,
+    carregandoEspecialidades,
     especialidades,
     carregando,
     profissionais,
     params,
-    especialidadeSelect,
     visibleDropdown,
     obterProfissionais,
     handleEspecialidade,
     handleDropdown,
+    navigate,
   };
 };
 

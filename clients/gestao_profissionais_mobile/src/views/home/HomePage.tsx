@@ -1,24 +1,20 @@
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {useHomePageViewModel} from './home-page.view-model';
 import {EspecialidadeModel} from '../../models/especialidade.model';
 import {ProfissionalModel} from '../../models/profissional.model';
 import {Button} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {SelectDropdown} from '../../shared/components/SelectDropdown';
-import {RootStackParamList} from '../routes/stacks/home.stack';
 
 const HomePage = () => {
-  const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
-
   const {
     especialidades,
     profissionais,
-    especialidadeSelect,
     visibleDropdown,
+    params,
     obterProfissionais,
     handleEspecialidade,
     handleDropdown,
+    navigate,
   } = useHomePageViewModel();
   return (
     <>
@@ -29,11 +25,10 @@ const HomePage = () => {
         search
         labelField="nome"
         valueField="id"
-        value={especialidadeSelect}
+        value={params.especialidade}
         onFocus={() => handleDropdown(true)}
         onBlur={() => handleDropdown(false)}
         onChange={(item: EspecialidadeModel) => {
-          console.log(item);
           handleEspecialidade(item);
         }}
       />

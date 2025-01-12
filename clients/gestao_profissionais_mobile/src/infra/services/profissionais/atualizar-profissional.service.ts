@@ -1,6 +1,6 @@
-import { AtualizarProfissionalDTO, ProfissionalModel } from "../../models/profissional.model";
-import { getHttp } from "../http";
-import { ResponseAPIDTO } from "./response/response.api.dto";
+import { AtualizarProfissionalDTO, ProfissionalModel } from "../../../models/profissional.model";
+import { getHttp } from "../../http";
+import { ResponseAPIDTO } from "../response/response.api.dto";
 
 const atualizarProfissionalService = async (
   idProfissional: number,

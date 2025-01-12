@@ -18,7 +18,6 @@ const especialidade = createSlice({
   initialState,
   reducers: {
     getEspecialidadesAction: state => {
-      console.log('Action get especialidades');
       state.carregando = true;
     },
     isSuccessEspecialidadesAction: (
