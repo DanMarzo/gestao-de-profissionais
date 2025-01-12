@@ -13,7 +13,7 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../types';
 import { getEspecialidadesAction } from '../../../shared/state/especialidade/especialidade.state';
-import { RootStackParamList } from '../../routes';
+import { RootStackParamList } from '../../routes/stacks/home.stack';
 
 const useRegistrarProfissionalViewModel = () => {
   const {
