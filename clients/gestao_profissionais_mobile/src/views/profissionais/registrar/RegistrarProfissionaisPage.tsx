@@ -28,7 +28,7 @@ const RegistrarProfissionaisPage = () => {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={{flex: 1, gap: 8, paddingVertical: insets.bottom}}>
+    <>
       <Modal
         visible={carregando || carregandoEspecialidades}
         transparent
@@ -95,7 +95,7 @@ const RegistrarProfissionaisPage = () => {
       <Button mode="text" onPress={() => goBack()}>
         Cancelar
       </Button>
-    </View>
+    </>
   );
 };
 const styles = StyleSheet.create({
