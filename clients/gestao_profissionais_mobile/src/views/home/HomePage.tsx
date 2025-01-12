@@ -6,10 +6,11 @@ import {ProfissionalModel} from '../../models/profissional.model';
 import {Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {SelectDropdown} from '../../shared/components/SelectDropdown';
-import {RootStackParamList} from '../routes';
+import {RootStackParamList} from '../routes/stacks/home.stack';
 
 const HomePage = () => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
+
   const {
     especialidades,
     profissionais,
@@ -20,7 +21,7 @@ const HomePage = () => {
     handleDropdown,
   } = useHomePageViewModel();
   return (
-    <View style={{flex: 1, gap: 8, padding: 8}}>
+    <>
       <SelectDropdown
         isFocus={visibleDropdown}
         readonly={false}
@@ -36,15 +37,6 @@ const HomePage = () => {
           handleEspecialidade(item);
         }}
       />
-      <Button
-        style={styles.floatButton}
-        mode="contained"
-        onPress={() => {
-          console.log();
-          navigate('HomeTabs');
-        }}>
-        <Icon name="plus" size={20} />
-      </Button>
       <Button mode="contained" onPress={() => obterProfissionais()}>
         Obter profissional
       </Button>
@@ -58,7 +50,7 @@ const HomePage = () => {
           })
         }
       />
-    </View>
+    </>
   );
 };
 
