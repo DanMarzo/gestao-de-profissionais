@@ -1,4 +1,4 @@
-import {EspecialidadeState} from './shared/state/especialidade/especialidade.state';
+import {EspecialidadeState} from './redux/stores/especialidade/especialidade.store';
 
 interface State {
   especialidade: EspecialidadeState;

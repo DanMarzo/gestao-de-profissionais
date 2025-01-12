@@ -2,7 +2,7 @@ import {call, Effect, put, takeLatest} from 'redux-saga/effects';
 import { ResponseAPIDTO } from '../../../infra/services/response/response.api.dto';
 import { EspecialidadeModel } from '../../../models/especialidade.model';
 import { obterEspecialidadesService } from '../../../infra/services/especialidades/obter-especialidades.service';
-import { getEspecialidadesAction, isErrorEspecialidadesAction, isSuccessEspecialidadesAction } from '../../../shared/state/especialidade/especialidade.state';
+import { getEspecialidadesAction, isErrorEspecialidadesAction, isSuccessEspecialidadesAction } from '../../stores/especialidade/especialidade.store';
 
 function* especialidadesRequestSaga(): Generator<
   Effect,

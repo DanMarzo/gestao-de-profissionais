@@ -1,5 +1,5 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import {especialidadeReducer} from '../shared/state/especialidade/especialidade.state';
+import {especialidadeReducer} from './stores/especialidade/especialidade.store';
 import {useDispatch} from 'react-redux';
 import logger from 'redux-logger'
 import createSagaMiddleware from 'redux-saga/'

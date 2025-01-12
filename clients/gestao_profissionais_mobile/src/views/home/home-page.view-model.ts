@@ -8,7 +8,7 @@ import {
 import {EspecialidadeModel} from '../../models/especialidade.model';
 import {useDispatch, useSelector} from 'react-redux';
 import {State} from '../../types';
-import {getEspecialidadesAction} from '../../shared/state/especialidade/especialidade.state';
+import {getEspecialidadesAction} from '../../redux/stores/especialidade/especialidade.store';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../routes/stacks/home.stack';
 

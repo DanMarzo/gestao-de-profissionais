@@ -18,7 +18,7 @@ import {
   formProfissionalSchema,
 } from '../../../models/profissional.model';
 import {useSelector} from 'react-redux';
-import {getEspecialidadesAction} from '../../../shared/state/especialidade/especialidade.state';
+import {getEspecialidadesAction} from '../../../redux/stores/especialidade/especialidade.store';
 import {atualizarProfissionalService} from '../../../infra/services/profissionais/atualizar-profissional.service';
 import {useAppDispatch} from '../../../redux/config-redux';
 import {State} from '../../../types';

@@ -13,7 +13,7 @@ const initialState: EspecialidadeState = {
   messageErrorGetEspecialidades: '',
 };
 
-const especialidade = createSlice({
+const especialidadeSlice = createSlice({
   name: 'especialidade',
   initialState,
   reducers: {
@@ -36,6 +36,6 @@ const especialidade = createSlice({
 });
 
 export const {getEspecialidadesAction, isSuccessEspecialidadesAction, isErrorEspecialidadesAction} =
-  especialidade.actions;
-export const especialidadeReducer = especialidade.reducer;
+  especialidadeSlice.actions;
+export const especialidadeReducer = especialidadeSlice.reducer;
 export type {EspecialidadeState};
