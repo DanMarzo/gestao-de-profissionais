@@ -21,8 +21,11 @@ import {useSelector} from 'react-redux';
 import {getEspecialidadesAction} from '../../../redux/stores/especialidade/especialidade.store';
 import {atualizarProfissionalService} from '../../../infra/services/profissionais/atualizar-profissional.service';
 import {useAppDispatch} from '../../../redux/config-redux';
-import {State} from '../../../types';
-import { RootRouteProps, RootStackParamList } from '../../routes/stacks/home.stack';
+import {State} from '../../../redux/types';
+import {
+  RootRouteProps,
+  RootStackParamList,
+} from '../../routes/stacks/home.stack';
 
 const useAtualizarProfissionalViewModel = () => {
   const {

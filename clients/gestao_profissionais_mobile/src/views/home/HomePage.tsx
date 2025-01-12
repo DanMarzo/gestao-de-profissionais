@@ -11,10 +11,12 @@ const HomePage = () => {
     profissionais,
     visibleDropdown,
     params,
-    obterProfissionais,
     handleEspecialidade,
     handleDropdown,
     navigate,
+    carregando,
+    carregandoEspecialidades,
+    obterProfissionais,
   } = useHomePageViewModel();
   return (
     <>
@@ -33,10 +35,10 @@ const HomePage = () => {
         }}
       />
       <Button mode="contained" onPress={() => obterProfissionais()}>
-        Obter profissional
+        Obter profissional {}
       </Button>
       <FlatList
-        data={profissionais?.data ?? []}
+        data={profissionais ?? []}
         renderItem={({item}) =>
           ProfissionalItem({
             profissional: item,

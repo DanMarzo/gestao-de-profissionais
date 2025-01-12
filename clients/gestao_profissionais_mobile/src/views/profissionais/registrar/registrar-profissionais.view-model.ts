@@ -4,16 +4,16 @@ import {
   formProfissionalSchema,
   RegistrarProfissionalDTO,
 } from '../../../models/profissional.model';
-import { useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {EspecialidadeModel} from '../../../models/especialidade.model';
 import {registrarProfissionalService} from '../../../infra/services/profissionais/registrar-profissional.service';
 import {Toast} from '../../../shared/theme/toasts';
 import {ToastAndroid} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
-import { State } from '../../../types';
-import { getEspecialidadesAction } from '../../../redux/stores/especialidade/especialidade.store';
-import { RootStackParamList } from '../../routes/stacks/home.stack';
+import {useDispatch, useSelector} from 'react-redux';
+import {State} from '../../../redux/types';
+import {getEspecialidadesAction} from '../../../redux/stores/especialidade/especialidade.store';
+import {RootStackParamList} from '../../routes/stacks/home.stack';
 
 const useRegistrarProfissionalViewModel = () => {
   const {
@@ -22,12 +22,18 @@ const useRegistrarProfissionalViewModel = () => {
     control: controlForm,
     formState: {errors: errorsForm},
   } = useForm({resolver: yupResolver(formProfissionalSchema)});
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const {goBack} = useNavigation<NavigationProp<RootStackParamList>>();
   const [carregando, setCarregando] = useState(false);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
-  const [especialidadeSelect, setEspecialidadeSelect] = useState<EspecialidadeModel | undefined>(undefined);
-  const {especialidades, carregando: carregandoEspecialidades, messageErrorGetEspecialidades} = useSelector((state: State) => state.especialidade);
+  const [especialidadeSelect, setEspecialidadeSelect] = useState<
+    EspecialidadeModel | undefined
+  >(undefined);
+  const {
+    especialidades,
+    carregando: carregandoEspecialidades,
+    messageErrorGetEspecialidades,
+  } = useSelector((state: State) => state.especialidade);
   const handleDropdown = (value: boolean = true) => setVisibleDropdown(value);
 
   const registrarProfissional = async (
@@ -61,18 +67,18 @@ const useRegistrarProfissionalViewModel = () => {
   };
 
   useEffect(() => {
-    dispatch(getEspecialidadesAction())
-    return () => {}
-  }, [])
-  
+    dispatch(getEspecialidadesAction());
+    return () => {};
+  }, []);
+
   useEffect(() => {
-    if(messageErrorGetEspecialidades){
+    if (messageErrorGetEspecialidades) {
       Toast(messageErrorGetEspecialidades, ToastAndroid.BOTTOM);
-      goBack()
+      goBack();
       return;
     }
-    return () => {}
-  }, [messageErrorGetEspecialidades])
+    return () => {};
+  }, [messageErrorGetEspecialidades]);
 
   return {
     controlForm,
@@ -86,7 +92,7 @@ const useRegistrarProfissionalViewModel = () => {
     handleSubmit,
     handleEspecialidade,
     handleDropdown,
-    goBack
+    goBack,
   };
 };
 
