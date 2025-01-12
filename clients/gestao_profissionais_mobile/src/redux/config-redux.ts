@@ -1,7 +1,8 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {especialidadeReducer} from '../shared/state/especialidade/especialidade.state';
 import {useDispatch} from 'react-redux';
-import createSagaMiddleware from 'redux-saga'
+import logger from 'redux-logger'
+import createSagaMiddleware from 'redux-saga/'
 import rootSaga from './sagas';
 
 //Sim eu sei, usar Context API teria sido mt melhor, mais facil, iria diminuir muito trabalho
@@ -11,12 +12,13 @@ const sagaMiddleware = createSagaMiddleware();
 
 const reducers = combineReducers({
   especialidade: especialidadeReducer,
-
 });
 
 const store = configureStore({
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
   reducer: reducers,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+      //.concat(logger)
+      .concat(sagaMiddleware),
 });
 
 sagaMiddleware.run(rootSaga)

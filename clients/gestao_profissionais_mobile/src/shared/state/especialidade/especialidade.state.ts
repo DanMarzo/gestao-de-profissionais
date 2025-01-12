@@ -1,37 +1,42 @@
-import {obterEspecialidadesService} from '../../../infra/services/obter-especialidades.service';
 import {EspecialidadeModel} from '../../../models/especialidade.model';
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 type EspecialidadeState = {
   especialidades: Array<EspecialidadeModel>;
   carregando: boolean;
+  message: string;
 };
+
 const initialState: EspecialidadeState = {
   especialidades: [],
   carregando: false,
+  message: '',
 };
-// const getEspecialidadesAction = createAsyncThunk(
-//   'getEspecialidadesAction',
-//   async () => {
-//     const response = await obterEspecialidadesService();
-//     return response.data;
-//   },
-// );
 
 const especialidade = createSlice({
   name: 'especialidade',
   initialState,
   reducers: {
-    getEspecialidadesAction: (state) => {
+    getEspecialidadesAction: state => {
+      console.log('Action get especialidades');
       state.carregando = true;
     },
-    getEspecialidadesIsSuccessAction: (state, action: PayloadAction<any>) => {
+    isSuccessEspecialidadesAction: (
+      state,
+      action: PayloadAction<Array<EspecialidadeModel>>,
+    ) => {
       state.especialidades = action.payload;
       state.carregando = false;
+    },
+    isErrorEspecialidadesAction: (state, action: PayloadAction<string>) => {
+      state.message = action.payload;
+      state.carregando = false;
+      state.especialidades = [];
     },
   },
 });
 
-export const {getEspecialidadesAction, getEspecialidadesIsSuccessAction} = especialidade.actions;
+export const {getEspecialidadesAction, isSuccessEspecialidadesAction, isErrorEspecialidadesAction} =
+  especialidade.actions;
 export const especialidadeReducer = especialidade.reducer;
 export type {EspecialidadeState};

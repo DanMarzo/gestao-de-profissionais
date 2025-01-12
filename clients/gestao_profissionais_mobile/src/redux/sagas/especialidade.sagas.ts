@@ -4,7 +4,8 @@ import {EspecialidadeModel} from '../../models/especialidade.model';
 import {ResponseAPIDTO} from '../../infra/services/response/response.api.dto';
 import {
   getEspecialidadesAction,
-  getEspecialidadesIsSuccessAction,
+  isErrorEspecialidadesAction,
+  isSuccessEspecialidadesAction,
 } from '../../shared/state/especialidade/especialidade.state';
 
 function* especialidadesRequestSaga(): Generator<
@@ -14,10 +15,12 @@ function* especialidadesRequestSaga(): Generator<
 > {
   const response = yield call(obterEspecialidadesService);
   if (!response.error) {
-    yield put(getEspecialidadesIsSuccessAction(response.data));
+    yield put(isSuccessEspecialidadesAction(response.data ?? []));
     return;
   }
+  yield put(isErrorEspecialidadesAction("Não foi possivel especialidades"));
 }
+
 export function* mainEspecialidadesSaga() {
   yield takeLatest(getEspecialidadesAction, especialidadesRequestSaga);
 }
