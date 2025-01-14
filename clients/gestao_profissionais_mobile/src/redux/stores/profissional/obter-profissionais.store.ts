@@ -7,7 +7,7 @@ type ObterProfissionaisState = {
   profissionais: Array<ProfissionalModel>;
   carregando: boolean;
   messageErrorGetProfissionais: string;
-  numeroPaginas?: number;
+  numeroPaginas: number;
   totalItens: number;
   indice: number;
 };
@@ -15,7 +15,7 @@ type ObterProfissionaisState = {
 const initialState: ObterProfissionaisState = {
   carregando: false,
   indice: 1,
-  numeroPaginas: undefined,
+  numeroPaginas: 1,
   profissionais: [],
   totalItens: 10,
   messageErrorGetProfissionais: '',
