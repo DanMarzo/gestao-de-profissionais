@@ -6,6 +6,7 @@ import {ResponseListDTO} from '../response/response-list.dto';
 interface ObterProfissionaisServiceProps {
   especialidade?: EspecialidadeModel;
   pagina: number;
+  itens: number;
 }
 
 const obterProfissionaisService = async (
@@ -14,6 +15,7 @@ const obterProfissionaisService = async (
   const http = await getHttp();
   const response = await http.get('/api/Profissional', {
     params: parameters && {
+      itens: parameters.itens,
       pagina: parameters.pagina,
       especialidadeId: parameters.especialidade?.id,
     },
