@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleProp, StyleSheet, ViewStyle} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 
 type PropsSelectDropdown = {
@@ -12,6 +12,7 @@ type PropsSelectDropdown = {
   onFocus: () => void;
   onBlur: () => void;
   onChange: (item: any) => void;
+  styles?: StyleProp<ViewStyle>;
 };
 
 const SelectDropdown = ({
@@ -25,14 +26,15 @@ const SelectDropdown = ({
   onBlur,
   onChange,
   onFocus,
+  styles,
 }: PropsSelectDropdown) => {
   return (
     <Dropdown
       disable={readonly}
-      style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
-      placeholderStyle={styles.placeholderStyle}
-      selectedTextStyle={styles.selectedTextStyle}
-      inputSearchStyle={styles.inputSearchStyle}
+      style={[styles, stylesLocal.dropdown, isFocus && {borderColor: 'blue'}]}
+      placeholderStyle={stylesLocal.placeholderStyle}
+      selectedTextStyle={stylesLocal.selectedTextStyle}
+      inputSearchStyle={stylesLocal.inputSearchStyle}
       data={data}
       search={search}
       maxHeight={300}
@@ -48,7 +50,7 @@ const SelectDropdown = ({
   );
 };
 
-const styles = StyleSheet.create({
+const stylesLocal = StyleSheet.create({
   dropdown: {
     height: 50,
     borderColor: 'gray',
