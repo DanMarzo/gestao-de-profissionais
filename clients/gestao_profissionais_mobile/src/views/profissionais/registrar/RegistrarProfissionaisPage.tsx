@@ -1,14 +1,14 @@
 import React from 'react';
 import {Controller} from 'react-hook-form';
-import {ActivityIndicator, Modal, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {useRegistrarProfissionalViewModel} from './registrar-profissionais.view-model';
 import {
   EspecialidadeModel,
   nomeTipoDocEspecialidadeEnum,
 } from '../../../models/especialidade.model';
 import {Button, TextInput} from 'react-native-paper';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SelectDropdown} from '../../../shared/components/SelectDropdown';
+import {ModalLoading} from '../../../shared/components/ModalLoading';
 
 const RegistrarProfissionaisPage = () => {
   const {
@@ -25,19 +25,10 @@ const RegistrarProfissionaisPage = () => {
     handleDropdown,
     goBack,
   } = useRegistrarProfissionalViewModel();
-  const insets = useSafeAreaInsets();
 
   return (
     <>
-      <Modal
-        visible={carregando || carregandoEspecialidades}
-        transparent
-        animationType="fade">
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#ffffff" />
-          <Text style={styles.loadingText}>Carregando...</Text>
-        </View>
-      </Modal>
+      <ModalLoading carregando={carregando || carregandoEspecialidades} />
       <SelectDropdown
         isFocus={visibleDropdown}
         readonly={false}

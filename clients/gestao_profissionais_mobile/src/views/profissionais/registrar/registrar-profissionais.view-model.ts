@@ -67,7 +67,9 @@ const useRegistrarProfissionalViewModel = () => {
   };
 
   useEffect(() => {
-    dispatch(getEspecialidadesAction());
+    if (especialidades.length == 0) {
+      dispatch(getEspecialidadesAction());
+    }
     return () => {};
   }, []);
 

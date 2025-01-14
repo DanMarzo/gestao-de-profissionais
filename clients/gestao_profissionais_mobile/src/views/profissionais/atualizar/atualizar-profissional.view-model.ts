@@ -52,7 +52,9 @@ const useAtualizarProfissionalViewModel = () => {
     const {profissional} = params;
     setValueForm('nome', profissional.nome);
     setValueForm('numeroDocumento', profissional.numeroDocumento);
-    getEspecialidade();
+    if (especialidades.length == 0) {
+      getEspecialidade();
+    }
     dispatch(getEspecialidadesAction());
     return () => {};
   }, []);
