@@ -16,13 +16,13 @@ function* profissionaisRequestSaga(
   action: PayloadAction<ObterProfissionaisServiceProps | undefined>,
 ): Generator<Effect, void, ResponseListDTO<ProfissionalModel>> {
   const response = yield call(() => obterProfissionaisService(action.payload));
-
   if (!response.error) {
-    console.log(JSON.stringify(response, null, 2));
     yield put(isSuccessGetProfissionaisAction(response));
     return;
   }
-  yield put(isErrorGetProfissionaisAction('--->'));
+  yield put(
+    isErrorGetProfissionaisAction('Não foi possível localizar profissionais.'),
+  );
   return;
 }
 

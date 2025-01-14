@@ -27,8 +27,6 @@ const useHomePageViewModel = () => {
     numeroPaginas,
   } = useSelector((state: State) => state.obterProfissionais);
   const dispatch = useDispatch();
-  // const [carregando, setCarregando] = useState(false);
-  // const [profissionais, setProfissionais] = useState<ResponseListDTO<ProfissionalModel> | null>(null);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [params, setParams] = useState<ObterProfissionaisServiceProps>({
     pagina: 1,
@@ -67,6 +65,9 @@ const useHomePageViewModel = () => {
     handleDropdown,
     navigate,
     obterProfissionais,
+    numeroPaginas,
+    totalItens,
+    indice,
   };
 };
 
