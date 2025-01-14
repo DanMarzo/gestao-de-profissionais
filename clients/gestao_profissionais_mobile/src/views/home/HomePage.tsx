@@ -6,9 +6,11 @@ import {
 } from '../../models/especialidade.model';
 import {Button, IconButton} from 'react-native-paper';
 import {SelectDropdown} from '../../shared/components/SelectDropdown';
-import {DataTable} from 'react-native-paper';
+import {DataTable, Menu} from 'react-native-paper';
 import {ModalLoading} from '../../shared/components/ModalLoading';
 import {colorDefault} from '../../shared/theme/colors';
+import {useState} from 'react';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HomePage = () => {
   const {
@@ -25,6 +27,7 @@ const HomePage = () => {
     carregandoEspecialidades,
     clearSelect,
   } = useHomePageViewModel();
+  const [visible, setVisible] = useState(false);
   return (
     <>
       <ModalLoading
@@ -62,6 +65,7 @@ const HomePage = () => {
         <DataTable.Header>
           <DataTable.Title>Nome</DataTable.Title>
           <DataTable.Title>Tipo documento</DataTable.Title>
+          <DataTable.Title>Opções</DataTable.Title>
         </DataTable.Header>
 
         {obterProfissionaisState.carregando || carregandoEspecialidades ? (
@@ -81,6 +85,15 @@ const HomePage = () => {
                     {nomeTipoDocEspecialidadeEnum(
                       item.especialidade.tipoDocumento,
                     )}
+                  </DataTable.Cell>
+                  <DataTable.Cell>
+                    <Menu
+                      visible={visible}
+                      onDismiss={() => setVisible(false)}
+                      anchor={<IconButton icon="dots-vertical"></IconButton>}>
+                      <Menu.Item onPress={() => {}} title="Atualizar" />
+                      <Menu.Item onPress={() => {}} title="Deletar" />
+                    </Menu>
                   </DataTable.Cell>
                 </DataTable.Row>
               ),
@@ -102,5 +115,11 @@ const HomePage = () => {
     </>
   );
 };
+
+// const MenuItemDataTable = () => {
+//   return (
+
+//   );
+// };
 
 export {HomePage};
