@@ -3,8 +3,6 @@ import {RegistrarProfissionaisPage} from '../../../profissionais/registrar/Regis
 import {colorDefault} from '../../../../shared/theme/colors';
 import {HomePage} from '../../../home/HomePage';
 import MaterialDesignIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {View} from 'react-native';
-import {Text} from 'react-native-paper';
 import {HomeTabsLayout} from './home-tabs.layout';
 
 type HomeStackTabsParamList = {
