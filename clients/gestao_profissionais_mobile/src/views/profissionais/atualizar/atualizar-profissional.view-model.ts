@@ -4,7 +4,7 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import {useEffect, useState} from 'react';
-import {useMutation} from '@tanstack/react-query';
+import {useMutation, useQuery} from '@tanstack/react-query';
 import {
   EspecialidadeModel,
   nomeTipoDocEspecialidadeEnum,
@@ -17,15 +17,12 @@ import {
   AtualizarProfissionalDTO,
   formProfissionalSchema,
 } from '../../../models/profissional.model';
-import {useSelector} from 'react-redux';
-import {getEspecialidadesAction} from '../../../redux/stores/especialidade/especialidade.store';
 import {atualizarProfissionalService} from '../../../infra/services/profissionais/atualizar-profissional.service';
-import {useAppDispatch} from '../../../redux/config-redux';
-import {State} from '../../../redux/types';
 import {
   RootRouteProps,
   RootStackParamList,
 } from '../../routes/stacks/home.stack';
+import {obterEspecialidadesService} from '../../../infra/services/especialidades/obter-especialidades.service';
 
 const useAtualizarProfissionalViewModel = () => {
   const {
@@ -44,40 +41,36 @@ const useAtualizarProfissionalViewModel = () => {
   const [isFocus, setIsFocus] = useState(false);
   const [readonly, setReadonly] = useState<boolean>(true);
   const handleDropdown = (value: boolean = true) => setIsFocus(value);
-  const {especialidades, carregando, messageErrorGetEspecialidades} =
-    useSelector((state: State) => state.especialidade);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const {profissional} = params;
     setValueForm('nome', profissional.nome);
     setValueForm('numeroDocumento', profissional.numeroDocumento);
-    if (especialidades.length == 0) {
-      getEspecialidade();
+    if (especialidadesQuery.data?.data?.length == 0) {
+      especialidadesQuery.refetch();
     }
-    dispatch(getEspecialidadesAction());
     return () => {};
   }, []);
 
+  const especialidadesQuery = useQuery({
+    queryFn: () => obterEspecialidadesService(),
+    queryKey: ['queryEspecialidades'],
+  });
+
   useEffect(() => {
-    if (messageErrorGetEspecialidades) {
-      Toast(messageErrorGetEspecialidades, ToastAndroid.BOTTOM);
+    if (especialidadesQuery.isError) {
+      Toast('Não foi possível obter as especialidades.', ToastAndroid.BOTTOM);
       goBack();
       return;
     }
-    if (especialidades.length != 0) {
-      const especialidade = especialidades?.find(
+    if (especialidadesQuery.data?.data?.length != 0) {
+      const especialidade = especialidadesQuery.data?.data?.find(
         item => item.id == params.profissional.especialidade.id,
       );
       handleEspecialidade(especialidade);
       return;
     }
-    return () => {};
-  }, [messageErrorGetEspecialidades, especialidades]);
-
-  const getEspecialidade = async () => {
-    dispatch(getEspecialidadesAction());
-  };
+  }, [especialidadesQuery.data?.data]);
 
   const atualizarProfissioal = useMutation({
     mutationFn: (value: AtualizarProfissionalDTO) =>
@@ -116,8 +109,8 @@ const useAtualizarProfissionalViewModel = () => {
     errorsForm,
     especialidadeSelect,
     controlForm,
-    especialidades,
-    carregandoEspec: carregando,
+    especialidades: especialidadesQuery.data?.data ?? [],
+    carregandoEspec: especialidadesQuery.isPending,
     carregando: atualizarProfissioal.isPending,
     readonly,
     atualizar: atualizarProfissioal.mutate,

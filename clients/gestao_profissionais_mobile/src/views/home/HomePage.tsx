@@ -10,7 +10,6 @@ import {DataTable, Menu} from 'react-native-paper';
 import {ModalLoading} from '../../shared/components/ModalLoading';
 import {colorDefault} from '../../shared/theme/colors';
 import {useState} from 'react';
-import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HomePage = () => {
   const {

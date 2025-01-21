@@ -10,10 +10,9 @@ import {registrarProfissionalService} from '../../../infra/services/profissionai
 import {Toast} from '../../../shared/theme/toasts';
 import {ToastAndroid} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
-import {State} from '../../../redux/types';
-import {getEspecialidadesAction} from '../../../redux/stores/especialidade/especialidade.store';
 import {RootStackParamList} from '../../routes/stacks/home.stack';
+import {useMutation, useQuery} from '@tanstack/react-query';
+import {obterEspecialidadesService} from '../../../infra/services/especialidades/obter-especialidades.service';
 
 const useRegistrarProfissionalViewModel = () => {
   const {
@@ -22,41 +21,30 @@ const useRegistrarProfissionalViewModel = () => {
     control: controlForm,
     formState: {errors: errorsForm},
   } = useForm({resolver: yupResolver(formProfissionalSchema)});
-  const dispatch = useDispatch();
   const {goBack} = useNavigation<NavigationProp<RootStackParamList>>();
-  const [carregando, setCarregando] = useState(false);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [especialidadeSelect, setEspecialidadeSelect] = useState<
     EspecialidadeModel | undefined
   >(undefined);
-  const {
-    especialidades,
-    carregando: carregandoEspecialidades,
-    messageErrorGetEspecialidades,
-  } = useSelector((state: State) => state.especialidade);
   const handleDropdown = (value: boolean = true) => setVisibleDropdown(value);
 
-  const registrarProfissional = async (
-    novoProfissional: RegistrarProfissionalDTO,
-  ) => {
-    try {
-      setCarregando(true);
-      const result = await registrarProfissionalService(novoProfissional);
-      if (!result.error) {
-        Toast(
-          `Profissional ${novoProfissional.nome} - Doc. ${novoProfissional.numeroDocumento} Registrado!`,
-          ToastAndroid.TOP,
-        );
+  const especialidadesMutate = useQuery({
+    queryFn: () => obterEspecialidadesService(),
+    queryKey: ['queryEspecialidades'],
+  });
+
+  const registrarProfissionalMutate = useMutation({
+    mutationFn: (novoProfissional: RegistrarProfissionalDTO) =>
+      registrarProfissionalService(novoProfissional),
+    onSuccess: data => {
+      if (data.error) {
+        Toast('Não foi possível registrar profissional.', ToastAndroid.BOTTOM);
         goBack();
-      } else {
-        Toast('Não foi possível registrar profissional', ToastAndroid.TOP);
+        return undefined;
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setCarregando(false);
-    }
-  };
+      return undefined;
+    },
+  });
 
   const handleEspecialidade = (especialidade?: EspecialidadeModel) => {
     setVisibleDropdown(false);
@@ -67,30 +55,30 @@ const useRegistrarProfissionalViewModel = () => {
   };
 
   useEffect(() => {
-    if (especialidades.length == 0) {
-      dispatch(getEspecialidadesAction());
+    if (especialidadesMutate.data?.data?.length == 0) {
+      especialidadesMutate.refetch();
     }
     return () => {};
   }, []);
 
   useEffect(() => {
-    if (messageErrorGetEspecialidades) {
-      Toast(messageErrorGetEspecialidades, ToastAndroid.BOTTOM);
+    if (especialidadesMutate.isError) {
+      Toast('Não foi possível obter especialidades.', ToastAndroid.BOTTOM);
       goBack();
       return;
     }
     return () => {};
-  }, [messageErrorGetEspecialidades]);
+  }, [especialidadesMutate.data?.data]);
 
   return {
     controlForm,
     errorsForm,
-    especialidades,
-    carregandoEspecialidades,
+    especialidades: especialidadesMutate.data?.data ?? [],
+    carregandoEspecialidades: especialidadesMutate.isPending,
     especialidadeSelect,
-    carregando,
+    carregando: registrarProfissionalMutate.isPending,
     visibleDropdown,
-    registrarProfissional,
+    registrarProfissional: registrarProfissionalMutate.mutate,
     handleSubmit,
     handleEspecialidade,
     handleDropdown,

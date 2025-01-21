@@ -80,7 +80,9 @@ const RegistrarProfissionaisPage = () => {
         <Text>{errorsForm.numeroDocumento.message}</Text>
       )}
 
-      <Button mode="contained" onPress={handleSubmit(registrarProfissional)}>
+      <Button
+        mode="contained"
+        onPress={handleSubmit(value => registrarProfissional(value))}>
         Registrar
       </Button>
       <Button mode="text" onPress={() => goBack()}>

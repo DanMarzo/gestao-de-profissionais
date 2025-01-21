@@ -3,16 +3,14 @@ import {ObterProfissionaisServiceProps} from '../../infra/services/profissionais
 import {EspecialidadeModel} from '../../models/especialidade.model';
 import {useDispatch, useSelector} from 'react-redux';
 import {State} from '../../redux/types';
-import {getEspecialidadesAction} from '../../redux/stores/especialidade/especialidade.store';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../routes/stacks/home.stack';
 import {getProfissionaisAction} from '../../redux/stores/profissional/obter-profissionais.store';
+import {useQuery} from '@tanstack/react-query';
+import {obterEspecialidadesService} from '../../infra/services/especialidades/obter-especialidades.service';
 
 const useHomePageViewModel = () => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
-  const {especialidades, carregando: carregandoEspecialidades} = useSelector(
-    (state: State) => state.especialidade,
-  );
   const [params, setParams] = useState<ObterProfissionaisServiceProps>({
     pagina: 1,
     itens: 5,
@@ -32,7 +30,6 @@ const useHomePageViewModel = () => {
   };
 
   const handlePerPage = (qtdeItens: number) => {
-    console.log(params);
     setParams(rest => {
       return {...rest, itens: qtdeItens};
     });
@@ -50,18 +47,18 @@ const useHomePageViewModel = () => {
   };
 
   useEffect(() => {
-    dispatch(getEspecialidadesAction());
-    return () => {};
-  }, []);
-
-  useEffect(() => {
     dispatch(getProfissionaisAction(params));
     return () => {};
   }, [params]);
 
+  const queryEspecialidades = useQuery({
+    queryKey: ['queryEspecialidades'],
+    queryFn: () => obterEspecialidadesService(),
+  });
+
   return {
-    carregandoEspecialidades,
-    especialidades,
+    carregandoEspecialidades: queryEspecialidades.isLoading,
+    especialidades: queryEspecialidades.data?.data ?? [],
     params,
     visibleDropdown,
     obterProfissionaisState,

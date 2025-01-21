@@ -25,6 +25,14 @@ const configQueryClient = new QueryClient({
   },
 });
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 const App = (): React.JSX.Element => {
   const isDarkMode = useColorScheme() === 'dark';
 
