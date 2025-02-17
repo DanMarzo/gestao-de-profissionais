@@ -8,3 +8,4 @@ global using Microsoft.Extensions.Logging;
 global using System.Text.Json;
 global using Gestao.Profissionais.Domain.Interfaces;
 global using System.Reflection;
+global using Gestao.Profissionais.Application.DTOs.EspecialidadeDTOs;
