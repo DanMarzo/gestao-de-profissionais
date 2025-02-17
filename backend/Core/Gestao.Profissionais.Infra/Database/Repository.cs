@@ -5,16 +5,14 @@ public class Repository : IRepository
     private readonly ApplicationDataContext context;
     public Repository(ApplicationDataContext context) { this.context = context; }
 
-    public async Task<int> AddAsync<T>(T entity) where T : class
+    public async Task<T> AddAsync<T>(T entity) where T : class
     {
         await context.Set<T>().AddAsync(entity);
-        return await context.SaveChangesAsync();
+        return entity;
     }
-
-    public async Task<int> DeleteAsync<T>(T entity) where T : class
+    public void Delete<T>(T entity) where T : class
     {
         context.Set<T>().Remove(entity);
-        return await context.SaveChangesAsync();
     }
 
     public async Task<bool> EntityExists<T>(Expression<Func<T, bool>> filter) where T : class
@@ -58,11 +56,10 @@ public class Repository : IRepository
         return result;
     }
 
-    public async Task<int> UpdateAsync<T>(T entity) where T : class
+    public void Update<T>(T entity) where T : class
     {
         context.Set<T>().Attach(entity);
         context.Entry(entity).State = EntityState.Modified;
-        return await context.SaveChangesAsync();
     }
     public async Task<IEnumerable<T>> ListEntities<T>(RequestListModel request) where T : class
     {
@@ -105,5 +102,10 @@ public class Repository : IRepository
             query = includes.Aggregate(query, (current, include) => current.Include(include));
 
         return await query.Skip(request.CalcularItensAPular()).Take(request.Qtde).ToListAsync();
+    }
+
+    public async Task<int> SaveChangesAsync()
+    {
+        return await this.context.SaveChangesAsync();
     }
 }
