@@ -1,6 +1,4 @@
-﻿
-
-using Gestao.Profissionais.Application.DTOs.EspecialidadeDTOs;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Gestao.Profissionais.Infra.Ioc;
 
@@ -9,7 +7,7 @@ public static class InjectDependences
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         var connection = configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("ConnectionString não localizada.");
-        services.AddDbContext<ApplicationDataContext>(opt => opt.UseSqlite(connection));
+        services.AddDbContext<ApplicationDataContext>(opt => opt.UseSqlServer(connection));
         services.AddScoped<IRepository, Repository>();
 
         var applicationAssemblies = Assembly.Load("Gestao.Profissionais.Application");
@@ -30,6 +28,8 @@ public static class InjectDependences
         await context.Database.MigrateAsync();
         logger.LogInformation("Finalizando Auto Migrate.");
 
+        await context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT especialidades ON");
+        
         if (!string.IsNullOrEmpty(contentFile))
         {
             var listaEspecialidades = JsonSerializer.Deserialize<IEnumerable<EspecialidadeDTO>>(contentFile) ?? [];
@@ -41,5 +41,6 @@ public static class InjectDependences
                 await repository.AddAsync(new EspecialidadeEntity(especialidade.Id, especialidade.Nome, especialidade.TipoDocumento));
             }
         }
+        await context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT especialidades OFF");
     }
 }
