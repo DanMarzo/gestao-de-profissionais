@@ -8,7 +8,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddInfrastructure(builder.Configuration);
+
+
+string connectionString = builder.Configuration.GetConnectionString("Default")
+    ?? throw new NullReferenceException(nameof(connectionString));
+
+builder.Services.AddInfrastructure(x => x.ConnectionString = connectionString);
 
 builder.Services.AddExceptionHandler<ExceptionGlobalHandler>();
 builder.Services.AddCors(options =>
@@ -21,11 +26,11 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
+}
 
 var contentFile = File.ReadAllText("./default_entities_especialidades.json");
 await app.ApplyDefaultTasks(contentFile);
