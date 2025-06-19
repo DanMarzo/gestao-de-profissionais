@@ -1,0 +1,8 @@
+/server/node_modules
+/webapp/node_modules
+
+/webapp/.env
+/webapp/dist
+
+/webapp/package-lock.json
+/server/package-lock.json
