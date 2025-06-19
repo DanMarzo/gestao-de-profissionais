@@ -14,7 +14,7 @@ public class ExcluirProfissionalCommandHandler : IRequestHandler<ExcluirProfissi
     {
         var profissional = await repository.GetEntityAsync<ProfissionalEntity>(x => x.Id == request.Id)
             ?? throw new ValidateException("Profissional não localizado.", HttpStatusCode.NotFound);
-        var linhasAfetadas = await repository.DeleteAsync(profissional);
+        var linhasAfetadas = await repository.ExecuteDeleteAsync<ProfissionalEntity>(x => x.Id == profissional.Id);
         if (linhasAfetadas == 0)
             throw new ValidateException("Não foi possível excluir o profissional.");
     }

@@ -24,8 +24,8 @@ public class AtualizarProfissionalCommandHandler : IRequestHandler<AtualizarProf
         profissional.Especialidade = especialidade;
         profissional.NumeroDocumento = request.Profissional.NumeroDocumento;
         profissional.Nome = request.Profissional.Nome;
-        await repository.UpdateAsync(profissional);
-
+        repository.Update(profissional);
+        await repository.SaveChangesAsync();
         var profissionalDto = mapper.Map<ProfissionalDetalhesDTO>(profissional);
         return profissionalDto;
     }

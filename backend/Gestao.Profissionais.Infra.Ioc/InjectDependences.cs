@@ -1,12 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Gestao.Profissionais.Infra.Ioc;
+﻿namespace Gestao.Profissionais.Infra.Ioc;
 
 public static class InjectDependences
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var connection = configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("ConnectionString não localizada.");
+        var connection = configuration.GetConnectionString("Default") 
+            ?? throw new InvalidOperationException("ConnectionString não localizada.");
         services.AddDbContext<ApplicationDataContext>(opt => opt.UseSqlServer(connection));
         services.AddScoped<IRepository, Repository>();
 
