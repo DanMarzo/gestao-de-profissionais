@@ -1,6 +1,7 @@
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {colorDefault} from '../../shared/theme/colors';
 import {RoutesStack} from './stacks/home.stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const themeDefault: ReactNavigation.Theme = {
   ...DefaultTheme,

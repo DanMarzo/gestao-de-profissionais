@@ -5,7 +5,6 @@ let url = null;
 
 const getHttp = async (): Promise<AxiosInstance> => {
   url ??= await AsyncStorage.getItem('client_http');
-  url ??= 'http://192.168.1.5:5123';
   if (!url) throw new Error('Não foi possível obter URL Client');
 
   const http = axios.create({

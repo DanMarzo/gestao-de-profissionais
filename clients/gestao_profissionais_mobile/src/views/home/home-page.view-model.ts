@@ -8,9 +8,16 @@ import {RootStackParamList} from '../routes/stacks/home.stack';
 import {getProfissionaisAction} from '../../redux/stores/profissional/obter-profissionais.store';
 import {useQuery} from '@tanstack/react-query';
 import {obterEspecialidadesService} from '../../infra/services/especialidades/obter-especialidades.service';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const useHomePageViewModel = () => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
+  AsyncStorage.getItem('client_http').then(res => {
+    if (!res) {
+      navigate('RegisterHostView');
+    }
+  });
+
   const [params, setParams] = useState<ObterProfissionaisServiceProps>({
     pagina: 1,
     itens: 5,

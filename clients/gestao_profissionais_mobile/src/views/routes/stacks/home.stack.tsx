@@ -7,10 +7,12 @@ import {
 import {NavigatorScreenParams, RouteProp} from '@react-navigation/native';
 import {colorDefault} from '../../../shared/theme/colors';
 import {HomeTabs, HomeStackTabsParamList} from '../tabs/home/home.tabs';
+import {RegisterHostPage} from '../../register-host/RegisterHostPage';
 
 type RootStackParamList = {
   HomeTabs: NavigatorScreenParams<HomeStackTabsParamList>;
   AtualizarProfissionalPage: PropsAtualizarProfissional;
+  RegisterHostView: undefined;
 };
 
 type RootRouteProps<RouteName extends keyof RootStackParamList> = RouteProp<
@@ -28,6 +30,7 @@ const RoutesStack = () => {
         options={{headerShown: false}}
         component={HomeTabs}
       />
+      <Stack.Screen name="RegisterHostView" component={RegisterHostPage} />
       <Stack.Screen
         name="AtualizarProfissionalPage"
         component={AtualizarProfissionalPage}

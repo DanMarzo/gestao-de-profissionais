@@ -27,6 +27,7 @@ const HomePage = () => {
     clearSelect,
   } = useHomePageViewModel();
   const [visible, setVisible] = useState(false);
+
   return (
     <>
       <ModalLoading
