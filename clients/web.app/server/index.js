@@ -5,7 +5,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'dist')));
 
 
-const port = process.env.PORT || 5000;
+const port = process.env.SERVER_WEB_APP || 5000;
 const apiUrl = process.env.VITE_URL_API || 'http://localhost:3000';
 
 app.get('/config.js', (req, res) => {
