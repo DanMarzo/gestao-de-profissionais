@@ -1,0 +1,50 @@
+name: Gestao.Profissionais
+
+services:
+  database-profissionais: 
+    container_name: database-profissionais
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=1q2w3e4r!Ad
+    networks:
+      - gestao-profissionais
+    ports:
+      - "1433:1433"
+
+  gestao.profissionais.api:
+    container_name: gestao.profissionais.api
+    build:
+      context: backend
+      dockerfile: /Dockerfile
+    environment:
+     - ASPNETCORE_ENVIRONMENT=Development
+     - ASPNETCORE_HTTP_PORTS=8080
+     - ConnectionStrings__Default=Server=database-profissionais; Database=ProfissionaisDB; User Id=sa; Password=1q2w3e4r!Ad; TrustServerCertificate=True
+    depends_on:
+      - database-profissionais
+    ports:
+      - "8080:8080"
+    networks:
+      - gestao-profissionais
+
+  gestao.profissionais.web.app:
+    container_name: gestao.profissionais.web.app
+    build:
+      context: clients/web.app/
+      dockerfile: Dockerfile
+    depends_on:
+      - gestao.profissionais.api
+      - database-profissionais
+    environment:
+      - SERVER_WEB_APP=8081
+      # devido a aplicacao ser Client Side deve apontar para fora do container
+      - VITE_URL_API=http://localhost:8080
+    networks:
+      - gestao-profissionais
+    ports:
+      - "8081:8081"
+
+networks:
+  gestao-profissionais:
+    driver: bridge

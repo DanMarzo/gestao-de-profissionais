@@ -1,5 +1,5 @@
 # Gerar build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 as builderApp
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS builder
 
 WORKDIR /gestao.profissional/project
 
@@ -14,7 +14,7 @@ RUN dotnet publish -o ./release
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 
 WORKDIR /gestao.profissional/api
-COPY --from=builderApp ./gestao.profissional/project/release ./
+COPY --from=builder ./gestao.profissional/project/release ./
 ENTRYPOINT [ "dotnet", "Gestao.Profissionais.API.dll" ]
 
 #run image: docker build . --tag gestao.profissional.api

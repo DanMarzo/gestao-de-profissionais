@@ -23,4 +23,4 @@ RUN npm i
 COPY --from=builder /app/webapp/dist /app/server/dist
 
 ENTRYPOINT [ "node", "index.js" ]
-# run:  docker run --name webapp -e PORT=5001 -e VITE_URL_API=http://localhost:5123  -p 5001:5000  web.app
+# run: docker run --name webapp -e PORT=5001 -e VITE_URL_API=http://localhost:5123  -p 5001:5000  web.app
