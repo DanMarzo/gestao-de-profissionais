@@ -20,6 +20,7 @@ public class RegistrarProfissionalCommandHandler : IRequestHandler<RegistrarProf
             throw new ValidateException($"Especialidade Id {request.EspecialidadeId} informada não localizada!");
         var profissional = request.CriarProfissional();
         await repository.AddAsync(profissional);
+        await repository.SaveChangesAsync();
         return new ResponseCreateAPIModel<long>(profissional.Id);
     }
 }

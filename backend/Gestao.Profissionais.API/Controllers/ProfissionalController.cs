@@ -36,7 +36,7 @@ public class ProfissionalController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Listar([FromQuery] int pagina, [FromQuery] int? itens, [FromQuery] long? especialidadeId)
+    public async Task<IActionResult> Listar([FromQuery] int? itens, [FromQuery] long? especialidadeId, [FromQuery] int pagina = 1)
     {
         var responseList = await this.mediator.Send(new ListarProfissionaisQueryRequest(pagina, itens, especialidadeId));
         return Ok(responseList);

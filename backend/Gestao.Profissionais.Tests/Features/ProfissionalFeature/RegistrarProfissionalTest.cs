@@ -12,7 +12,10 @@ public class RegistrarProfissionalTest
         this.Repository ??= new Repository(context);
         var contagemEntidades = await this.Repository.CountAsync<EspecialidadeEntity>(x => x.Id == 1);
         if (contagemEntidades == 0)
+        {
             await this.Repository.AddAsync(new EspecialidadeEntity { Id = 1, Nome = "Pediatra", TipoDocumento = TipoDocEspecialidadeEnum.CRM });
+            await this.Repository.SaveChangesAsync();
+        }
     }
 
     [Fact(DisplayName = "Registrar Profissional com especialidade inválida")]
